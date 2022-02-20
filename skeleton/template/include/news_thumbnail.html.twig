@@ -1,0 +1,65 @@
+{% trans_default_domain trans_default_domain %}
+
+<div class="card mb-4">
+    <div class="card-body pb-0">
+        <div class="float-left">
+            {%- include '@EMSCH/template/include/picture.html.twig' with { 
+                picture: news,
+                class: 'pr-4 pb-4',
+                height: 100,
+                width: 100 ,
+                search_type: news.search_type|default(news._contenttype),
+            } -%}
+        </div>
+        <div>
+            <div class="d-flex justify-content-between">
+                <h5 class="card-title" {{ emsch_admin_menu(('ems://object:'~news._contenttype~':'~newsId)) }}>
+                    <a href="
+                        {%- if news.redirect_to|default(false) -%}
+                            {{ "ems://object:#{news.redirect_to}"|emsch_routing }}
+                        {%- else -%}
+                            {{ path('emsch_news_item_'~targetGroup, {'_locale': locale, year: news.search_dates|first|date('Y'), month: news.search_dates|first|date('m'), day: news.search_dates|first|date('d'), 'slug': news|locale_attr('slug_') }) }}
+                        {%- endif -%}">{{ news|locale_attr('title_') }}</a>
+                </h5>                 
+            </div>
+            <p>{{ news|locale_attr('summary_')|default('')|replace(wyiwygReplaces)|emsch_routing }}</p>
+        </div>
+    </div>
+    {% if news.search_dates|default([])|length > 0 %}
+        <div class="card-footer py-2 px-4">
+            <small class="text-muted">
+                {{ 'published_date'|trans({ '%date%': news.search_dates|first|date('date_format'|trans)|replace(monthsTrans|default({})) }) }}
+            </small>
+        </div>
+    {% endif %}
+</div>
+{#<div class="card h-100">#}
+{#    {% include '@EMSCH/template/include/picture.html.twig' with { #}
+{#        'picture': news,#}
+{#        'class': 'card-img-top img-fluid w-100',#}
+{#        'height': 140,#}
+{#        'width': 400 #}
+{#    } %}#}
+{#    <div class="card-body">#}
+{#        <h5 class="card-title" {{ emsch_admin_menu("ems://news:#{newsId}") }}>#}
+{#            <a href="#}
+{#                {%- if news.redirect_to|default(false) -%}#}
+{#                    {{ "ems://object:#{news.redirect_to}"|emsch_routing }}#}
+{#                {%- else -%}#}
+{#                    {{ path('emsch_news_item_'~targetGroup, {'_locale': locale, year: news.search_dates|first|date('Y'), month: news.search_dates|first|date('m'), day: news.search_dates|first|date('d'), 'slug': news|locale_attr('slug_') }) }}#}
+{#                {%- endif -%}">#}
+{#                {{ news|locale_attr('title_') }}#}
+{#            </a>#}
+{#        </h5>#}
+{#        <p class="card-text">#}
+{#            {{ news|locale_attr('summary_')|replace(wyiwygReplaces)|emsch_routing }}#}
+{#        </p>#}
+{#    </div>#}
+{#    {% if attribute(news, 'search_dates') is defined %}#}
+{#        <div class="card-footer">#}
+{#            <small class="text-muted">#}
+{#                {{ 'published_date'|trans({ '%date%': news.search_dates|first|date('date_format'|trans)|replace(monthsTrans|default({})) }) }}#}
+{#            </small>#}
+{#        </div>#}
+{#    {% endif %}#}
+{#</div>#}

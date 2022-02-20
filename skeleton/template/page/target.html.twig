@@ -1,0 +1,97 @@
+{% trans_default_domain trans_default_domain %}
+
+{% set targetMenu = source.menu|default('{}')|ems_json_menu_decode %}
+
+{% set currentUid = false %}
+{% for url in source.slugs|default([]) %}
+    {% if url == app.request.get('_route_params')['slug'] %}
+        {% set currentUid = attribute(source.menu_ids, loop.index0)|default(false) %}
+    {% endif %}
+{% endfor %}
+
+{% set template = '@EMSCH/template/base.html.twig' %}
+{% set templateFound = false %}
+{% if currentUid %}
+    {% set linkedDocument = emsch_search('page,link', {
+        "query": {
+            "bool": {
+                "must": [
+                    {
+                        "term": {
+                            ('menu_' ~ app.request.locale): currentUid
+                        }
+                    }
+                ]
+            }
+        }
+    }).hits.hits.0|default(false) %}
+
+    {% set template = '@EMSCH/template/base.html.twig' %}
+    {% if attribute(linkedDocument._source, "show_#{app.request.locale}")|default(false) %}
+        {% set templateFound = linkedDocument._source.template|default(false) %}
+        {% if templateFound %}
+            {% set template = '@EMSCH/' ~ linkedDocument._source.template %}
+            {% set source = linkedDocument._source %}
+            {% set document = linkedDocument %}
+            {% set emsLink = [linkedDocument._source._contenttype, linkedDocument._id]|join(':') %}
+        {% endif %}
+    {% endif %}
+{% else %}
+    {% set templateFound = source.template|default(false) %}
+    {% if templateFound %}
+        {% set template = '@EMSCH/' ~ source.template %}
+    {% endif %}
+{% endif %}
+
+{% extends (template) %}
+
+{% block title %}
+    {% if templateFound %}
+        {{ parent() }}
+    {% else %}
+        {{ targetMenu.getItem(currentUid).label|default(source.title|default(currentUid)) }}
+    {% endif %}
+{% endblock %}
+
+
+{% set childrenTitle = '' %}
+{% set childrenContainerClass = 'col-md-4 col-sm-6 pt-2 pb-2' %}
+{% block children %}
+    {% embed '@EMSCH/template/embed/print_menu_children.html.twig' with {
+        'menuChildren' : targetMenu.getItem(currentUid).children|default([]),
+        'pictureSettings': { 'height': 70, 'width': 70, 'class': '' },
+        'maxSize': 50
+    } %}
+        {% block itemsTitle %}
+            {% if childrenTitle != '' %}
+                <h2>{{ childrenTitle }}</h2>
+            {% endif %}
+        {% endblock %}
+        {% block itemClass %}{{ childrenContainerClass }}{% endblock %}
+    {% endembed %}
+{% endblock %}
+
+
+{% block body %}
+    {% if templateFound %}
+        {{ parent() }}
+    {% else %}
+        {{ include('@EMSCH/template/bootstrap/breadcrumb.html.twig') }}
+        <main role="main" class="container" id="main-content">
+            <div class="row">
+                <div class="col-md-12 page-main">
+                    <h1 class="pb-3 mb-4 font-italic border-bottom" {{ emsch_admin_menu(emsLink) }}>
+                        {{ block('title') }}
+                    </h1>
+                     {% if targetMenu.getItem(currentUid).children|default(false) %}
+                        {{ block('children') }}
+                     
+                       
+                    {% else %}
+                        {{ 'page.target.children_missing'|trans }}
+                    {% endif %}
+                </div>
+            </div>
+        </main>
+    {% endif %}
+{% endblock body %}

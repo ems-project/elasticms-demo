@@ -1,0 +1,55 @@
+{% extends '@EMSCH/template/variables.twig' %}
+{% trans_default_domain trans_default_domain %}
+{% set targetGroup = app.request.get('_target_group') %}
+
+{% block request -%}
+
+{% set config = attribute(targetConfigs, targetGroup) %}
+{% set newsSearch = emsch_search('news', {
+    "size": 50,
+    "sort": [ { "search_dates": { "order": "desc" } } ],
+    "query": {
+        "bool": {
+          "must": [
+            { "term": { ("show_#{locale}"): { "value": true } } },
+            {
+              "bool": {
+                "minimum_should_match": 1,
+                "should": [
+                  { "terms": { "target_group": [ "#{targetGroup}" ] } },
+                  { "bool": {  "must_not": [ 
+                    { "exists": { "field": "target_group" } } ] } }
+                    ]
+                }
+            }
+          ]
+        }
+      }
+})  %}
+{% set newsItems = newsSearch.hits.hits %}
+
+{% set host = 'https://' ~ targetConfig.hostPattern|replace({ ('%locale%') : locale, ('%environment%'): environment }) %}
+{% if targetConfig.isLive and 'live' == environment  %}
+    {% set host = 'https://' ~ attribute(targetConfig.canonicals, l)  %}
+{% endif %}
+ 
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+    <channel>
+        <title>{{ "rss.#{targetGroup}.title"|trans }}</title>
+        <description>{{ "rss.#{targetGroup}.description"|trans }}</description>
+        <language>{{ app.request.locale }}</language>
+        <link>{{ host  }}{{ path("emsch_target_#{targetGroup}") }}</link>
+        <image>{{ host  }}{{ asset('img/full-logo-' ~ app.request.locale ~ '.png', 'emsch') }}</image>
+        {% for newsItem in newsItems %}
+            <item>
+                <title>{{ attribute(newsItem._source, "title_#{locale}") }}</title>
+                <description>{{ attribute(newsItem._source, "summary_#{locale}")|replace(wyiwygReplaces)|emsch_routing|e('html') }}</description>
+                <pubDate>{{ newsItem._source.search_dates|first|date('r') }}</pubDate>
+                <link>{{ host  }}{{ path("emsch_news_item_#{targetGroup}", {year: newsItem._source.search_dates|first|date('Y'), month: newsItem._source.search_dates|first|date('m'), day: newsItem._source.search_dates|first|date('d'), 'slug': newsItem._source|locale_attr('slug_')} ) }}</link>
+            </item>
+        {% endfor %}
+    </channel>
+</rss>
+{% endblock -%}

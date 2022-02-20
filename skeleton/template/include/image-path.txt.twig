@@ -1,0 +1,69 @@
+{% spaceless %}
+    {% set pictureConfig = {
+        _file_names: [
+            assetPath~'/img/ct-'~search_type|default('blank')~'.png',
+            assetPath  ~'/img/blank.png',
+        ],
+        _image_format: 'webp',
+        _config_type: 'image',
+        _width: width|default('*'),
+        _height: height|default('*'),
+        _resize: 'fill',
+        _gravity: picture.picture_gravity|default('center'),
+        _background: picture.picture_background|default('#FFFFFFFF'),
+    } %}
+    
+    {%set hashInfo = {
+        filename: 'ct-'~search_type|default("blank")~'.png',
+        _filename: 'ct-'~search_type|default("blank")~'.png',
+    } %}
+
+    {% if attribute(picture, 'picture_asset') is defined %}
+        {% if 'zip' in picture.picture_asset.mimetype|default('not') %}
+            {% set directory = './bundles/' ~ picture.picture_asset.sha1 %}
+            {% set extracted = emsch_unzip(picture.picture_asset.sha1, directory)|default([]) %}
+            {% if extracted|length > 0 %}
+                {% set image = random(extracted) %}
+                {% set pictureConfig = {
+                    _file_names:[image.pathname],
+                    _quality: 0,
+                    _config_type: 'image',
+                    _width: width|default('*'),
+                    _height: height|default('*'),
+                    _resize: attribute(picture, 'picture_resize')|default('ratio'),
+                    _resize: 'fillArea',
+                    _gravity: source.picture_gravity|default('center'),
+                    _background: source.picture_background|default('#FFFFFFFF'),
+                } %}
+            {% endif %}
+        {% else %}
+            {% set pictureConfig = {
+                _config_type: 'image',
+                _width: width|default('*'),
+                _height: height|default('*'),
+                _resize: attribute(picture, 'picture_resize')|default('ratio'),
+                _quality: 0,
+                _gravity: attribute(picture, 'picture_gravity')|default('center'),
+                _background: attribute(picture, 'picture_background')|default('#FFFFFF')
+            } %}
+            {% set hashInfo = picture.picture_asset %}
+        {% endif %}
+    {% elseif attribute(picture, "file_#{locale}") is defined %}        
+        {% set pictureConfig = {
+            _config_type: 'image',
+            _width: width|default('*'),
+            _height: height|default('*'),
+            _resize: resize|default(null),
+            _quality: 0,
+            _gravity: attribute(picture, 'picture_gravity')|default('center'),
+            _background: attribute(picture, 'picture_background')|default('#FFFFFF')
+        } %}
+        {% set hashInfo = attribute(picture, "file_#{locale}") %}
+    {% endif%}
+    
+    {% if watermark|default(false) %}
+        {% set pictureConfig = pictureConfig|merge({_watermark_hash: watermark}) %}
+    {% endif %}
+
+    {{ ems_asset_path(hashInfo, pictureConfig) }}
+{% endspaceless %}

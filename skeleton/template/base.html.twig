@@ -1,0 +1,31 @@
+{% extends '@EMSCH/template/variables.twig' %}
+{% trans_default_domain trans_default_domain %}
+
+{% block request -%}
+    {% apply spaceless %}
+        <!doctype html>
+        <html lang="{{ app.request.locale }}" data-trans-domain="{{ trans_default_domain|e('html_attr') }}">
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>{% block title %}{% endblock %}</title>
+            <meta name="description" content="{% block meta_description %}{% endblock %}">
+
+            <link rel="icon" type="image/png" sizes="64x64" href="{{ asset('img/icon64.png', 'emsch') }}">
+            <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/icon180.png', 'emsch') }}">
+            <meta name="msapplication-square70x70logo" content="{{ asset('img/icon70.png', 'emsch') }}">
+            <meta name="msapplication-square150x150logo" content="{{ asset('img/icon150.png', 'emsch') }}">
+            <meta name="msapplication-square310x310logo" content="{{ asset('img/icon310.png', 'emsch') }}">
+            <meta name="theme-color" content="#2e2e2e"/>
+            <meta name="msapplication-wide310x150logo" content="{{ asset('static/icon-rect-310.png', 'emsch') }}">
+            <meta name="msapplication-TileColor" content="#3B3F41">
+            {% block head %}{% endblock %}
+        </head>
+        <body>
+            {% block body %}{% endblock %}
+            {% block javascript %}{% endblock %}
+        </body>
+        </html>
+    {% endapply %}
+{%- endblock request -%}

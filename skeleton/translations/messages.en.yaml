@@ -1,0 +1,127 @@
+action:
+    toggle-navigation: 'Toggle navigation'
+actions: Actions
+actions.see.all: 'See all actions(%count%)'
+ajax-search:
+    load-more: 'More results'
+applications: Applications
+aria:
+    back-to-top: 'Back to top'
+    breadcrumb:
+        current: Current
+    loading: Loading...
+    navbar:
+        current: (current)
+    skip-to-main-content: 'Skip to main content'
+date_format: '%F% j, Y'
+error:
+    404:
+        description: 'We could not find the page you were looking for. Meanwhile, you may try using the search form.'
+        title: 'Oops! Page not found.'
+    description: 'We will work on fixing that right away. Meanwhile, you may try using the search form.'
+    title: 'Oops! Something went wrong.'
+first_aid:
+    avg: 'First aid AVG'
+home:
+    fat: 'Frequently viewed topics'
+interesting:
+    links: 'Interesting links'
+link: link
+missing:
+    description: 'The requested %type% is not available in %language%, please choose another language below ...'
+    title: 'Missing translation'
+month:
+    April: April
+    August: August
+    December: December
+    February: February
+    January: January
+    July: July
+    June: June
+    March: March
+    May: May
+    November: November
+    October: October
+    September: September
+news: News
+news.all: 'All news'
+news.more: 'More news'
+news.no-result: 'No news'
+news.readmore: 'Read more ...'
+news.title: News
+page:
+    page:
+        side:
+            about: About
+            see_also: 'See also'
+    sitemap:
+        nothing: 'This page does not have any content, yet.'
+    target:
+        children_missing: 'This page does not have content yet.'
+published_date: 'Published on %date%'
+questions: Questions
+replace:
+    Company_name: Elasticms
+    Site_name: 'The elasticms demo''s website'
+    company_name: elasticms
+    site_name: 'the elasticms demo''s website'
+rss:
+    doc:
+        description: 'Documentation elasticms RSS feed'
+        title: 'Documentation elasticms RSS feed'
+    site:
+        description: 'elasticms RSS feed'
+        title: 'elasticms RSS feed'
+search: Search
+search.categories: Categories
+search.category: Category
+search.filters: 'Refine results'
+search.pagination.current: Current
+search.pagination.next: Next
+search.pagination.previous: Previous
+search.placeholder: 'Enter one or more keyword(s)'
+search.reset: Reset
+search.results: '{0} No results found|{1} 1 result found|]1,Inf[%count% results found'
+search.results.query: 'for "%query%"'
+search.sort_recent: Recent
+search.sort_relevance: Relevance
+search.sort_title: Title
+search.sorting: 'Sort by'
+search.subtype.group.dispute: 'The Dispute Chamber'
+search.subtype.group.general: 'General Secretariat'
+search.toggle_filters: 'toggle filters'
+search_filter:
+    locales: Language
+    search_category: Category
+    search_subtype: Subtype
+    search_type: Type
+    search_year: Year
+search_result:
+    paging_info: 'Resultats %from% to %to% on %total%'
+search_type:
+    advice: Advices
+    decision: Decisions
+    faq: FAQ
+    link: Links
+    news: News
+    page: Pages
+    press_release: 'Press release'
+    publication: Publications
+    recommendation: Recommendations
+site:
+    author: 'The elasticms team'
+    company: elasticms
+    copyright: '© %company% %year%'
+    intro: 'Discover the demonstration website and it''s standard features.'
+    logo: '%company%''s logo'
+    name: 'Demo website'
+    tagline: 'Elastic website'
+step: Step
+themes:
+    popular: 'Popular themes'
+    see:
+        all: 'See all themes (%count%)'
+toc: 'Table of content'
+view:
+    all:
+        themes: 'View all themes'

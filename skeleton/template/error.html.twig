@@ -1,0 +1,33 @@
+{% extends '@EMSCH/template/base.html.twig' %}
+{% trans_default_domain trans_default_domain %}
+
+{% block canonical %}{% endblock %}
+
+
+{% block title %}{{ 'error.title'|trans }}{% endblock %}
+
+{% block body %}
+    <main role="main" class="container mt-5 mb-5" id="main-content">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="alert alert-danger" role="alert">
+                    <h1><i class="fa fa-danger text-yellow"></i> {{ 'error.title'|trans }}</h1>
+                    <p>
+                        {{ 'error.description'|trans }}
+                    </p>
+                    <form class="search-form">
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control" placeholder="{{ 'action.search'|trans|e('html_attr') }}" aria-label="{{ 'action.search'|trans|e('html_attr') }}" name="q">
+                            <div class="input-group-append">
+                                <button type="submit" name="submit" class="btn btn-danger btn-flat">
+                                    <i class="fa fa-search"></i>
+                                    {{ 'action.search'|trans }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

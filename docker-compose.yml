@@ -1,0 +1,274 @@
+version: "2.4"
+services:
+
+  traefik:
+    image: "traefik:v2.2"
+    container_name: "traefik_ems_demo"
+    command:
+      #- "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8888:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+  es01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.11.2
+    environment:
+      - node.name=es01
+      - cluster.name=es7-docker-cluster
+      - discovery.seed_hosts=es02,es03
+      - cluster.initial_master_nodes=es01,es02,es03
+      - cluster.routing.allocation.disk.threshold_enabled=false
+      - bootstrap.memory_lock=true
+      - node.store.allow_mmap=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - 9200:9200
+    volumes:
+      - data01:/usr/share/elasticsearch/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.es.rule=Host(`es.localhost`)"
+      - "traefik.http.routers.es.entrypoints=web"
+      - "traefik.http.routers.es.service=es"
+      - "traefik.http.services.es.loadbalancer.server.port=9200"
+  es02:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.11.2
+    environment:
+      - node.name=es02
+      - cluster.name=es7-docker-cluster
+      - discovery.seed_hosts=es01,es03
+      - cluster.initial_master_nodes=es01,es02,es03
+      - cluster.routing.allocation.disk.threshold_enabled=false
+      - bootstrap.memory_lock=true
+      - node.store.allow_mmap=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - data02:/usr/share/elasticsearch/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.es.rule=Host(`es.localhost`)"
+      - "traefik.http.routers.es.entrypoints=web"
+      - "traefik.http.routers.es.service=es"
+      - "traefik.http.services.es.loadbalancer.server.port=9200"
+  es03:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.11.2
+    environment:
+      - node.name=es03
+      - cluster.name=es7-docker-cluster
+      - discovery.seed_hosts=es01,es02
+      - cluster.initial_master_nodes=es01,es02,es03
+      - cluster.routing.allocation.disk.threshold_enabled=false
+      - bootstrap.memory_lock=true
+      - node.store.allow_mmap=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - data03:/usr/share/elasticsearch/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.es.rule=Host(`es.localhost`)"
+      - "traefik.http.routers.es.entrypoints=web"
+      - "traefik.http.routers.es.service=es"
+      - "traefik.http.services.es.loadbalancer.server.port=9200"
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.9.2
+#    ports:
+#      - 5601:5601
+    environment:
+      - TZ=Europe/Brussels
+      - ELASTICSEARCH_HOSTS=http://es01:9200
+      - SERVER_NAME=kibana.localhost
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.kibana.rule=Host(`kibana.localhost`)"
+      - "traefik.http.routers.kibana.entrypoints=web"
+      - "traefik.http.routers.kibana.service=kibana"
+      - "traefik.http.services.kibana.loadbalancer.server.port=5601"
+
+  postgres:
+    image: postgres:12
+#    ports:
+#      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=adminpg
+      - TZ=Europe/Brussels
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - postgres:/var/lib/postgresql/data
+#      - configs/samples:/opt/samples
+
+  tika:
+    image: apache/tika
+    ports:
+      - "9998:9998"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tika.rule=Host(`tika.localhost`)"
+      - "traefik.http.routers.tika.entrypoints=web"
+
+  minio:
+    image: minio/minio
+    volumes:
+      - s3:/data
+#    ports:
+#      - 9000:9000
+    environment:
+      MINIO_ACCESS_KEY: accesskey
+      MINIO_SECRET_KEY: secretkey
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.minio.rule=Host(`minio.localhost`)"
+      - "traefik.http.routers.minio.service=minio"
+      - "traefik.http.routers.minio.entrypoints=web"
+      - "traefik.http.services.minio.loadbalancer.server.port=9001"
+
+  redis:
+    image: centos/redis-5-centos7
+#    ports:
+#      - 6379:6379
+    volumes:
+      - redis:/var/lib/redis/data
+
+  mailhog:
+    image: mailhog/mailhog
+#    ports:
+#      - 1025:1025 # smtp server
+#      - 8025:8025 # web ui
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mailhog.rule=Host(`mailhog.localhost`)"
+      - "traefik.http.routers.mailhog.service=mailhog"
+      - "traefik.http.routers.mailhog.entrypoints=web"
+      - "traefik.http.routers.mailhog-tls.rule=Host(`mailhog.localhost`)"
+      - "traefik.http.routers.mailhog-tls.service=mailhog"
+      - "traefik.http.routers.mailhog-tls.entrypoints=websecure"
+      - "traefik.http.routers.mailhog-tls.tls=true"
+      - "traefik.http.services.mailhog.loadbalancer.server.port=8025"
+
+  elasticms:
+    image: elasticms/admin
+    networks:
+      default:
+        aliases:
+          - demo-pgsql-admin.localhost
+          - demo-pgsql-admin-dev.localhost
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Brussels
+      - APP_ENV=dev
+      - PHP_FPM_MAX_CHILDREN=4
+      - PHP_FPM_REQUEST_MAX_MEMORY_IN_MEGABYTES=256
+      - CONTAINER_HEAP_PERCENT=0.8
+      - ELASTICSEARCH_VERSION=5.3
+      - ES_ENDPOINT_URL=http://es01:9200
+      - TIKA_ENDPOINT_URL=http://tika:9998
+      - DB_DRIVER=pgsql
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - MAILER_URL=smtp://mailhog_ems:1025
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - "EMS_ELASTICSEARCH_HOSTS=[\"http://es01:9200\",\"http://es02:9200\"]"
+      - EMSCO_FROM_EMAIL_ADDRESS=ems_mysql@example.com
+      - "EMSCO_FROM_EMAIL_NAME=elasticms"
+      - EMSCO_TIKA_SERVER=http://tika:9998
+      - CLI_PHP_MEMORY_LIMIT=512M
+      - JOBS_ENABLED=true
+    volumes:
+      - ./configs/elasticms:/opt/configs
+#      - configs/samples:/opt/samples
+#      - databases/assets:/var/lib/ems
+#      - ems-setup.sh:/opt/bin/container-entrypoint.d/ems-setup.sh
+#      - ../EMSMakerBundle:/opt/src/vendor/elasticms/maker-bundle
+#      - ../elasticms/vendor:/opt/src/vendor
+#      - ../EMSCommonBundle:/opt/src/vendor/elasticms/common-bundle
+      - ../EMSCoreBundle:/opt/src/vendor/elasticms/core-bundle
+#      - ../EMSCoreBundle/src/Resources/translations:/opt/src/translations
+#      - ../EMSClientHelperBundle:/opt/src/vendor/elasticms/client-helper-bundle
+#      - ../EMSFormBundle:/opt/src/vendor/elasticms/form-bundle
+#      - ../EMSSubmissionBundle:/opt/src/vendor/elasticms/submission-bundle
+#      - ../elasticms/config:/opt/src/config:ro
+#      - configs/samples/ems-setup.sh:/opt/bin/container-entrypoint.d/ems-setup.sh:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pgsql-admins.rule=HostRegexp(`{project:[a-z0-9\\-_\\.]+}-admin-dev.localhost`,`{project:[a-z0-9\\-_\\.]+}-admin.localhost`)"
+      - "traefik.http.routers.pgsql-admins.entrypoints=web"
+      - "traefik.http.services.ems_pgsql.loadbalancer.server.port=9000"
+
+  skeleton:
+    image: elasticms/website-skeleton
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Brussels
+      - APP_ENV=dev
+      - PHP_FPM_MAX_CHILDREN=8
+      - PHP_FPM_REQUEST_MAX_MEMORY_IN_MEGABYTES=64
+      - CONTAINER_HEAP_PERCENT=0.8
+      - ES_ENDPOINT_URL=http://es501:9200
+      - MAILER_URL=null://localhost
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - "EMS_ELASTICSEARCH_HOSTS=[\"http://es01:9200\",\"http://es02:9200\"]"
+      - 'ENVIRONMENT_ALIAS_BASE_PATH=../'
+      - 'TRUSTED_PROXIES=127.0.0.1,REMOTE_ADDR'
+      - 'TRUSTED_HOSTS=localhost,*.localhost'
+      - 'EMSCH_ASSET_LOCAL_FOLDER=skeleton'
+      - 'BACKEND_URL=http://demo-pgsql-admin-dev.localhost:9000'
+    volumes:
+      - ../configs/skeleton:/opt/configs
+      - ../configs/admin:/opt/src/admin
+      - ../configs/document:/opt/src/document
+      - ../dist:/opt/src/public/skeleton:ro
+      - ../skeleton:/opt/src/local/demo_pgsql_v1_preview
+      - ../skeleton:/opt/src/local/demo_pgsql_v1_live
+      - ../../EMSCommonBundle:/opt/src/vendor/elasticms/common-bundle
+#      - ../../EMSFormBundle:/opt/src/vendor/elasticms/form-bundle
+#      - ../../EMSSubmissionBundle:/opt/src/vendor/elasticms/submission-bundle
+      - ../../EMSClientHelperBundle:/opt/src/vendor/elasticms/client-helper-bundle
+#      - ../../website-skeleton/config:/opt/src/config
+#      - ../../website-skeleton/vendor:/opt/src/vendor
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.skeletons.rule=HostRegexp(`{project:[a-z0-9\\-_\\.]+}-{environment:template|preview|staging|live}.localhost`,`{project:[a-z0-9\\-_\\.]+}-{environment:template|preview|staging|live}-dev.localhost`)"
+      - "traefik.http.routers.skeletons.entrypoints=web"
+      - "traefik.http.routers.forms.rule=Host(`forms.localhost`)"
+      - "traefik.http.routers.forms.entrypoints=web"
+      - "traefik.http.services.skeleton.loadbalancer.server.port=9000"
+
+volumes:
+  data01:
+  data02:
+  data03:
+  redis:
+  s3:
+  postgres:
+  varnish:

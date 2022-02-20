@@ -1,0 +1,38 @@
+{% trans_default_domain trans_default_domain %}
+
+{% macro renderMenuBreadcrumb(byTarget, targetGroup, menu, slug) %}
+    {% import _self as self %}
+    {% for menuItem in menu %}
+        {% set itemSlug = attribute(attribute(attribute(byTarget, app.request.locale), targetGroup).slugByUid, menuItem.id)|default(false) %}
+        {% if itemSlug in slug %}
+            {% if itemSlug == slug %}
+                <li class="breadcrumb-item active">{{ menuItem.label }}</li>
+            {% else %}
+                <li class="breadcrumb-item"><a href="{{ path('emsch_target_'~targetGroup, { slug: itemSlug }) }}">{{ menuItem.label }}</a></li>
+                {{ self.renderMenuBreadcrumb(byTarget, targetGroup, menuItem.children|default([]), slug) }}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
+
+{% import _self as self %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('emsch_target_'~targetGroup) }}" title="{{ attribute(attribute(byTarget, app.request.locale), targetGroup).title|e('html_attr') }}"><i class="fa fa-home"></i> <span class="sr-only">{{ attribute(attribute(byTarget, app.request.locale), targetGroup).title }}</span></a></li>
+        {% if breadcrumbItem|default(false) %}
+            <li class="breadcrumb-item active" aria-current="page">{{ breadcrumbItem }}</li>
+        {% elseif attribute(attribute(attribute(byTarget, app.request.locale), targetGroup).uidBySlug, app.request.get('slug'))|default(false) %}
+            {% set breadcrumbTargetMenu = currentTarget.menu|default('{}')|ems_json_menu_decode.structure|default([]) %}
+            {% set slug = app.request.get('slug') %}
+            {{ self.renderMenuBreadcrumb(byTarget, targetGroup, currentTarget.menu|default('{}')|ems_json_menu_decode.structure|default([]), app.request.get('slug')) }}
+        {% elseif attribute(source, 'title_' ~ app.request.locale)|default(false) %}
+            {% if source.search_type|default(false) in ['news'] %}
+                <li class="breadcrumb-item"><a href="{{ path("emsch_#{source.search_type}_#{targetGroup}") }}">{{ "search_type.#{source.search_type}"|trans }}</a></li>
+            {% elseif source.search_type|default(false) %}
+                <li class="breadcrumb-item"><a href="{{ path("emsch_search_#{targetGroup}", {search_type: [source.search_type] }) }}">{{ "search_type.#{source.search_type}"|trans }}</a></li>
+            {% endif %}
+            <li class="breadcrumb-item active" aria-current="page">{{ attribute(source, 'title_' ~ app.request.locale)|default(false)  }}</li>
+        {% endif %}
+    </ol>
+</nav>

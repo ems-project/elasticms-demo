@@ -1,0 +1,62 @@
+{% extends '@EMSCH/template/base.html.twig' %}
+{% trans_default_domain trans_default_domain %}
+
+
+{% block title %}{{ attribute(source, 'title_' ~ app.request.locale) }}{% endblock %}
+
+{% block body %}
+    {{ include('@EMSCH/template/bootstrap/breadcrumb.html.twig') }}
+    {% set moreNews = emsch_search('news', {
+        "size": 5,
+        "query": {
+            "bool": {
+                "must": [
+                    {"term": {  ("show_"~locale): { "value": true } } },
+                    {"term": {  ("target_group"): { "value": targetGroup } } }
+                ],
+                "must_not": [ {"term": {  "_id": { "value": document._id } } }]
+            }
+        },
+        "sort": [ { "search_dates": { "order": "desc" } } ]
+    }).hits.hits  %}
+
+    <main role="main" class="container" id="main-content">
+        <div class="row">
+            <div class="col-md-8 page-main">
+                <h1 class="pb-3 mb-4 font-italic border-bottom" {{ emsch_admin_menu(emsLink) }}>
+                    {{ block('title') }}
+                    <small class="text-muted">{{ 'news'|trans }}</small>
+                </h1>
+                <div class="page-body">
+                    {% include '@EMSCH/template/include/picture.html.twig' with { 
+                        'picture': source,
+                        'class': 'img-fluid w-100 pb-4',
+                        'height': 100,
+                        'width': 600 ,
+                        search_type: source.search_type
+                    } %}
+                    {{ attribute(source, 'body_' ~ app.request.locale)|default('')|replace(wyiwygReplaces)|emsch_routing }}
+                </div>
+            </div>
+            <aside class="col-md-4 blog-sidebar">
+                <div class="p-3 mb-3 bg-light rounded">
+                    <h3 class="font-italic">{{ 'news.more'|trans }}</h3>
+                    <div class="list-group list-group-flush my-4">
+                        {% for news in moreNews|map(v => v._source) %}
+                            <a href="
+                                {%- if news.redirect_to|default(false) -%}
+                                    {{ "ems://object:#{news.redirect_to}"|emsch_routing }}
+                                {%- else -%}
+                                    {{ path('emsch_news_item_'~targetGroup, {year: news.search_dates|first|date('Y'), month: news.search_dates|first|date('m'), day: news.search_dates|first|date('d'), 'slug': news|locale_attr('slug_') }) }}
+                                {%- endif -%}" class="list-group-item  list-group-item-secondary list-group-item-action">
+                                <h5 class="mb-1"> {{ news|locale_attr('title_') }}</h5>
+                                <small>{{ 'published_date'|trans({ '%date%': news.search_dates|first|date('date_format'|trans)|replace(monthsTrans|default({})) }) }}</small>
+                            </a>
+                        {% endfor %}
+                    </div>
+                    <a href="{{ path('emsch_news_'~targetGroup) }}" class="btn btn-primary">{{ 'news.all'|trans }}</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+{% endblock %}

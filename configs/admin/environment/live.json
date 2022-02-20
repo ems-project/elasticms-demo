@@ -1,0 +1,18 @@
+{
+    "class": "EMS\\CoreBundle\\Entity\\Environment",
+    "arguments": [],
+    "properties": {
+        "name": "live",
+        "label": "Live",
+        "color": "green",
+        "baseUrl": null,
+        "managed": true,
+        "snapshot": false,
+        "circles": [],
+        "inDefaultSearch": false,
+        "extra": null,
+        "orderKey": 2,
+        "updateReferrers": false
+    },
+    "replaced": []
+}

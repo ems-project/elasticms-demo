@@ -1,0 +1,13 @@
+{
+    "class": "EMS\\CoreBundle\\Entity\\WysiwygProfile",
+    "arguments": [],
+    "properties": {
+        "__initializer__": null,
+        "__cloner__": null,
+        "__isInitialized__": true,
+        "name": "Standard",
+        "config": "{\r\n  \"plugins\": \"adv_link,uploadimage,imagebrowser,a11yhelp,basicstyles,bidi,blockquote,colorbutton,clipboard,colordialog,contextmenu,dialogadvtab,div,elementspath,enterkey,entities,filebrowser,find,floatingspace,format,horizontalrule,htmlwriter,image2,indentlist,indentblock,justify,language,list,liststyle,magicline,maximize,newpage,pastefromword,pastetext,preview,removeformat,resize,save,scayt,selectall,showborders,sourcearea,specialchar,stylescombo,tab,table,tabletools,templates,toolbar,undo,wysiwygarea,iframe,stylesheetparser\",\r\n  \"pasteFromWordRemoveFontStyles\": true,\r\n  \"pasteFromWordRemoveStyles\": true,\r\n  \"removeButtons\": \"Italic,Underline,Styles\",\r\n  \"language\": \"en\",\r\n  \"toolbarGroups\": [\r\n    {\r\n      \"name\": \"clipboard\",\r\n      \"groups\": [\r\n        \"clipboard\",\r\n        \"undo\"\r\n      ]\r\n    },\r\n    {\r\n      \"name\": \"editing\",\r\n      \"groups\": [\r\n        \"spellchecker\"\r\n      ]\r\n    },\r\n    {\r\n      \"name\": \"links\"\r\n    },\r\n    {\r\n      \"name\": \"insert\"\r\n    },\r\n    {\r\n      \"name\": \"tools\",\r\n      \"groups\": [\r\n        \"mode\"\r\n      ]\r\n    },\r\n    \"/\",\r\n    {\r\n      \"name\": \"basicstyles\",\r\n      \"groups\": [\r\n        \"basicstyles\",\r\n        \"cleanup\"\r\n      ]\r\n    },\r\n    {\r\n      \"name\": \"paragraph\",\r\n      \"groups\": [\r\n        \"list\",\r\n        \"indent\",\r\n        \"blocks\",\r\n        \"align\"\r\n      ]\r\n    },\r\n    {\r\n      \"name\": \"styles\"\r\n    }\r\n  ]\r\n}",
+        "orderKey": 1
+    },
+    "replaced": []
+}

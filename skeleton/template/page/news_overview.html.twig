@@ -1,0 +1,72 @@
+{% extends '@EMSCH/template/base.html.twig' %}
+{% trans_default_domain trans_default_domain %}
+
+{% block title %}{{ 'news.title'|trans }}{% endblock %}
+
+{% set breadcrumbItem = 'news.title'|trans %}
+
+{% block body %}
+    {% set pagingSize = 5 %}
+    {% set page = app.request.get('p', 0) %}
+
+    {{ include('@EMSCH/template/bootstrap/breadcrumb.html.twig') }}
+    {% set newsSearch = emsch_search('news', {
+        "size": pagingSize,
+        "from": (page * pagingSize),
+        "sort": [ { "search_dates": { "order": "desc" } } ],
+        "query": {
+            "bool": {
+              "must": [
+                { "term": { ("show_#{locale}"): { "value": true } } },
+                {
+                  "bool": {
+                    "minimum_should_match": 1,
+                    "should": [
+                      { "terms": { "target_group": [ "#{targetGroup}" ] } },
+                      { "bool": {  "must_not": [ 
+                        { "exists": { "field": "target_group" } } ] } }
+                        ]
+                    }
+                }
+              ]
+            }
+          }
+    })  %}
+    {% set newsItems = newsSearch.hits.hits %}
+    
+    <main role="main" class="container" id="main-content">
+        <div class="row">
+            <div class="col">
+                <h1 class="pb-3 mb-4 font-italic border-bottom" id="news-result">{{ block('title') }}</h1>
+                <div class="row justify-content-center">
+                    {% for newsItem in newsItems %}
+                        <div class="col-md-12">
+                            {% include '@EMSCH/template/include/news_thumbnail.html.twig' with {'news': newsItem._source, 'newsId': newsItem._id }  %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        {% if newsItems|length > 0 %}
+                            {%  set total = newsSearch.hits.total.value|default(newsSearch.hits.total) %}
+                            {% set lastPage = (total / pagingSize)|round(0, 'ceil') -1 %}
+                            {% include '@EMSCH/template/include/pagination.html.twig' with {
+                                anchor: "news-result",
+                                searchRoute: app.request.get('_route'),
+                                currentFilters: app.request.query,
+                                currentPage: page,
+                                pageParameter: 'p',
+                                extremePagesLimit: 3,
+                                nearbyPagesLimit: 3,
+                                lastPage: lastPage > 1000 ? 1000 : lastPage,
+                            }  %}
+                        {% else %}
+                            <h2>{{ 'news.no-result'|trans }}</h2>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+         </div>
+    </main>
+{% endblock %}

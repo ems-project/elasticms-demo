@@ -1,0 +1,6 @@
+{% set targetGroup = app.request.get('_target_group')|default('citizen') %}
+{%-  if attribute(source, "show_#{locale}")|default(false) and attribute(source, "file_#{locale}")|default([])|length > 0 -%}
+    {{ ems_asset_path(attribute(source, "file_#{locale}")) }}
+{%- else -%}
+    {{ path('emsch_missing_translation', { 'contentType': source._contenttype, 'ouuid': id }) }}
+{%- endif -%}

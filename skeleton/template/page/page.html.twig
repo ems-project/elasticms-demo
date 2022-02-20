@@ -1,0 +1,139 @@
+{% extends '@EMSCH/template/base.html.twig' %}
+{% trans_default_domain trans_default_domain %}
+
+
+{% block title %}{{ attribute(source, 'title_' ~ app.request.locale) }}{% endblock %}
+
+{% set childrenContainerClass = 'col-md-3 col-sm-6 pt-2 pb-2' %}
+{% set childrenTitle = 'applications'|trans %}
+{% block children %}{# use in parent template targets #}{% endblock %}
+
+{% block body %}
+    {{ include('@EMSCH/template/bootstrap/breadcrumb.html.twig') }}
+    <main role="main" class="container" id="main-content">
+        <div class="row">
+            <div class="col-md-12 page-main">
+                <h1 class="pb-3 mb-4 font-italic border-bottom" {{ emsch_admin_menu(emsLink) }}>
+                    {{ block('title') }}
+                </h1>
+                <div class="page-body">
+                    {% block pageContent %}
+                        <div class="d-flex justify-content-between">
+                            <div>{{ source|locale_attr('body_')|default('')|replace(wyiwygReplaces)|emsch_routing }}</div>
+                            {% if source.picture_asset|default(false) %}
+                                <div>
+                                    {% include '@EMSCH/template/include/picture.html.twig' with { 
+                                        'picture': source,
+                                        'class': 'pb-4',
+                                        'height': 170,
+                                        'width': 250 ,
+                                        search_type: source.search_type
+                                    } %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        {% block pageBlocks %}{# use in child templates for rendering blocks #}{% endblock %}
+                        {{ block('children') }}
+                        {{ block('faq') }}
+                        {{ block('seeAlsoCards') }}
+                    {% endblock pageContent %}
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+
+{% block faq %}
+    {% set faqOuuids = [] %}
+    {% for seeAlsoLink in source.see_also|default([])|filter(v => v[0:3] == 'faq')  %}
+        {% set faqOuuids = faqOuuids|merge([seeAlsoLink|emsch_ouuid]) %}
+    {% endfor %}
+    {% set searchFaqs = emsch_search('faq', {
+        '_source': ["_contenttype", "title_#{locale}", "body_#{locale}"],
+        'query': { 
+            'bool': {
+                'must': [
+                    {'term': { ("show_#{locale}"): true } }, 
+                    {'terms' : { '_id': (faqOuuids) } }
+                ]
+            }
+        }
+    }).hits.hits %}
+    {% set faqs = faqOuuids|map(v => searchFaqs|filter(doc => doc._id == v|emsch_ouuid)|first|default(false))|filter(v => v != false) %}
+    
+    {% if faqs|length > 0 %}
+        <h2>{{ 'questions'|trans }}</h2>
+        <hr />
+        <div id="questions" class="mb-4">
+            {% for faqIndex, faq in faqs %}
+                {% set faqTitle = faq._source|locale_attr('title_') %}
+                <div class="card">
+                    <div class="card-header" id="{{ faqTitle }}">
+                      <h5 class="mb-0">
+                        <a href="#{{ faqTitle }}" class="btn btn-link" data-toggle="collapse" data-target="#question{{ faqIndex }}" aria-expanded="true" aria-controls="question{{ faqIndex }}" role="button">{{ faqTitle }}</a>
+                      </h5>
+                    </div>
+                    <div id="question{{ faqIndex }}" class="collapse" aria-labelledby="{{ faqTitle }}" data-parent="#questions">
+                        <div class="card-body">{{ faq._source|locale_attr('body_')|default('')|replace(wyiwygReplaces)|emsch_routing }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block seeAlsoTitle %}
+    <div class="row">
+        <div class="col-12">
+            <h2>{{ 'interesting.links'|trans }}</h2>
+            <hr />
+        </div>
+    </div>
+{% endblock %}
+
+{% block seeAlsoCards %}
+    {% trans_default_domain trans_default_domain %}
+    {% set seeAlsoOuuids = [] %}
+    {% for seeAlsoLink in source.see_also|default([])|filter(v => v[0:4] == 'link' or v[0:4] == 'page')  %}
+        {% set seeAlsoOuuids = seeAlsoOuuids|merge([seeAlsoLink|emsch_ouuid]) %}
+    {% endfor %} 
+    {% set searchSeeAlso = emsch_search('link,page', {
+        '_source': ["_contenttype", "title_#{locale}", "summary_#{locale}", "search_type"],
+        'query': { 
+            'bool': {
+                'must': [
+                    {'term': { ("show_#{locale}"): true } }, 
+                    {'terms' : { '_id': (seeAlsoOuuids) } }
+                ]
+            }
+        }
+    }).hits.hits %}
+    
+    {# keep sorting of the see also multipe data link field (if not in search null, then remove null) #}
+    {% set seeAlsoDocs = seeAlsoOuuids|map(v => searchSeeAlso|filter(doc => doc._id == v|emsch_ouuid)|first|default(null))|filter(v => v != null) %}
+    
+    {% if seeAlsoDocs|length > 0 %}
+        {{ block('seeAlsoTitle') }}
+        <div class="row">
+            {% for seeAlsoDoc in seeAlsoDocs|filter(v => v != false) %}
+                {{ block('seeAlsoCard') }}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
+
+
+{% block seeAlsoCard %}
+    {# overriden in publications #}
+    <div class="col-md-4 col-sm-6 pt-2 pb-2">
+        <div class="card h-100">
+            <div class="card-body">
+                <h4 class="card-title">
+                    <a href="{{ "ems://#{seeAlsoDoc._source._contenttype}:#{seeAlsoDoc._id}"|emsch_routing }}">{{ seeAlsoDoc._source|locale_attr('title_') }}</a>
+                </h4>
+                {{ seeAlsoDoc._source|locale_attr('summary_')|default('')|replace(wyiwygReplaces)|emsch_routing }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

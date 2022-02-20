@@ -1,0 +1,127 @@
+action:
+    toggle-navigation: 'Navigation umschalten'
+actions: Actions
+actions.see.all: 'See all actions(%count%)'
+ajax-search:
+    load-more: 'Weitere Ergebnisse'
+applications: Anwendungen
+aria:
+    back-to-top: 'Zurück nach oben'
+    breadcrumb:
+        current: Actuelle
+    loading: 'Wird geladen...'
+    navbar:
+        current: (strom)
+    skip-to-main-content: 'Zum Hauptinhalt springen'
+date_format: 'j %F% Y'
+error:
+    404:
+        description: 'Wir konnten die gesuchte Seite nicht finden. In der Zwischenzeit können Sie versuchen, das Suchformular zu verwenden.'
+        title: 'Ups! Seite nicht gefunden.'
+    description: 'Wir werden sofort daran arbeiten, das zu beheben. In der Zwischenzeit können Sie versuchen, das Suchformular zu verwenden.'
+    title: 'Ups! Etwas ist schief gelaufen.'
+first_aid:
+    avg: 'First aid AVG'
+home:
+    fat: 'Häufig angesehene Themen'
+interesting:
+    links: 'Interessante Links'
+link: link
+missing:
+    description: 'The requested %type% is not available in %language%, please choose another language below ...'
+    title: 'Missing translation'
+month:
+    April: April
+    August: August
+    December: Dezember
+    February: Februar
+    January: Januar
+    July: Juli
+    June: Juni
+    March: März
+    May: May
+    November: November
+    October: Oktober
+    September: September
+news: Aktuelles
+news.all: 'All news'
+news.more: 'More news'
+news.no-result: 'Keine Neuigkeiten'
+news.readmore: 'Read more ...'
+news.title: Aktuelles
+page:
+    page:
+        side:
+            about: Über
+            see_also: 'Siehe auch'
+    sitemap:
+        nothing: 'Diese Seite hat noch keinen Inhalt.'
+    target:
+        children_missing: 'Diese Seite hat noch keinen Inhalt.'
+published_date: 'Veröffentlicht am %date%'
+questions: Fragen
+replace:
+    Company_name: Elasticms
+    Site_name: 'Der elasticms Demo-Website'
+    company_name: elasticms
+    site_name: 'der elasticms Demo-Website'
+rss:
+    doc:
+        description: 'elasticms Dokumentation RSS-Feed'
+        title: 'elasticms Dokumentation RSS-Feed'
+    site:
+        description: 'elasticms RSS-Feed'
+        title: 'elasticms RSS-Feed'
+search: Search
+search.categories: Kategorien
+search.category: Kategorie
+search.filters: 'Ergebnisse verfeinern'
+search.pagination.current: Aktuelle
+search.pagination.next: Nächste
+search.pagination.previous: Vorherige
+search.placeholder: Suchbergriff(e)
+search.reset: Zurücksetzen
+search.results: '{0} Keine Resultate gefunden|{1} 1 Resultat gefunden|]1,Inf[%count% Resultate gefunden'
+search.results.query: 'für "%query%"'
+search.sort_recent: Neu
+search.sort_relevance: Relevanz
+search.sort_title: Titel
+search.sorting: 'Sortieren nach'
+search.subtype.group.dispute: 'Die Streitkammer'
+search.subtype.group.general: Generalsekretariat
+search.toggle_filters: 'Filter umschalten'
+search_filter:
+    locales: Sprache
+    search_category: Kategorie
+    search_subtype: Subtype
+    search_type: Type
+    search_year: Jahr
+search_result:
+    paging_info: 'Resultate von %from% bis %to% von %total%'
+search_type:
+    advice: Ratschläge
+    decision: Entscheidungen
+    faq: FAQ
+    link: Links
+    news: Aktuelles
+    page: Seiten
+    press_release: 'Press release'
+    publication: Veröffentlichungen
+    recommendation: Empfehlungen
+site:
+    author: 'Das elasticms-Team'
+    company: elasticms
+    copyright: '© %company% %year%'
+    intro: 'Entdecken Sie die Demonstrationswebsite und ihre Standardfunktionen.'
+    logo: 'Logo der %company%'
+    name: Demo-Website
+    tagline: 'Elastische Website'
+step: Schritt
+themes:
+    popular: 'Häufig konsultierte Themen'
+    see:
+        all: 'See all themes (%count%)'
+toc: Inhaltsverzeichnis
+view:
+    all:
+        themes: 'Alle Themen anzeigen'

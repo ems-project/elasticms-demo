@@ -1,0 +1,57 @@
+{% set targetGroup = app.request.get('_target_group')|default('citizen') %}
+{%- if attribute(source, "menu_#{locale}")|default(false) -%}
+    {% set linkTarget = emsch_search('target', {
+      "_source": ["menu_ids", "slugs"],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "locales": {
+                  "value": app.request.locale
+                }
+              }
+            },
+            {
+              "term": {
+                "_contenttype": {
+                  "value": "target"
+                }
+              }
+            },
+            {
+              "term": {
+                "target_group": {
+                  "value": targetGroup
+                }
+              }
+            },
+            {
+              "terms": {
+                "menu_ids": attribute(source, "menu_#{locale}")
+              }
+            }
+          ]
+        }
+      }
+    }, 0, 1).hits.hits|default([{}])|first %}
+    
+    {% set slug = null %}
+    {% for uid in linkTarget._source.menu_ids|default([]) %}
+        {% if uid in attribute(source, "menu_#{locale}") %}
+            {% set slug = linkTarget._source.slugs[loop.index0] %}
+        {% endif %}
+    {% endfor %}
+    {{ path('emsch_target_'~targetGroup, {'slug': slug == "/" ? null : slug }) }}
+    
+{%- elseif attribute(source, "show_#{locale}")|default(false) -%}
+    {% if source.target_group|default([])|length == 0 %}
+        {{ path('emsch_page', {'slug': attribute(source, "slug_#{locale}") }) }}
+    {% elseif targetGroup in source.target_group|default([]) %}
+        {{ path('emsch_target_'~targetGroup, {'slug': attribute(source, "slug_#{locale}") }) }}
+    {% else %}
+        {{ path('emsch_target_'~(source.target_group|first), {'slug': attribute(source, "slug_#{locale}") }) }}
+    {% endif %}
+{%- else -%}
+    {{ path('emsch_missing_translation', { 'contentType': source._contenttype, 'ouuid': id }) }}
+{%- endif -%}

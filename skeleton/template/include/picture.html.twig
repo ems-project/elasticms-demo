@@ -1,0 +1,4 @@
+{% spaceless %}
+    {% set pictureAlt = picture|locale_attr('picture_alt_')|default('') %}
+    <img src="{% include('@EMSCH/template/include/image-path.txt.twig') %}" alt="{{ pictureAlt }}" class="{{ class|default('') }}">
+{% endspaceless %}

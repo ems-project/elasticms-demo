@@ -1,0 +1,80 @@
+{% extends '@EMSCH/template/base.html.twig' %}
+{% trans_default_domain trans_default_domain %}
+
+
+{%- block title -%}{{ block("resultTitle", "@EMSCH/template/include/search.twig")|e('html') }}{%- endblock -%}
+
+
+{% block template_left %}
+    <div class="row">
+        <aside class="col-md-4 blog-sidebar">
+            <div class="p-3 mb-3 bg-light rounded">
+                <h2 class="pb-2">{{ 'search.filters'|trans }}</h2>
+                {{ block("searchSorts", "@EMSCH/template/include/search.twig") }}
+                <hr />
+                {{ block("searchFilters", "@EMSCH/template/include/search.twig") }}
+                <div class="filter-footer mt-4 ajax-search-hide">
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary">{{ 'search'|trans }}</button>
+                        {% if app.request.query|length > 0 %}
+                            <a href="{{ path("emsch_search_#{targetGroup}.#{locale}") }}">{{ 'search.reset'|trans }}</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <div class="col-md-8 page-main">
+            <h1 class="pb-3 mb-4 font-italic border-bottom">{{ block('title') }}</h1>
+            {{ block("searchForm", "@EMSCH/template/include/search.twig") }}
+            {{ block("searchResults", "@EMSCH/template/include/search.twig") }}
+            <div class="text-center data-ajax-search-loading-show" style="display: none;">
+                <div class="spinner-grow" role="status">
+                    <span class="sr-only">{{ 'aria.loading'|trans }}</span>
+                </div>
+            </div>
+            {{ block("searchPagination", "@EMSCH/template/include/search.twig") }}
+        </div>
+    </div>
+{%- endblock -%}
+
+{% block template_top %}
+    <div class="row">
+        <aside class="col-md-12 blog-sidebar">
+            <div class="p-3 mb-3 bg-light rounded">
+                {{ block("searchFilters", "@EMSCH/template/include/search.twig") }}
+                <div class="filter-footer mt-4 ajax-search-hide">
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary">{{ 'search'|trans }}</button>
+                        {% if app.request.query|length > 0 %}
+                            <a href="{{ path("emsch_search_#{targetGroup}.#{locale}") }}" class="btn btn-default">{{ 'search.reset'|trans }}</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <div class="col-md-12 page-main">
+            <h1 class="{% if targetConfig.searchTemplate in ['top'] %}sr-only{% else %}pb-3 mb-4 font-italic border-bottom{% endif %}">{{ block('title') }}</h1>
+            {{ block("searchForm", "@EMSCH/template/include/search.twig") }}
+            
+            {{ block("searchSorts", "@EMSCH/template/include/search.twig") }}
+            
+            {{ block("searchResults", "@EMSCH/template/include/search.twig") }}
+            <div class="text-center data-ajax-search-loading-show" style="display: none;">
+                <div class="spinner-grow" role="status">
+                    <span class="sr-only">{{ 'aria.loading'|trans }}</span>
+                </div>
+            </div>
+            {{ block("searchPagination", "@EMSCH/template/include/search.twig") }}
+        </div>
+    </div>
+{%- endblock -%}
+
+{% block body %}
+    {% set breadcrumbItem = 'search'|trans %}
+    {{ include('@EMSCH/template/bootstrap/breadcrumb.html.twig') }}
+    <main role="main" class="container" id="main-content">
+        <form class="search-form" action="{{ path("emsch_search_#{targetGroup}.#{locale}") }}" method="GET" data-ajax-search-form="{{ path("emsch_search_#{targetGroup}_json.#{locale}") }}">
+            {{ block("template_#{targetConfig.searchTemplate}") }}
+         </form>
+    </main>
+{% endblock %}

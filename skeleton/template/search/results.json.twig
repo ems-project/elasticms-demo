@@ -1,0 +1,28 @@
+{% extends '@EMSCH/template/base.html.twig' %}
+{% trans_default_domain trans_default_domain %}
+
+{% set titleValue = block("resultTitle", "@EMSCH/template/include/search.twig") %}
+
+{% block title %}
+    {{ titleValue }}
+{% endblock %}
+
+{% block request %}
+{% spaceless %}
+{%- set lastPage = (results.hits.total / search.size)|round(0, 'ceil') -1  -%}
+{%- set p = app.request.get('p', 0) -%}
+{{ {
+    'query': query,
+    'title': titleValue,
+    'title_header': block('title_tag'),
+    'page': search.page,
+    'load_more_path': p < lastPage ? path("emsch_search_#{targetGroup}_json.#{locale}", app.request.query|merge({p: p + 1 })) : false,
+    'size': search.size,
+    'html_sorts': block("searchSorts", "@EMSCH/template/include/search.twig"),
+    'html_filters': block("searchFilters", "@EMSCH/template/include/search.twig"),
+    'html_form': block("searchForm", "@EMSCH/template/include/search.twig"),
+    'html_pagination': block("searchPagination", "@EMSCH/template/include/search.twig"),
+    'html_results': block("searchResults", "@EMSCH/template/include/search.twig")
+}|json_encode|raw }}
+{% endspaceless %}
+{% endblock request %}

@@ -1,0 +1,27 @@
+{% extends '@EMSCH/template/page/page.html.twig' %}
+{% trans_default_domain trans_default_domain %}
+
+{#{% block childrenTitle %}<h2>{{ 'target.children'|trans }}</h2>{% endblock %}#}
+
+{% block pageBlocks %}
+    {% set blocks = source|locale_attr('blocks_')|default([]) %}
+    {% if blocks|length > 0 %}
+        <div id="application" class="mb-4">
+            {% for blockIndex, pageBlock in blocks %}{{ block('pageBlock') }}{% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block pageBlock %}
+    {% set blockTitle = pageBlock|locale_attr('title_') %}
+    <div class="card">
+        <div class="card-header" id="{{ blockTitle }}">
+          <h5 class="mb-0">
+            <a href="#{{ blockTitle }}" class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ blockIndex }}" aria-expanded="true" aria-controls="collapse{{ blockIndex }}" role="button">{{ blockTitle }}</a>
+          </h5>
+        </div>
+        <div id="collapse{{ blockIndex }}" class="collapse" aria-labelledby="{{ blockTitle }}" data-parent="#application">
+            <div class="card-body">{{ pageBlock|locale_attr('body_')|default('')|replace(wyiwygReplaces)|emsch_routing }}</div>
+        </div>
+    </div>
+{% endblock %}

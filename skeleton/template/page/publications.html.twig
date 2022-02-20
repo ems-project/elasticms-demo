@@ -1,0 +1,68 @@
+{% extends '@EMSCH/template/page/page.html.twig' %}
+{% trans_default_domain trans_default_domain %}
+
+{% block pageContent %}
+     <div class="d-flex justify-content-between">
+        <div>{{ source|locale_attr('body_')|default('')|replace(wyiwygReplaces)|emsch_routing }}</div>
+    </div>
+    {{ block('seeAlsoCards') }}
+    {{ block('search') }}
+    {{ block('latestPublications') }}
+{% endblock %}
+
+
+{% block seeAlsoCard %}
+    <div class="col-md-4 col-sm-6 pt-2 pb-2">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-center">
+                    {% include '@EMSCH/template/include/picture.html.twig' with { 
+                        'picture': seeAlsoDoc._source,
+                        'height': 80,
+                        'width': 80 ,
+                        search_type: seeAlsoDoc._source.search_type
+                    } %}
+                </div>
+                <h4 class="card-title text-center">
+                    <a href="{{ "ems://#{seeAlsoDoc._source._contenttype}:#{seeAlsoDoc._id}"|emsch_routing }}">{{ seeAlsoDoc._source|locale_attr('title_') }}</a>
+                </h4>
+                {{ seeAlsoDoc._source|locale_attr('summary_')|default('')|replace(wyiwygReplaces)|emsch_routing }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block search %}
+    <div class="card search">
+        <div class="card-body bg-light">
+            <form class="search-form" action="{{ path("emsch_search_#{targetGroup}.#{locale}") }}" method="GET">
+                {{ block("searchForm_top", "@EMSCH/template/include/search.twig") }}
+                <input type="hidden" name="search_category[]" value="taxonomy:publications" />
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block latestPublications %}
+    {% set latestResults = emsch_search('publication', {
+        "size": 2,
+        "sort": [ { "search_dates": { "order": "desc" } } ],
+        "query": {
+            "bool": {
+                "must": [
+                    {"term": { ("show_#{locale}") : true } }
+                ]
+            }
+        }
+    }).hits.hits %}
+    
+    {% if latestResults|length > 0 %}
+        <div class="latest-publications mt-4">
+            {% for hit in latestResults %}
+                {{ block("_searchHit", "@EMSCH/template/include/search.twig") }}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

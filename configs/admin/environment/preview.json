@@ -1,0 +1,18 @@
+{
+    "class": "EMS\\CoreBundle\\Entity\\Environment",
+    "arguments": [],
+    "properties": {
+        "name": "preview",
+        "label": "Preview",
+        "color": "aqua",
+        "baseUrl": null,
+        "managed": true,
+        "snapshot": false,
+        "circles": [],
+        "inDefaultSearch": true,
+        "extra": null,
+        "orderKey": 1,
+        "updateReferrers": false
+    },
+    "replaced": []
+}

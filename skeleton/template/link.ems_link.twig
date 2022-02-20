@@ -1,0 +1,5 @@
+{%- if attribute(source, "show_#{locale}")|default(false) -%}
+    {{ attribute(source, "url_#{locale}")|raw }}
+{%- else -%}
+    {{ path('emsch_missing_translation', { '_locale': locale, 'contentType': source._contenttype, 'ouuid': id }) }}
+{%- endif -%}

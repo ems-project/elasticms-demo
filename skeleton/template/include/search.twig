@@ -1,0 +1,407 @@
+{# ########################################################################## #}
+{# ########################################################################## #}
+{# ########################################################################## #}
+{# #######             IMPORTANT USED IN HTML AND JSON route          ####### #}
+{# ########################################################################## #}
+{# ########################################################################## #}
+{# ########################################################################## #}
+
+
+{%- block searchSorts -%}
+    {{ block("_searchSorts_#{targetConfig.searchTemplate}") }}
+{%- endblock -%}
+
+{%- block _searchSorts_top -%}
+    {%- trans_default_domain trans_default_domain -%}
+    <div class="py-2 d-flex justify-content-between align-items-center mb-2" id="search-sort" aria-live="polite" role="status">
+        <div>
+            <small class="mt-1">
+                {%- if results.hits.hits|length > 0 -%}
+                    {{ 'search_result.paging_info'|trans({ '%from%': 'json' in app.request.attributes.get('_route') ? 1 : 1+(search.size*search.page), '%to%': min(search.size*(search.page+1), results.hits.total), '%total%': results.hits.total }) }}
+                {% else %}
+                    {{ 'search.results'|transchoice(results.hits.total)|raw }}
+                {%- endif -%}
+            </small>
+        </div>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ 'search.sorting'|trans }}
+                {% if null == search.sortBy %}
+                    {{ 'search.sort_relevance'|trans }}
+                {% endif %}
+                {%- for s, sort in search.sorts -%}
+                    {% if s == search.sortBy %}
+                        {{ "search.sort_#{s}"|trans }}
+                    {% endif %}
+                {% endfor %}
+            </button>
+            <div class="dropdown-menu p-2" aria-labelledby="dropdownSortButton">
+                <div class="dropdown-item custom-control custom-radio">
+                    <input type="radio" id="sortby_relevance" name="s" value="" class="custom-control-input" {{ null == search.sortBy ? 'checked="checked"' }}>
+                    <label class="custom-control-label" for="sortby_relevance">{{ 'search.sort_relevance'|trans }}</label>
+                </div>
+                {%- for s, sort in search.sorts -%}
+                    <div class="dropdown-item custom-control custom-radio">
+                        <input type="radio" id="sortby_{{ s }}" name="s" value="{{ s }}" class="custom-control-input" {{ s == search.sortBy ? 'checked="checked"' }} >
+                        <label class="custom-control-label" for="sortby_{{ s }}">{{ "search.sort_#{s}"|trans }}</label>
+                    </div>
+                {%- endfor -%}
+            </div>
+        </div>
+    </div>
+{%- endblock -%}
+
+{%- block _searchSorts_left -%}
+    {%- trans_default_domain trans_default_domain -%}
+    {%- if search.sorts|length > 0 -%}
+        <div class="card" aria-labelledby="group_sorting">
+            <h3 class="card-header">{{ 'search.sorting'|trans }}</h3>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item py-2 d-flex justify-content-between align-items-center">
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="sortby_relevance" name="s" value="" class="custom-control-input" {{ null == search.sortBy ? 'checked="checked"' }}>
+                        <label class="custom-control-label" for="sortby_relevance">{{ 'search.sort_relevance'|trans }}</label>
+                    </div>
+                </li>
+                {%- for s, sort in search.sorts -%}
+                    <li class="list-group-item py-2 d-flex justify-content-between align-items-center">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="sortby_{{ s }}" name="s" value="{{ s }}" class="custom-control-input" {{ s == search.sortBy ? 'checked="checked"' }} >
+                            <label class="custom-control-label" for="sortby_{{ s }}">{{ "search.sort_#{s}"|trans }}</label>
+                        </div>
+                    </li>
+                {%- endfor -%}
+            </ul>
+        </div>
+    {%- endif -%}
+{%- endblock -%}
+
+
+{%- block searchFilter_top %}
+    {%- trans_default_domain trans_default_domain -%}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">{{ 'search.filters'|trans }}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSearchFilter" aria-controls="navbarSearchFilter" aria-expanded="false" aria-label="{{ 'search.toggle_filters'|trans }}">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarSearchFilter">
+            <ul class="navbar-nav nav-fill w-100" id="nav-filter" aria-live="polite" role="status">
+                {% for filterId, filterConfig in targetConfig.filters %}
+                {#{% for searchFilter in search.filters|filter(f => f.public == true and f.name in filters) %}#}
+                    
+                    {% set searchFilter =  attribute(search.filters, filterId)|default({})  %}
+                    {% if searchFilter.public|default(false) %}
+                        {% set extraClass = '' %}
+                        {% set extraClassLink = '' %}
+                        {% if searchFilter.value|default([])|length > 0 %}
+                            {% set extraClass = ' active' %}
+                        {% else %}
+                            {% set count = 0 %}                        
+                            {% for filterObj in searchFilter.choices %}
+                                {% set count = count + filterObj.filter|default(0) %}   
+                            {% endfor %}
+                            {% if count == 0 %}
+                                {% set extraClassLink = ' disabled' %}
+                            {% endif %}
+                        {% endif %}
+                        
+                        {% if filterConfig.type|default(false) %}
+                            <li class="nav-item dropdown{{  extraClass }}">
+                                <a class="nav-link dropdown-toggle{{ extraClassLink }}" href="#" id="navbarDropdown_{{ searchFilter.name }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ "search_filter.#{searchFilter.name}"|trans }}
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown_{{ searchFilter.name }}">
+                                    {{ block('_searchFilter' ~ filterConfig.type) }}
+                                </div>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownSearchLocales" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ "search_filter.locales"|trans }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownSearchLocales">
+                        {% for label, id in targetConfig.locales %}
+                            {% set host = '//' ~ targetConfig.hostPattern|replace({ ('%locale%') : id, ('%environment%'): environment }) %}
+                            {% if id != locale %}
+                                <a href="{{ host }}{{ path("emsch_search_#{targetGroup}", app.request.query.all|merge({ _locale: id, p: 0 })) }}" class="dropdown-item not-external">
+                                    {{ label }}
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+{%- endblock -%}
+
+
+{%- block searchFilter_left %}
+    {%- trans_default_domain trans_default_domain -%}
+    <h2 class="pb-2">{{ 'search.filters'|trans }}</h2>
+    <hr />
+    {% for filterId, filterConfig in targetConfig.filters %}
+    {#{% for searchFilter in search.filters|filter(f => f.public == true and f.name in filters) %}#}
+        
+        {% set searchFilter =  attribute(search.filters, filterId)|default({})  %}
+        {% if searchFilter.public|default(false) %}
+            <div class="card mb-4 {{ searchFilter.active ? 'border-primary' }}">
+                <h3 class="card-header">{{ "search_filter.#{searchFilter.name}"|trans }}</h3>
+                <ul class="list-group list-group-flush">
+                    {{ block('_searchFilter' ~ filterConfig.type) }}
+                </ul>
+            </div>
+        {% endif %}
+    {% endfor %}
+{%- endblock -%}
+
+{%- block searchFilters %}
+    {%- trans_default_domain trans_default_domain -%}
+    {%- set filters = ['search_type', 'search_subtype', 'search_category', 'search_year'] -%}
+    {{ block("searchFilter_#{targetConfig.searchTemplate}") }}
+{%- endblock -%}
+
+{%- block resultTitle -%}
+    {%- trans_default_domain trans_default_domain -%}
+    {{ 'search.results'|transchoice(results.hits.total)|raw }}
+    {% if query %}
+        {{ 'search.results.query'|trans({'%query%': (query|length > 20? query|slice(0, 20)~'...':query) })|raw }}
+    {% endif %}
+{%- endblock -%}
+
+{%- block searchForm -%}
+    {{ block("searchForm_#{targetConfig.searchTemplate}") }}
+{%- endblock -%}
+
+{%- block searchForm_top -%}
+    {%- trans_default_domain trans_default_domain -%}
+    <div class="input-group mb-4">
+        <input type="text" class="form-control" aria-label="search" aria-describedby="search-page" name="q" value="{{ app.request.get('q') }}" placeholder="{{ 'search.placeholder'|trans }}">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="submit" id="search-page"><i class="fa fa-search"></i><span class="sr-only">{{ 'search'|trans }}</span></button>
+        </div>
+    </div>
+{%- endblock -%}
+
+{%- block searchForm_left -%}
+    {%- trans_default_domain trans_default_domain -%}
+    <div id="'search-results" class="jumbotron p-4 mb-3">
+        <div class="input-group">
+            <input type="text" class="form-control" aria-label="search" aria-describedby="search-page" name="q" value="{{ app.request.get('q') }}" placeholder="{{ 'search.placeholder'|trans }}">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit" id="search-page"><i class="fa fa-search"></i><span class="sr-only">{{ 'search'|trans }}</span></button>
+            </div>
+        </div>
+        <div role="status" id="status-in-form" aria-live="polite">
+            {%- if results.hits.hits|length > 0 -%}
+                <small class="mt-1">{{ 'search_result.paging_info'|trans({ '%from%': 'json' in app.request.attributes.get('_route') ? 1 : 1+(search.size*search.page), '%to%': min(search.size*(search.page+1), results.hits.total), '%total%': results.hits.total }) }}</small>
+            {%- endif -%}
+        </div>
+    </div>
+    <div class="justify-content-end mb-3 d-flex ajax-search-remove {{ results.hits.hits|length == 0 ? 'invisible' }}">
+        <div><label class="col-form-label pr-2" for="searchSizes">Size</label></div>
+        <div>
+            <select class="form-control" name="l" id="searchSizes">
+                {%- for size in search.sizes -%}<option {{ search.size == size ? 'selected' }} value="{{ size }}">{{ size }}</option>{%- endfor -%}
+            </select>
+        </div>
+    </div>
+{%- endblock -%}
+
+
+{%- block searchResults %}
+    {%- trans_default_domain trans_default_domain -%}
+    <div id="search-result" aria-live="polite" aria-relevant="additions">
+        {%- if results.hits.hits|length > 0 -%}
+            {%- for hit in results.hits.hits -%}
+                {{- block('_searchHit') -}}
+            {%- endfor -%}
+        {%- endif -%}
+    </div>
+{%- endblock -%}
+
+
+{%- block searchPagination -%}
+    {% if results.hits.hits|length > 0 %}
+        {% set lastPage = (results.hits.total / search.size)|round(0, 'ceil') -1 %}
+        {% include '@EMSCH/template/include/pagination.html.twig' with {
+            anchor: "search-results",
+            searchRoute: "emsch_search_#{targetGroup}.#{locale}",
+            searchRouteAjax: "emsch_search_#{targetGroup}_json.#{locale}",
+            currentFilters: app.request.query,
+            currentPage: search.page,
+            pageParameter: 'p',
+            extremePagesLimit: 3, 
+            nearbyPagesLimit: 3,
+            lastPage: lastPage > 1000 ? 1000 : lastPage,
+        }  %}
+    {% endif %}
+{%- endblock -%}
+
+{%- block _searchFilterType -%}
+    {%- trans_default_domain trans_default_domain -%}
+    {% set types = [] %}
+    {% for type in filterConfig.types|default([]) %}
+        {% set types = types|merge({ (type): ("search_type.#{type}"|trans) }) %}
+    {% endfor %}
+    
+    {% for choiceValue, choiceLabel in types %}
+        {% set choice = attribute(searchFilter.choices, choiceValue)|default({'filter': 0, 'active': false}) %}
+        {{ block('_searchChoice') }}
+    {% endfor %}
+{%- endblock -%}
+
+
+{%- block _searchFilterTaxonomy -%}
+    {%- trans_default_domain trans_default_domain -%}
+
+    {% for id, taxonomy in taxonomies %}
+        {% if taxonomy.type == searchFilter.name[7:] %}
+            {% set choiceValue = "taxonomy:#{id}" %}
+            {% set choiceLabel = taxonomy|locale_attr('title_') %}
+            {% set choice = attribute(searchFilter.choices, choiceValue)|default({'filter': 0, 'active': false}) %}
+            {{ block('_searchChoice') }}
+        {% endif %}
+    {% endfor %}
+{%- endblock -%}
+
+
+{%- block _searchFilterGroupedTaxonomy -%}
+    {%- trans_default_domain trans_default_domain -%}
+    
+    {% set currentSubgroupCounts = {} %}
+    
+    
+    {% for id, taxonomy in taxonomies %}
+        {% if taxonomy.type == searchFilter.name[7:] %}
+            {% set choiceValue = "taxonomy:#{id}" %}
+            {% set subgroup = id|split('_')|first %}
+            {% set currentSubgroupCounts = currentSubgroupCounts|merge({(subgroup): attribute(currentSubgroupCounts, subgroup)|default(0) + attribute(searchFilter.choices, choiceValue).filter|default(0)}) %}
+        {% endif %}
+    {% endfor %}
+    
+    {% set currentSubgroup = false %}
+    {% for id, taxonomy in taxonomies %}
+        {% if taxonomy.type == searchFilter.name[7:] %}
+            {% set subgroup = id|split('_')|first %}
+            {% if subgroup != currentSubgroup %}
+                {% set currentSubgroup = subgroup %}
+                {% if targetConfig.searchTemplate in ['top'] %}
+                    <div class="dropdown-item">
+                        <a class="subgroup-select" href="#" data-subgroup-class="subgroup-select-{{ subgroup }}"
+                            "checkbox-label-{{ "#{subgroup}"|replace({ ':': '--' }) }}>
+                            {{ "search.subtype.group.#{subgroup}"|trans }}
+                            <span aria-labelledby="checkbox-label-{{ "#{subgroup}"|replace({ ':': '--' }) }}" 
+                                class="badge badge-pill badge-secondary">{{ attribute(currentSubgroupCounts, subgroup)|default(0) }}</span>
+                        </a>
+                    </div>
+                {% else %}
+                    <li class="list-group-item py-2 d-flex justify-content-between align-items-center">
+                        <h4><a href="#" class="subgroup-select" data-subgroup-class="subgroup-select-{{ subgroup }}">{{ "search.subtype.group.#{subgroup}"|trans }}</h4></a>
+                    </li>
+                {% endif %}
+            {% endif %}
+            {% set choiceValue = "taxonomy:#{id}" %}
+            {% set choiceLabel = taxonomy|locale_attr('title_') %}
+            {% set choice = attribute(searchFilter.choices, choiceValue)|default({'filter': 0, 'active': false}) %}
+            {{ block('_searchChoice') }}
+        {% endif %}
+    {% endfor %}
+{%- endblock -%}
+
+
+{%- block _searchFilterYear -%}
+    {%- trans_default_domain trans_default_domain -%}
+    {% for choiceValue, choice in searchFilter.choices %}
+        {% set choiceLabel = choiceValue %}
+        {{ block('_searchChoice') }}
+    {% endfor %}
+
+{%- endblock -%}
+
+
+{%- block _searchChoice -%}
+    {%- trans_default_domain trans_default_domain -%}
+    {{ block("_searchChoice_#{targetConfig.searchTemplate}") }}
+{%- endblock -%}
+
+{%- block _searchChoice_top -%}
+    {%- trans_default_domain trans_default_domain -%}
+    <div class="dropdown-item py-2 d-flex justify-content-between align-items-center">
+        <div class="custom-control custom-checkbox mr-2">
+            <input type="checkbox" id="{{ "#{searchFilter.name}_#{choiceValue}" }}" name="{{ searchFilter.name }}[]" value="{{ choiceValue }}" class="custom-control-input subgroup-select-{{ taxonomy._id|default('not')|split('_')|first }}" {{ choiceValue in searchFilter.value ? 'checked="checked"' }}>
+            <label id="checkbox-label-{{ "#{searchFilter.name}_#{choiceValue}"|replace({ ':': '--' }) }}" class="custom-control-label" for="{{ "#{searchFilter.name}_#{choiceValue}" }}">{{ choiceLabel}}</label>
+        </div>
+        <span aria-labelledby="checkbox-label-{{ "#{searchFilter.name}_#{choiceValue}"|replace({ ':': '--' }) }}" 
+              class="badge badge-pill {{ choice.active ? 'badge-primary' : 'badge-secondary' }}">{{ choice.filter }}</span>
+    </div>
+{%- endblock -%}
+
+{%- block _searchChoice_left -%}
+    {%- trans_default_domain trans_default_domain -%}
+    <li class="list-group-item py-2 d-flex justify-content-between align-items-center">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" id="{{ "#{searchFilter.name}_#{choiceValue}" }}" name="{{ searchFilter.name }}[]" value="{{ choiceValue }}" class="custom-control-input subgroup-select-{{ taxonomy._id|default('not')|split('_')|first }}" {{ searchFilter.value ? 'checked="checked"' }}>
+            <label id="checkbox-label-{{ "#{searchFilter.name}_#{choiceValue}"|replace({ ':': '--' }) }}" class="custom-control-label" for="{{ "#{searchFilter.name}_#{choiceValue}" }}">{{ choiceLabel}}</label>
+        </div>
+        <span id="badge-{{ "#{searchFilter.name}_#{choiceValue}"|replace({ ':': '--' }) }}" 
+              aria-labelledby="checkbox-label-{{ "#{searchFilter.name}_#{choiceValue}"|replace({ ':': '--' }) }}" 
+              aria-live="polite" 
+              role="status" 
+              class="badge badge-pill {{ choice.active ? 'badge-primary' : 'badge-secondary' }}">{{ choice.filter }}</span>
+    </li>
+{%- endblock -%}
+
+
+{%- block _searchHit %}
+    {%- trans_default_domain trans_default_domain -%}
+    {%- set src = hit._source -%}
+    <div class="card mb-4">
+        <div class="card-body pb-0">
+            <div class="float-left">
+                {%- include '@EMSCH/template/include/picture.html.twig' with { 
+                    picture: src,
+                    class: 'pr-4 pb-4',
+                    height: 100,
+                    width: 100 ,
+                    search_type: src.search_type|default(src._contenttype),
+                } -%}
+            </div>
+            <div>
+                <div class="d-flex justify-content-between">
+                    <h5 class="card-title" {{ emsch_admin_menu(('ems://object:'~src._contenttype~':'~hit._id)) }}>
+                        <a href="{{ ['ems://object', hit._source._contenttype, hit._id]|join(':')|emsch_routing }}">{{ src|locale_attr('title_') }}</a>
+                    </h5>    
+                    <div>
+                        {{ src.search_dates|first|date('Y') }}
+                    </div>                        
+                </div>
+                <h6 class="card-subtitle mb-2 text-muted">{{ ('search_type.'~src.search_type|default(src._contenttype))|trans }}</h6>
+                <p>{{ src|locale_attr('summary_')|default('')|replace(wyiwygReplaces)|emsch_routing }}</p>
+                {% if src.search_category|default([])|length > 0 %}
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        {% if src.search_category|length == 1 %}
+                            {{ 'search.category'|trans }}
+                        {% else %}
+                            {{ 'search.categories'|trans }}
+                        {% endif %}
+                        :
+                        {% for caterory in src.search_category %}
+                            {{ attribute(attribute(taxonomies, caterory|split(':')|last)|default({}), "title_#{locale}")|default(caterory|split(':')|last) }}
+                        {% endfor %}
+                    </h6>
+                {% endif %}
+            </div>
+        </div>
+        {%- if src.search_type in ['news'] and attribute(src, 'search_dates') is defined -%}
+            <div class="card-footer py-2 px-4">
+                <small class="text-muted">
+                    {{ 'published_date'|trans({ '%date%': src.search_dates|first|date('date_format'|trans)|replace(monthsTrans|default({})) }) }}
+                </small>
+            </div>
+        {%- endif -%}
+    </div>
+{%- endblock -%}

@@ -1,0 +1,122 @@
+{% extends '@EMSCH/template/base.html.twig' %}
+{% trans_default_domain trans_default_domain %}
+
+
+{% block title -%}
+    {{ attribute(source, 'title_'~app.request.locale) }}
+{%- endblock %}
+
+
+{%- block homeHeader -%}
+    <div class="jumbotron" style="background-image: url(&quot;{% include('@EMSCH/template/include/image-path.txt.twig') with {picture: source, width: 1024, height: 200 } %}&quot;";  height: 50%; background-position: center; background-repeat: no-repeat; background-size: cover;>
+        <div class="container" {{ emsch_admin_menu(emsLink) }}>
+             <h1 class="sr-only">{{ block('title') }}</h1>
+             {{ attribute(source, "body_#{locale}")|default('')|replace(wyiwygReplaces)|emsch_routing }}
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block themes %}
+    {% set firstMenuId = menu.structure.0.id|default(false) %}
+
+    {% if firstMenuId %}
+        {% set currentMenuByTarget = attribute(attribute(byTarget, locale), targetGroup) %}
+        {% set firstMenuSlug = attribute(currentMenuByTarget.slugByUid, firstMenuId) %}
+    
+        {% embed '@EMSCH/template/embed/print_menu_children.html.twig' with {
+            'menuChildren' : menu.getItem(firstMenuId).children|default([]),
+            'pictureSettings': { 'height': 70, 'width': 70, 'class': '' },
+            'maxSize': 8,
+            'seeAllLink': path("emsch_target_#{currentTarget.target_group}.#{locale}", {slug: firstMenuSlug}),
+            'seeAllLabel': 'themes.see.all'
+
+        } %}
+            {% trans_default_domain trans_default_domain %}
+            {% block itemsTitle %}
+                <div class="row">
+                    <div class="col-12">
+                        <h3>{{ 'themes.popular'|trans }}</h3>
+                        <hr/>
+                    </div>
+                </div>
+            {% endblock %}
+            {% block itemClass %}{{ "col-md-3 mb-4" }}{% endblock %}
+        {% endembed %}
+    {% endif %}
+{% endblock %}
+
+
+{% block actions %}
+    {% set thirdMenuId = menu.structure.2.id|default(false) %}
+
+    {% if thirdMenuId %}
+        {% set currentMenuByTarget = attribute(attribute(byTarget, locale), targetGroup) %}
+        {% set thirdMenuSlug = attribute(currentMenuByTarget.slugByUid, thirdMenuId) %}
+
+        {% embed '@EMSCH/template/embed/print_menu_children.html.twig' with {
+            'menuChildren' : menu.getItem(thirdMenuId).children|default([]),
+            'noImage': true,
+            'maxSize': 4,
+            'seeAllLink': path("emsch_target_#{currentTarget.target_group}.#{locale}", {slug: thirdMenuSlug}),
+            'seeAllLabel': 'actions.see.all'
+        } %}
+            {% trans_default_domain trans_default_domain %}
+            {% block itemsTitle %}
+                <div class="row">
+                    <div class="col-12">
+                        <h3>{{ 'actions'|trans }}</h3>
+                        <hr/>
+                    </div>
+                </div>
+            {% endblock %}
+            {% block itemClass %}{{ "col-md-3" }}{% endblock %}
+        {% endembed %}
+    {% endif %}
+{% endblock %}
+
+
+{%- block news -%}
+    {% set countNews = 3 %}
+    {% set newsItems = emsch_search('news', {
+        "size": countNews,
+        "sort": [ { "search_dates": { "order": "desc" } } ],
+        "query": {
+            "bool": {
+              "must": [
+                { "term": { ("show_#{locale}"): { "value": true } } },
+                { "term": { "show_homepage": { "value": true } } },
+                {
+                    "bool": {
+                        "minimum_should_match": 1,
+                        "should": [
+                            { "terms": { "target_group": [ "#{targetGroup}" ] } },
+                            { "bool": {  "must_not": [  { "exists": { "field": "target_group" } } ] } } 
+                        ]
+                    }
+                }
+              ]
+            }
+          }
+    }).hits.hits  %}
+    
+    {% if newsItems|length > 0 %}
+        <div class="row">
+            <div class="col">
+                <h2 class="text-center">{{ 'news.title'|trans }}</h2>
+                <hr />
+                <div class="row justify-content-center">
+                    {% for newsItem in newsItems %}
+                        <div class="col-md-4 col-sm-6">
+                            {% include '@EMSCH/template/include/news_card.html.twig' with {'news': newsItem._source, 'newsId': newsItem._id }  %}
+                        </div>
+                    {% endfor %}
+                </div>  
+                <hr />
+                <div class="d-flex w-100 justify-content-center mt-4">
+                    <a href="{{ path('emsch_news_'~targetGroup) }}" class="btn btn-primary">{{ 'news.all'|trans }}</a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{%- endblock -%}

@@ -1,0 +1,23 @@
+{% extends '@EMSCH/template/slideshow/index.html.twig' %}
+{% trans_default_domain trans_default_domain %}
+
+{% block title %}{{ attribute(source, locale).title|default('') }}{% endblock %}
+
+{% block meta_description %}{{ attribute(source, locale).meta_description|default('') }}{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('css/reveal.css', 'emsch') }}">
+{% endblock %}
+
+{% block blocks %}
+    {% with {
+        'structure': attribute(source, locale).blocks|default("{}")|ems_json_decode,
+        'trans_default_domain': trans_default_domain,
+    } %}
+        {{ block("render", "@EMSCH/template/slideshow/blocks/abstract-block.html.twig") }}
+    {% endwith %}
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ asset('js/reveal.js', 'emsch') }}"></script>
+{% endblock %}

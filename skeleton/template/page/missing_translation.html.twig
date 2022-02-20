@@ -1,0 +1,27 @@
+{% extends '@EMSCH/template/base.html.twig' %}
+{% trans_default_domain trans_default_domain %}
+
+{% block body %}
+    <main role="main" class="container mt-2" id="main-content">
+        <div class="row py-4">
+           <div class="col">
+               <h1 class="pb-3 mb-4 font-italic border-bottom">{{ 'missing.title'|trans }}</h1>
+               <div class="alert alert-primary" role="alert">
+                  {{ 'missing.description'|trans({'%type%': source._contenttype|trans, '%language%': language}) }}
+                </div>
+           </div> 
+        </div>
+         <div class="row py-2 d-flex justify-content-center">
+            {% for language, l in locales|filter(v => ( attribute(source, 'show_'~v)|default(false) == true ) ) %}
+                <div class="col-md-3 text-center">
+                    <div class="card shadow-sm bg-dark text-light">
+                        <div class="card-body">
+                            <p class="card-text">{{ attribute(source, 'title_'~l)  }}</p>
+                            <a lang="{{ l }}" href="{{ "ems://#{source._contenttype}:#{document._id}"|emsch_routing(l) }}" class="btn btn-info">{{ language }}</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+{% endblock %}

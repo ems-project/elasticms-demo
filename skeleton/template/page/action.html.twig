@@ -1,0 +1,21 @@
+{% extends '@EMSCH/template/page/page.html.twig' %}
+{% trans_default_domain trans_default_domain %}
+
+{% block pageBlocks %}
+    {% set blocks = source|locale_attr('blocks_')|default([]) %}
+    {% if blocks|length > 0 %}
+        <div id="action" class="mb-4">
+            {% for blockIndex, pageBlock in blocks %}
+                <div class="bg-light px-4 py-2">
+                    <h3 class="text-center">{{ 'step'|trans }} {{ (blockIndex + 1) }}: {{ pageBlock|locale_attr('title_') }}</h3>
+                    {{ pageBlock|locale_attr('body_')|default('')|replace(wyiwygReplaces)|emsch_routing }}
+                </div>
+                {% if loop.last == false %}
+                    <div class="d-flex justify-content-center">
+                        <div class="display-4"><i class="fas fa-caret-down"></i></div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

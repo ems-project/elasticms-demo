@@ -1,0 +1,127 @@
+action:
+    toggle-navigation: 'Basculer la navigation'
+actions: Actions
+actions.see.all: 'See all actions(%count%)'
+ajax-search:
+    load-more: 'Plus de résultats'
+applications: 'Les applications'
+aria:
+    back-to-top: 'Retour en haut'
+    breadcrumb:
+        current: Actuelle
+    loading: Chargement...
+    navbar:
+        current: (courant)
+    skip-to-main-content: 'Passer au contenu principal'
+date_format: 'j %F% Y'
+error:
+    404:
+        description: 'Nous n''avons pas trouvé la page que vous cherchiez. En attendant, vous pouvez essayer d''utiliser le formulaire de recherche.'
+        title: 'Oups! Page non trouvée.'
+    description: 'Nous allons travailler sur la correction de cela tout de suite. En attendant, vous pouvez essayer d''utiliser le formulaire de recherche.'
+    title: 'Oups! Quelque chose a mal tourné.'
+first_aid:
+    avg: 'First aid AVG'
+home:
+    fat: 'Thèmes fréquemment consultés'
+interesting:
+    links: 'Liens intéressants'
+link: link
+missing:
+    description: 'The requested %type% is not available in ''%language%'', please choose another language below ...'
+    title: 'Missing translation'
+month:
+    April: avril
+    August: août
+    December: décembre
+    February: février
+    January: janvier
+    July: juillet
+    June: juin
+    March: mars
+    May: mai
+    November: novembre
+    October: oktober
+    September: septembre
+news: Actualités
+news.all: 'All news'
+news.more: 'More news'
+news.no-result: 'Pas d''actualités'
+news.readmore: 'Read more ...'
+news.title: Actualités
+page:
+    page:
+        side:
+            about: 'À propos'
+            see_also: 'Voir également'
+    sitemap:
+        nothing: 'Cette page n''a pas encore de contenu.'
+    target:
+        children_missing: 'Cette page n''a pas encore de contenu.'
+published_date: 'Publié le %date%'
+questions: Questions
+replace:
+    Company_name: Elasticms
+    Site_name: 'Le site web démo d''elasticms'
+    company_name: elasticms
+    site_name: 'le site web démo d''elasticms'
+rss:
+    doc:
+        description: 'Flux RSS documentation d''elasticms'
+        title: 'Flux RSS documentation d''elasticms'
+    site:
+        description: 'Flux RSS d''elasticms'
+        title: 'Flux RSS d''elasticms'
+search: Rechercher
+search.categories: Catégories
+search.category: Catégorie
+search.filters: 'Affiner les résultats'
+search.pagination.current: Actuelle
+search.pagination.next: Suivante
+search.pagination.previous: Précédente
+search.placeholder: 'Entrez un ou des mots-clé'
+search.reset: Réinitialiser
+search.results: '{0} Aucun résultat trouvé|{1} 1 résultat trouvé|]1,Inf[%count% résultats trouvés'
+search.results.query: 'pour "%query%"'
+search.sort_recent: Récent
+search.sort_relevance: Pertinence
+search.sort_title: Titre
+search.sorting: 'Classer par'
+search.subtype.group.dispute: 'La Chambre Contentieuse'
+search.subtype.group.general: 'Secrétariat Général'
+search.toggle_filters: 'basculer les filtres'
+search_filter:
+    locales: Langue
+    search_category: Catégorie
+    search_subtype: Subtype
+    search_type: Type
+    search_year: Année
+search_result:
+    paging_info: 'Résultats de %from% à %to% sur %total%'
+search_type:
+    advice: Avis
+    decision: Décisions
+    faq: FAQ
+    link: Links
+    news: Actualités
+    page: Pages
+    press_release: 'Press release'
+    publication: Publications
+    recommendation: Recommandations
+site:
+    author: 'L''équipe elasticms'
+    company: elasticms
+    copyright: '© %company% %year%'
+    intro: 'Découvrez le site web de démonstration et ces fonctionnalités standards.'
+    logo: 'Logo d''%company%'
+    name: 'Site web Démo'
+    tagline: 'Site Web élastique'
+step: Étape
+themes:
+    popular: 'Thèmes fréquemment consultés'
+    see:
+        all: 'See all themes (%count%)'
+toc: 'Table des matières'
+view:
+    all:
+        themes: 'Voir tous les thèmes'

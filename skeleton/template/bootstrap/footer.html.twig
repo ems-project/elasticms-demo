@@ -1,0 +1,48 @@
+{% spaceless %}
+{% trans_default_domain trans_default_domain %}
+
+{% set footer = targetConfig.footerMenu|emsch_get %}
+
+{% set footerItemOuuids = {} %}
+{% set footerContentTypes = {} %}
+
+{% for child in footer.source.children|default([]) %}
+    {% set splitItem = child|split(':') %}
+    {% set footerItemOuuids = footerItemOuuids|merge([splitItem|last]) %}
+    {% if splitItem|first not in footerContentTypes %}
+        {% set footerContentTypes = footerContentTypes|merge([splitItem|first]) %}
+    {% endif %}
+{% endfor %}
+
+{% set footerItems = emsch_search(footerContentTypes|join(','), {
+    size: 100,
+    _source: ["slug_#{locale}", "title_#{locale}", "show_#{locale}",  '_contenttype'],
+    query: { terms: { _id: footerItemOuuids } }
+}).hits.hits %}
+
+<footer>
+    <div class="container pt-5 mt-5 border-bottom bg-dark text-light">
+        <div class="row">
+            <div class="col-md-3 col-sm-12 mb-3 text-center">
+                <img src="{{ asset("img/full-logo-#{locale}.png", 'emsch') }}" class="img-fluid" alt="Responsive image">
+            </div>
+            <div class="col-md-12">
+                <ul class="nav justify-content-center">
+                    <li class="nav-item">
+                        <span class="nav-link">{{ 'site.copyright'|trans({'%year%': 'now'|date('Y'), '%company%': ('site.company'|trans) }) }}</span>
+                    </li>
+                    {% for item in footerItems %}
+                        {% if attribute(item._source, "show_#{locale}")|default(true) and attribute(item._source, "title_#{locale}")|default(false) %}
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="{{ (['ems://object', item._source._contenttype, item._id]|join(':'))|emsch_routing }}">{{ attribute(item._source, "title_#{locale}") }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    <li><span id="openOrejimeModal"></span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<a id="back2top" href="#logo" title="{{ 'aria.back-to-top'|trans|e('html_attr') }}"><i class="fas fa-arrow-up"></i><span>{{ 'aria.back-to-top'|trans }}</span></a>
+{% endspaceless %}

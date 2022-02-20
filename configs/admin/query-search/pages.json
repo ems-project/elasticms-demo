@@ -1,0 +1,18 @@
+{
+    "class": "EMS\\CoreBundle\\Entity\\QuerySearch",
+    "arguments": [],
+    "properties": {
+        "label": "Pages",
+        "name": "pages",
+        "environments": [
+            "preview"
+        ],
+        "options": {
+            "query": "{\r\n    \"foo\": \"bar\"\r\n}"
+        },
+        "orderKey": 9999
+    },
+    "replaced": [
+        "environments"
+    ]
+}

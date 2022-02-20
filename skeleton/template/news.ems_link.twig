@@ -1,0 +1,11 @@
+{%- if source.redirect_to|default(false) -%}
+    {{ "ems://object:#{source.redirect_to}"|emsch_routing }}
+{%- elseif attribute(source, "show_#{locale}")|default(false) -%}
+    {% set targetGroup = app.request.get('_target_group')|default('citizen') %}
+    {% if targetGroup not in source.target_group|default([]) %}
+        {% set targetGroup = source.target_group|default(['citizen'])|first %}
+    {% endif %}
+    {{ path('emsch_news_item_'~targetGroup, {'_locale': locale, 'slug': attribute(source, "slug_#{locale}"), year: source.search_dates|first|date('Y'), month: source.search_dates|first|date('m'), day: source.search_dates|first|date('d') }) }}
+{%- else -%}
+    {{ path('emsch_missing_translation', { '_locale': locale, 'contentType': source._contenttype, 'ouuid': id }) }}
+{%- endif -%}

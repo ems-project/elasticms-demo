@@ -1,0 +1,11 @@
+{% spaceless %}
+
+{% set slugs = ems_asset_path(attribute(source, "file_#{app.request.locale}"))|split('/') %}
+{% set token = slugs|slice(slugs|length-3,3) %}
+{{ {
+    config: token[0],
+    hash: token[1],
+    filename: token[2],
+}|json_encode|raw }}
+
+{% endspaceless %}

@@ -1,0 +1,14 @@
+{% extends '@EMSCH/template/variables.twig' %}
+{% trans_default_domain trans_default_domain %}
+
+{% block request %}
+{%- if 'live' == environment and app.environment == 'prod' and (app.request.host) in canonicals %}
+User-agent: *
+Disallow: /bundles/
+{% else %}
+User-agent: *
+Disallow: /
+{% endif %}
+Disallow: /bundles/
+Sitemap: https://{{ attribute(targetConfigs|first.canonicals, targetConfigs|first.locales|first) }}{{ path('sitemap.xml') }}
+{% endblock %}

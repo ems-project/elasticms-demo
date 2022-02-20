@@ -1,0 +1,31 @@
+{% extends '@EMSCH/template/base.html.twig' %}
+{% trans_default_domain trans_default_domain %}
+
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block body %}
+<main role="main" id="main-content">
+    <div class="container-lg">
+        <div class="row py-4 d-flex justify-content-center">
+            {% for language, locale in locales %}
+                <div class="col-md-3 col-sm-6 text-center mt-5">
+                    <div class="card shadow-sm bg-dark text-light">
+                        <div class="card-body">
+                            <img src="{{ asset('img/full-logo-' ~ locale ~ '.png', 'emsch') }}" class="img-fluid" alt="{{ 'site.logo'|trans({'%company%': 'site.company'|trans({}, trans_default_domain, locale)}, trans_default_domain, locale) }}">
+                            <p class="card-text">{{ 'site.intro'|trans({}, trans_default_domain, locale) }}</p>
+                            <div class="btn-group-vertical">
+                                {%- for target in targetGroups -%}
+                                    {% if attribute(attribute(byTarget, locale), target)|default(false) %}
+                                        <a class="btn btn-primary" href="{{ path('emsch_target_'~target~'.'~locale) }}">{{ attribute(attribute(byTarget, locale), target).title }}</a>
+                                    {% endif %}
+                                {%- endfor -%}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+   </div>
+</main>
+{% endblock %}

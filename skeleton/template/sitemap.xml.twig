@@ -1,0 +1,115 @@
+{% extends '@EMSCH/template/base.html.twig' %}
+
+{% set pageSize = 1000 %}
+
+{% block request %}
+    <?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+        {% set targetGroup = app.request.get('_target_group', false) %}
+        {% set page = app.request.get('page', 0) %}
+        {% if targetGroup %}
+            {% set searchDocuments = emsch_search(app.request.get('contentType'), {
+                _source: [
+                    'show_*',
+                    'slug*',
+                    'menu*',
+                    '_published_datetime',
+                    '_contenttype',
+                    'search_dates',
+                ],
+                sort: {
+                    _finalization_datetime: {
+                        order: "desc",
+                        missing: "_last",
+                        unmapped_type: "long"
+                    }
+                },
+                query: {
+                    term: {
+                        target_group: targetGroup
+                    }
+                }
+            }, pageSize*page, pageSize) %}
+            
+            {% set config = attribute(targetConfigs, targetGroup) %}
+            
+            {% set priorityStep = 1.0 / (config.locales|length + 1) %}
+            {% for hit in searchDocuments.hits.hits|default([]) %}
+                <url>
+                    {% set priority = priorityStep %}
+                    {% set firstUrl = true %}
+                    {% for l in config.locales %}
+                        {% if attribute(hit._source, "show_#{l}") %}
+                            {% set href = false %}
+                            {% for uid in attribute(hit._source, "menu_#{l}")|default([]) %}
+                                {% if not href and attribute(attribute(attribute(byTarget, l), targetGroup).slugByUid, uid) is defined %}
+                                    {% set href = path("emsch_target_#{targetGroup}", {slug: attribute(attribute(attribute(byTarget, l), targetGroup).slugByUid, uid), _locale: l}) %}
+                                    {% set priority = priority + priorityStep %}
+                                {% endif %}
+                            {% endfor %}
+                            
+                            {% if not href %}
+                                {% if hit._source._contenttype in ['page'] %}
+                                    {% set href = path("emsch_target_#{targetGroup}", { slug: attribute(hit._source, "slug_#{l}"), _locale: l} ) %}
+                                {% elseif hit._source._contenttype in ['news'] %}
+                                    {% set href = path("emsch_news_item_#{targetGroup}", { slug: attribute(hit._source, "slug_#{l}"), _locale: l, year: hit._source.search_dates|first|date('Y'), month: hit._source.search_dates|first|date('m'), day: hit._source.search_dates|first|date('d') } ) %}
+                                {% else %}
+                                    {% set href = path("emsch_#{hit._source._contenttype}_#{targetGroup}", { slug: attribute(hit._source, "slug_#{l}"), _locale: l } ) %}
+                                {% endif %}
+                            {% endif %}
+                            
+                            {% if href %}
+                                {% set href = attribute(config.canonicals, l) ~ href %}
+                                {% if firstUrl %}
+                                    {% set firstUrl = false %}
+                                    <loc>https://{{ href }}</loc> 
+                                {% endif %}
+                                <xhtml:link rel="alternate" hreflang="{{ l }}" href="https://{{ href }}" />
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    
+                    <lastmod>{{ hit._source._published_datetime|default('now')|date('Y-m-d') }}</lastmod>
+                    <changefreq>weekly</changefreq>
+                    <priority>{{ priority }}</priority>
+                </url>
+            {% endfor %}
+            
+            {% if ( page*pageSize + searchDocuments.hits.hits|default([])|length ) < searchDocuments.hits.total|default(0) %}
+            	<sitemap>
+            		<loc>https://{{ attribute(config.canonicals, targetConfig.locales|first) }}{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({page: page + 1})) }}</loc>
+            		<lastmod>{{ 'now'|date('Y-m-d') }}</lastmod>
+            	</sitemap>
+            {% endif %}
+        
+        {% else %}
+            {{ block('sitemap_views') }}
+        {% endif %}
+    </urlset>
+{% endblock -%}
+
+{% block sitemap_views %}
+    {% for targetGroup, config in targetConfigs %}
+      <url>
+        {% for route in ['emsch_news_%targetGroup%'] %}
+            {% for l in targetConfig.locales %}
+                {% set href = attribute(config.canonicals, l) ~ path(route|replace({('%targetGroup%'): targetGroup}), {_locale: l}) %}
+                {% if loop.first %}
+                    <loc>https://{{ href }}</loc>
+                {% endif %}
+                <xhtml:link rel="alternate" hreflang="{{ l }}" href="https://{{ href }}" />
+            {% endfor %}
+        {% endfor %}
+        
+        <lastmod>{{ 'now'|date('Y-m-d') }}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1</priority>
+      </url>
+      {% for contentType in ['page', 'news', 'publication'] %}
+    	<sitemap>
+    		<loc>https://{{ attribute(config.canonicals, targetConfig.locales|first) }}{{ path('sitemap_content_type', {_target_group: targetGroup, contentType: contentType}) }}</loc>
+    		<lastmod>{{ 'now'|date('Y-m-d') }}</lastmod>
+    	</sitemap>
+      {% endfor %}
+    {% endfor %}
+{% endblock -%}

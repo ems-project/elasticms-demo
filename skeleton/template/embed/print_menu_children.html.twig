@@ -1,0 +1,84 @@
+{% trans_default_domain trans_default_domain %}
+
+{% set maxSize = maxSize|default(50) %}
+{% set menuChildren = menuChildren|default([]) %}
+{% set pictureSettings = pictureSettings|default({
+    'class': 'py-2',
+    'height': 100,
+    'width': 100,
+}) %}
+
+{% set _uids = {} %}
+{% set _children = {} %}
+{% for item in menuChildren %}
+    {% set _uids = _uids|merge([item.id]) %}
+    {% set _children = _children|merge({(item.id): {
+        label: item.label,
+        search_type: item.contentType,
+        path: path('emsch_target_'~targetGroup, {slug: attribute(attribute(attribute(byTarget, app.request.locale), targetGroup).slugByUid, item.id)})
+    } }) %}
+{% endfor %}
+
+{% set _childrenHits = emsch_search('page,link', {
+    "_source": ["_contenttype", "title_#{locale}", "summary_#{locale}", "search_type", "picture_*", "menu_#{locale}"],
+    "query": {
+        "terms": { ("menu_#{locale}"): _uids }
+    }
+}, 0, 50).hits.hits %}
+
+{% for hit in _childrenHits %}
+    {% set hitUid = attribute(hit._source, "menu_#{locale}")|default([])|filter((uid) => uid in _uids)|first|default(false) %}
+    {% if hitUid %}
+        {% set path = attribute(_children, hitUid).path %}
+        {% set _children = _children|merge({(hitUid): {
+                label: attribute(hit._source, "title_#{locale}"),
+                desc: attribute(hit._source, "summary_#{locale}"),
+                search_type: hit._source.search_type|default(hit._source._contenttype),
+                path: path,
+                source: hit._source,
+        } }) %}
+    {% endif %}
+{% endfor %}
+
+{% set totalChildren = _children|length %}
+
+{% if _children|length > 0 %}
+    {% block itemsTitle %}{% endblock %}
+    <div class="row mb-5">
+        {% for child in _children[0:maxSize] %}
+            {% if loop.last == false or _children|length <= maxSize %}
+                <div class="{% block itemClass %}{{ "col-md-4" }}{% endblock %}">
+                    <div class="card h-100">
+                        {% if noImage|default(false) == false %}
+                            <div class="d-flex justify-content-center">
+                                {%- include '@EMSCH/template/include/picture.html.twig' with pictureSettings|merge({ 
+                                    'picture': child.source|default({}),
+                                    'search_type': child.search_type
+                                }) -%}
+                            </div>
+                        {% endif %}
+                        <div class="card-body py-3">
+                            <h5 class="card-title text-center"><a href="{{ child.path }}">{{ child.label }}</a></h5>
+                            {% if printDesc|default(false) == true %}
+                                {% if child.desc|default(false) %}
+                                    <p class="card-text">{{ child.desc|replace(wyiwygReplaces)|emsch_routing }}</p>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+        {% if seeAllLink is defined and _children|length > maxSize %}
+            <div class="{{ block('itemClass') }}">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <a href="{{ seeAllLink }}">{{ seeAllLabel|trans({'%count%': _children|length }) }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endif %}

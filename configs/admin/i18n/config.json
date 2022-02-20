@@ -1,0 +1,14 @@
+{
+    "class": "EMS\\CoreBundle\\Entity\\I18n",
+    "arguments": [],
+    "properties": {
+        "identifier": "config",
+        "content": [
+            {
+                "locale": "en",
+                "text": "{\"instance_id\":\"demo_v1_\",\"languages\":{\"French\":\"fr\", \"Dutch\":\"nl\",  \"English\": \"en\", \"German\": \"de\" },\"target_groups\":{\"Documentation\":\"doc\", \"Website\": \"site\"}}"
+            }
+        ]
+    },
+    "replaced": []
+}

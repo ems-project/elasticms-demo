@@ -1,0 +1,127 @@
+action:
+    toggle-navigation: 'Schakel navigatie'
+actions: Actions
+actions.see.all: 'Bekijk alle acties (%count%)'
+ajax-search:
+    load-more: 'Meer resultaten'
+applications: Toepassingen
+aria:
+    back-to-top: 'Terug naar boven'
+    breadcrumb:
+        current: Actueel
+    loading: 'Bezig met laden...'
+    navbar:
+        current: (stroom)
+    skip-to-main-content: 'Ga naar hoofdinhoud'
+date_format: 'j %F% Y'
+error:
+    404:
+        description: 'We kunnen de pagina die u zoekt niet vinden. Ondertussen kunt u proberen het zoekformulier te gebruiken.'
+        title: 'Oeps! Pagina niet gevonden.'
+    description: 'We zullen eraan werken om dat meteen op te lossen. Ondertussen kunt u proberen het zoekformulier te gebruiken.'
+    title: 'Oeps! Er is een fout opgetreden.'
+first_aid:
+    avg: 'Eerste hulp AVG'
+home:
+    fat: 'Veel bekeken onderwerpen'
+interesting:
+    links: 'Interessante links'
+link: link
+missing:
+    description: 'De gevraagde %type% is niet beschikbaar in het %language%, kies hieronder een andere taal ...'
+    title: 'Vertaling niet beschikbaar'
+month:
+    April: april
+    August: augustus
+    December: december
+    February: februari
+    January: januari
+    July: juli
+    June: juni
+    March: maart
+    May: mei
+    November: november
+    October: oktober
+    September: september
+news: Nieuws
+news.all: 'All news'
+news.more: 'Meer nieuws'
+news.no-result: 'Geen nieuws'
+news.readmore: 'Lees meer ..'
+news.title: Nieuws
+page:
+    page:
+        side:
+            about: Over
+            see_also: 'Zie ook'
+    sitemap:
+        nothing: 'Deze pagina heeft nog geen inhoud.'
+    target:
+        children_missing: 'Dit pagine heeft nog geen inhoud.'
+published_date: 'Gepubliceerd op %date%'
+questions: Vragen
+replace:
+    Company_name: Elasticms
+    Site_name: 'De website van elasticms demo'
+    company_name: elasticms
+    site_name: 'de website van elasticms demo'
+rss:
+    doc:
+        description: 'Documentatie elasticms RSS-feed'
+        title: 'Documentatie elasticms RSS-feed'
+    site:
+        description: 'elasticms RSS-feed'
+        title: 'elasticms RSS-feed'
+search: Zoeken
+search.categories: Categorieën
+search.category: Categorie
+search.filters: 'Verfijn resultaten'
+search.pagination.current: Huidige
+search.pagination.next: Volgende
+search.pagination.previous: Vorige
+search.placeholder: Zoekterm(en)
+search.reset: Reset
+search.results: '{0} Geen resultaten gevonden|{1} 1 resultaat gevonden|]1,Inf[%count% resultaten gevonden'
+search.results.query: 'voor "%query%"'
+search.sort_recent: Recent
+search.sort_relevance: Relevantie
+search.sort_title: Titel
+search.sorting: 'Sorteer op'
+search.subtype.group.dispute: 'De Geschillenkamer'
+search.subtype.group.general: 'Het Algemeen Secretariaat'
+search.toggle_filters: schakelfilters
+search_filter:
+    locales: Taal
+    search_category: Categorie
+    search_subtype: Subtype
+    search_type: Type
+    search_year: Jaar
+search_result:
+    paging_info: 'Resultaten van %from% tot %to% op %total%'
+search_type:
+    advice: Adviezen
+    decision: Beslissingen
+    faq: FAQ
+    link: Links
+    news: Nieuws
+    page: 'Pagina''s'
+    press_release: 'Press release'
+    publication: Publicaties
+    recommendation: Aanbevelingen
+site:
+    author: 'Het elasticms-team'
+    company: elasticms
+    copyright: '© %company% %year%'
+    intro: 'Ontdek de demonstratiewebsite en de standaardfuncties.'
+    logo: 'Logo van %company%'
+    name: 'Demo website'
+    tagline: 'Elastische website'
+step: Stap
+themes:
+    popular: 'Vaak geraadpleegde thema''s'
+    see:
+        all: 'Bekijk alle thema''s (%count%)'
+toc: Inhoudsopgave
+view:
+    all:
+        themes: 'Bekijk alle thema''s'
