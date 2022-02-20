@@ -1,2 +1,2 @@
 #/bin/bash
-docker-compose exec ems_pgsql demo-dev $@
+docker-compose exec elasticms demo-dev $@

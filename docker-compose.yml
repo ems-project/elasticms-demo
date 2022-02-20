@@ -110,7 +110,7 @@ services:
 #    ports:
 #      - "5432:5432"
     environment:
-      - POSTGRES_PASSWORD=adminpg
+      - POSTGRES_PASSWORD=s3cr3t
       - TZ=Europe/Brussels
       - PUID=1000
       - PGID=1000
@@ -244,16 +244,16 @@ services:
       - 'EMSCH_ASSET_LOCAL_FOLDER=skeleton'
       - 'BACKEND_URL=http://demo-pgsql-admin-dev.localhost:9000'
     volumes:
-      - ../configs/skeleton:/opt/configs
-      - ../configs/admin:/opt/src/admin
-      - ../configs/document:/opt/src/document
-      - ../dist:/opt/src/public/skeleton:ro
-      - ../skeleton:/opt/src/local/demo_pgsql_v1_preview
-      - ../skeleton:/opt/src/local/demo_pgsql_v1_live
-      - ../../EMSCommonBundle:/opt/src/vendor/elasticms/common-bundle
+      - ./configs/skeleton:/opt/configs
+      - ./configs/admin:/opt/src/admin
+      - ./configs/document:/opt/src/document
+      - ./dist:/opt/src/public/skeleton:ro
+      - ./skeleton:/opt/src/local/demo_pgsql_v1_preview
+      - ./skeleton:/opt/src/local/demo_pgsql_v1_live
+      - ../EMSCommonBundle:/opt/src/vendor/elasticms/common-bundle
 #      - ../../EMSFormBundle:/opt/src/vendor/elasticms/form-bundle
 #      - ../../EMSSubmissionBundle:/opt/src/vendor/elasticms/submission-bundle
-      - ../../EMSClientHelperBundle:/opt/src/vendor/elasticms/client-helper-bundle
+      - ../EMSClientHelperBundle:/opt/src/vendor/elasticms/client-helper-bundle
 #      - ../../website-skeleton/config:/opt/src/config
 #      - ../../website-skeleton/vendor:/opt/src/vendor
     labels:
@@ -271,4 +271,3 @@ volumes:
   redis:
   s3:
   postgres:
-  varnish:

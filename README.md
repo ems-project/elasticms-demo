@@ -3,10 +3,38 @@ A default elasticms local setup using docker-compose
 
 ## Prerequisites
 
+You need those applications install (or alternative)
  - [NodeJS and NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
  - [Docker Desktop](https://www.docker.com/get-started) or docker-compose
 
+The following ports must be available:
+ - 8888: Traefik UI
+ - 80: Web HTTP
+ - 443: Web HTTPS
+
+
 ## Install steps
 
- - `npm install`
- - `npm run prod`
+Go to [minio](http://minio.localhost/login) and login with those credentials:
+- user: accesskey
+- password: secretkey
+
+And create a `demo` bucket.
+
+Open a terminal and run the following commands:
+- `npm install`: install NPM dependencies
+- `npm run prod`: Build the frontend assets (js, css, ...)
+- `docker-compose up -d`: Start the docker container
+- `./create-admin.sh` or ``
+- `./bootstrap.sh` or ``
+
+Check the [preview](http://demo-preview.localhost/slideshow/toto)
+
+## Troubleshooting
+
+### Check local services
+
+ - [Traefik](http://localhost:8888) 
+ - [mailhog](http://mailhog.localhost) 
+ - [kibana](http://kibana.localhost) 
+ - [elasticsearch](http://es.localhost/_cluster/health): Verify that the status is `green`
