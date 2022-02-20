@@ -1,5 +1,5 @@
 #/bin/bash
-./demo-preview.sh ems:admin:login
+./demo-preview.sh ems:admin:login --username=demo
 
 echo "Upload assets"
 ./demo-preview.sh emsch:local:folder-upload -- /opt/src/admin/assets
