@@ -32,6 +32,7 @@ demo-preview.sh ems:admin:get dashboard --export
 echo "Update admin configs Channels"
 demo-preview.sh ems:admin:get channel --export
 
-echo "Download slideshows"
+echo "Download documents"
+demo-preview.sh ems:document:download page
 demo-preview.sh ems:document:download slideshow
 

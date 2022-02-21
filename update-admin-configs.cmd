@@ -31,6 +31,7 @@ call demo-preview ems:admin:get dashboard --export
 echo "Update admin configs Channels"
 call demo-preview ems:admin:get channel --export
 
-echo "Download slideshows"
+echo "Download documents"
+call demo-preview ems:document:download page
 call demo-preview ems:document:download slideshow
 

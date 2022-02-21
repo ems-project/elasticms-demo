@@ -1,0 +1,17 @@
+{
+    "en": {
+        "blocks": "[{\"id\":\"f4b427f3-eec0-47eb-8b6f-d3e5b0479615\",\"label\":\"Welcome on elasticms demo website\",\"type\":\"paragraph\",\"object\":{\"label\":\"Welcome on elasticms demo website\",\"body\":\"<p>This Website is a demo&nbsp; of&nbsp; the elasticms capabilities and a good starting point for new project</p>\"},\"children\":[]}]",
+        "show": true,
+        "slug": "/",
+        "title": "elasticms-demo: Welcome on the elasticms Demo website"
+    },
+    "fr": {
+        "blocks": "[{\"id\":\"b436f678-53a5-4347-b30c-c638e2be68d2\",\"label\":\"Introduction\",\"type\":\"paragraph\",\"object\":{\"label\":\"Introduction\",\"body\":\"<p>Bienvenue sur le site elasticms de d&eacute;mo qui est un bon point de d&eacute;part pour un nouveau projet.</p>\"},\"children\":[]}]",
+        "show": true,
+        "slug": "/",
+        "title": "elasticms-demo: Bienvenue sur le site web demo d'elasticms"
+    },
+    "label": "Homepage",
+    "published_date": "2022-02-21T13:54:26+01:00",
+    "type": "homepage"
+}

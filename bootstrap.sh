@@ -79,6 +79,7 @@ echo "Push templates, routes and translations"
 ./demo-preview.sh ems:local:push --force
 
 echo "Upload documents"
+./demo-preview.sh ems:document:upload page
 ./demo-preview.sh ems:document:upload slideshow
 
 echo "Align live"
