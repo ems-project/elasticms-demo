@@ -15,16 +15,17 @@ The following ports must be available:
 
 ## Install steps
 
-Go to [minio](http://minio.localhost/login) and login with those credentials:
-- user: accesskey
-- password: secretkey
-
-And create a `demo` bucket.
-
 Open a terminal and run the following commands:
 - `npm install`: install NPM dependencies
 - `npm run prod`: Build the frontend assets (js, css, ...)
 - `docker-compose up -d`: Start the docker container
+
+Go to [minio](http://minio.localhost/login) and login with those credentials:
+- user: accesskey
+- password: secretkey
+  And create a `demo` bucket.
+
+Go back to your console:
 - `./create-admin.sh` or ``
 - `./bootstrap.sh` or ``
 
