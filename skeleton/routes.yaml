@@ -120,9 +120,9 @@ emsch_missing_translation:
     template_static: template/page/missing_translation.html.twig
 emsch_homepage:
     config:
-        path: { en: '/', fr: '/fr', nl: '/nl', de: '/de' }
-    query: '{"query":{"bool":{"must":[{"term":{"%locale%.show":true}},{"term":{"%locale%.slug":"/"}},{"terms":{"_contenttype":["page"]}}]}},"size":1}'
-    template_static: 'template/page/by_type.html.twig'
+        path: { en: /, fr: /fr, nl: /nl, de: /de }
+    query: '{"query":{"bool":{"must":[{"term":{"%locale%.show":true}},{"term":{"%locale%.slug":"\/"}},{"terms":{"_contenttype":["page"]}}]}},"size":1}'
+    template_static: template/page/by_type.html.twig
 emsch_page:
     config:
         path: { en: '/{slug}', fr: '/fr/{slug}', nl: '/nl/{slug}', de: '/de/{slug}' }
