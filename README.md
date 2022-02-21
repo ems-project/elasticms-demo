@@ -26,10 +26,12 @@ Go to [minio](http://minio.localhost/login) and login with those credentials:
   And create a `demo` bucket.
 
 Go back to your console:
-- `./create-admin.sh` or ``
-- `./bootstrap.sh` or ``
+- `./create-admin.sh` (or `create-admin.cmd` under Windows)
+- `./bootstrap.sh` (or `bootstrap.cmd` under Windows)
 
 Check the [preview](http://demo-preview.localhost/slideshow/toto)
+
+You can now login with your just defined password and the user `demo` in [elasticms](http://demo-admin.localhost/dashboard).
 
 ## Troubleshooting
 
