@@ -39,7 +39,7 @@ You can now login with your just defined password and the user `demo` in [elasti
 
 ### Check local services
 
- - [Traefik](http://localhost:8888) 
- - [mailhog](http://mailhog.localhost) 
- - [kibana](http://kibana.localhost) 
- - [elasticsearch](http://es.localhost/_cluster/health): Verify that the status is `green`
+ - [Traefik](http://localhost:8888) : HTTP reverse proxy
+ - [mailhog](http://mailhog.localhost) : Mail catcher
+ - [kibana](http://kibana.localhost) : A dev tools to query elasticsearch
+ - [elasticsearch](http://es.localhost/_cluster/health) : Verify that the status is `green`
