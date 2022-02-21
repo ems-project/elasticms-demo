@@ -1,3 +1,4 @@
+@echo off
 echo "Update admin configs Filters"
 call demo-preview ems:admin:get filter --export
 
