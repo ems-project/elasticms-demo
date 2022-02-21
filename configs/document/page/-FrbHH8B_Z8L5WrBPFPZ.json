@@ -1,0 +1,16 @@
+{
+    "en": {
+        "blocks": "[]",
+        "show": true,
+        "slug": "cookie-policy",
+        "title": "Cookie policy"
+    },
+    "fr": {
+        "blocks": "[]",
+        "show": true,
+        "slug": "politique-cookies",
+        "title": "Politique d\u2019utilisation des cookies"
+    },
+    "label": "Cookie policy",
+    "type": "page"
+}

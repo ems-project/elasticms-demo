@@ -33,5 +33,7 @@ call demo-preview ems:admin:get channel --export
 
 echo "Download documents"
 call demo-preview ems:document:download page
+call demo-preview ems:document:download publication
+call demo-preview ems:document:download structure
 call demo-preview ems:document:download slideshow
 

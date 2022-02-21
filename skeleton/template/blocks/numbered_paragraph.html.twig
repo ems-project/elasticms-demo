@@ -1,0 +1,26 @@
+{% extends '@EMSCH/template/blocks/abstract-block.html.twig' %}
+
+{% block widget %}{% endblock widget %}
+{% block title %}
+    <div id="{{ item.id }}"></div>
+{% endblock title %}
+
+{% block row %}
+    {% trans_default_domain trans_default_domain %}
+    {% set children = {} %}
+    {% for child in item.children|default([]) %}
+        {% set subtitle = ('blocks.numbered_paragraph.step-title'|trans({'%counter%': loop.index, '%title%': child.object.title|default(child.label|default('')) })) %}
+        {%  if item.object.title is defined %}
+            {% set subtitle = item.object.title|replace({'%counter%': loop.index, '%total%': loop.length, '%title%': child.object.title|default(child.label|default(''))}) %}
+        {%  endif %}
+        {% set child = child|merge({object: child.object|merge({title: (subtitle)}) }) %}
+        {% set children = children|merge([child]) %}
+    {% endfor %}
+    {% set item = item|merge({children: children}) %}
+    {{ parent() }}
+{% endblock %}
+
+{% block child %}
+    {% set headerBlockLevel = headerBlockLevel - (parent.object.title is defined ? 1 : 0) %}
+    {{ parent() }}
+{% endblock child %}

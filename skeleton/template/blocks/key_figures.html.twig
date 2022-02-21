@@ -1,0 +1,50 @@
+{% extends '@EMSCH/template/blocks/abstract-block.html.twig' %}
+
+{% block row %}
+    <section class="py-6">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    {{ parent() }}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block title %}
+    {% trans_default_domain trans_default_domain %}
+    <h{{ headerBlockLevel }} class="text-base text-uppercase text-primary mb-2">{{ 'key_figures.title'|trans|upper }}</h{{ headerBlockLevel }}>
+    <h{{ headerBlockLevel + 1 }} class="h2 my-0">{{ attribute(item.object, 'title')|default('') }}</h{{ headerBlockLevel + 1 }}>
+    <h{{ headerBlockLevel + 2 }} class="text-muted text-sm mt-2">{{ item.object.publication_date|date('%F% Y')|replace(monthsTrans|default({})) }}</h{{ headerBlockLevel + 2 }}>
+{% endblock %}
+
+{% block key_figures_image %}
+    {% trans_default_domain trans_default_domain %}
+    <div class="swiper-container mt-6" id="stats-swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img alt="{{ 'news.image.alt'|trans({ '%title%': attribute(item.object, 'title')|default(''), '%date%': item.object.publication_date|date('format.key-figures.date'|trans) })|escape('html_attr') }}" src="{{ ems_asset_path(item.object.image, keyFigureImageConfig) }}" class="img-fluid">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block widget %}
+    {% trans_default_domain trans_default_domain %}
+        <div class="col-12">
+            {{ block('key_figures_image') }}
+            <div class="d-flex d-lg-none align-items-center justify-content-center swiper-custom-navigation mt-5">
+                <a href="#" class="btn btn-primary swiper-prev btn-round disabled" aria-label="{{ 'key_figures.previous'|trans }}"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+                <a href="#" class="btn btn-primary swiper-next btn-round" aria-label="{{ 'key_figures.next'|trans }}"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="col-12 mt-3 mb-4">
+            <a href="#transcriptCollapse{{ item.id }}" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="transcriptCollapse{{ item.id }}" class="">{{ 'key_figures.alt_text'|trans }} <i class="fa fa-chevron-down ml-2" aria-hidden="true"></i></a>
+            <div class="collapse" id="transcriptCollapse{{ item.id }}" style="">
+                <div class="py-3 pl-0 pr-3 mb-n3">
+                    {{ (item.object.alt_content|default('')|emsch_routing) }}
+                </div>
+            </div>
+        </div>
+{% endblock %}

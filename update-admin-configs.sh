@@ -34,5 +34,7 @@ demo-preview.sh ems:admin:get channel --export
 
 echo "Download documents"
 demo-preview.sh ems:document:download page
+demo-preview.sh ems:document:download publication
+demo-preview.sh ems:document:download structure
 demo-preview.sh ems:document:download slideshow
 

@@ -1,13 +1,12 @@
-{% extends '@EMSCH/template/parent/homepage.html.twig' %}
+{% extends '@EMSCH/template/base/homepage.html.twig' %}
 {% trans_default_domain trans_default_domain %}
 
-{% block body %}
-    <main role="main" id="main-content">
-        {{ block('homeHeader') }}
-        <div class="container">
-            {{ block('news') }}
-            {{ block('themes') }}
-            {{ block('actions') }}
-        </div>
-    </main>
-{% endblock %}
+
+{#{% block body %}#}
+{#    {% with {#}
+{#        'structure': attribute(source, locale).blocks|default('{}')|ems_json_decode,#}
+{#        'trans_default_domain': trans_default_domain,#}
+{#        } %}#}
+{#        {{ block("render", "@EMSCH/template/blocks/abstract-block.html.twig") }}#}
+{#    {% endwith %}#}
+{#{% endblock body %}#}

@@ -1,0 +1,28 @@
+{% extends '@EMSCH/template/base/base.html.twig' %}
+{% trans_default_domain trans_default_domain %}
+
+{% block head -%}
+    <link rel="stylesheet" href="{{ asset('css/index.css', 'emsch') }}">
+{%- endblock %}
+
+{% block javascript -%}
+    <script src="{{ asset('js/index.js', 'emsch') }}"></script>
+{%- endblock %}
+
+{% block body -%}
+    {{ render_esi(controller('emsch.controller.embed::fragment', {
+        template: '@EMSCH/template/fragments/header.html.twig',
+        context: {
+            trans_default_domain: trans_default_domain,
+        },
+    })) }}
+    <main role="main">
+        {% block main -%}{%- endblock main %}
+    </main>
+    {{ render_esi(controller('emsch.controller.embed::fragment', {
+        template: '@EMSCH/template/fragments/footer.html.twig',
+        context: {
+            trans_default_domain: trans_default_domain,
+        },
+    })) }}
+{%- endblock %}

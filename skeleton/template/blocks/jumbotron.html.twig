@@ -1,0 +1,20 @@
+{% extends '@EMSCH/template/blocks/abstract-block.html.twig' %}
+
+{% block child %}
+    <div class="{% if loop.index0 is divisible by(2) %}col-md-6 col-lg-5 offset-lg-1{% else %}col-md-6 col-lg-5{% endif %}">
+        {% set row_class = 'bg-white rounded p-3 p-md-5 h-100 d-flex flex-column' %}
+        {{ parent() }}
+    </div>
+{% endblock child %}
+
+{% block title %}{% endblock title %}
+{% block widget %}{% endblock widget %}
+
+{% block row %}
+    <section class="homepage-jumbotron homepage-jumbotron-padding bg-white border-main" style="background-image: url({{ ems_asset_path(item.object.background_image, jumbotronImageConfig) }})">
+        <div class="container">
+            {% set row_class = 'row align-items-stretch' %}
+            {{ parent() }}
+        </div>
+    </section>
+{% endblock row %}

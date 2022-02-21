@@ -1,0 +1,60 @@
+{% extends '@EMSCH/template/blocks/abstract-block.html.twig' %}
+
+{% block title %}{% endblock title %}
+
+{% block row %}
+    {% set row_class = 'row' %}
+    {{ parent() }}
+{% endblock %}
+
+{% block widget %}
+    {%- import '@EMSCH/template/macros.twig' as macros -%}
+    {% set pages = {} %}
+    {% if item.object.subpages is defined  %}
+        {% set pages = item.object.subpages %}
+    {% elseif nodeItem.children is defined %}
+        {% set pages = nodeItem.children %}
+    {% endif %}
+    {% for page in pages %}
+        {% if page.object.page is defined  %}
+            {% set pageItem = page.object.page|default('not-found')|emsch_get %}
+        {% else %}
+            {% set pageItem = page.subpage|default('not-found')|emsch_get %}
+        {% endif %}
+        {% if pageItem and pageItem.contentType == 'page' %}
+            <div class="col-md-6 mt-4 mb-5">
+                <div class="card card-sm">
+                    <div class="card-header">
+                        <h{{ headerBlockLevel }} class="card-title">
+                            {% set title = null %}
+                            {% if page.object.title is not defined %}
+                                {% set title = page.title|default('') %}
+                            {% else %}
+                                {% set title = page.object.title|default('') %}
+                            {% endif %}
+                            {{ title }}
+                        </h{{ headerBlockLevel }}>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            {% if page.object.description|default('') %}
+                                {{ page.object.description|emsch_routing }}
+                            {% elseif page.description|default('')  %}
+                                {{ page.description|emsch_routing }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% if page.subpage is defined %}
+                        <div class="card-footer">
+                            <a href="{{ macros.emsRouting(pageItem.ouuid, pageItem.source, locale) }}" class="text-xs stretched-link d-inline-block" aria-label="{{title}}"><div class="fleche-container"><i class="fo fo-fleche" aria-hidden="true"></i></div></a>
+                        </div>
+                    {% else %}
+                        <div class="card-footer">
+                            <a href="{{ path('match_all', {path: attribute(paths, [document._id, page.id]|join(':'))}) }}" class="text-xs stretched-link d-inline-block" aria-label="{{title}}"><div class="fleche-container"><i class="fo fo-fleche" aria-hidden="true"></i></div></a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

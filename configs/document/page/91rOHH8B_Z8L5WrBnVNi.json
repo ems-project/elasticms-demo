@@ -1,0 +1,16 @@
+{
+    "en": {
+        "blocks": "[]",
+        "show": true,
+        "slug": "privacy-policy",
+        "title": "Privacy policy"
+    },
+    "fr": {
+        "blocks": "[]",
+        "show": true,
+        "slug": "protection-des-donnees",
+        "title": "D\u00e9claration de protection des donn\u00e9es"
+    },
+    "label": "Privacy policy",
+    "type": "page"
+}

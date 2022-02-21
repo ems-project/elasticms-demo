@@ -1814,7 +1814,7 @@
             },
             "replaced": []
         },
-        "labelField": "",
+        "labelField": "label",
         "colorField": "",
         "userField": null,
         "dateField": null,
@@ -1901,7 +1901,7 @@
         "defaultValue": "{\r\n    \"locale\": \"en\"\r\n}",
         "translationField": "",
         "localeField": null,
-        "searchLinkDisplayRole": "not-defined",
+        "searchLinkDisplayRole": "ROLE_USER",
         "createLinkDisplayRole": "ROLE_USER",
         "versionTags": [],
         "versionDateFromField": "",

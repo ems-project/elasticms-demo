@@ -58,6 +58,7 @@ call demo-preview ems:admin:update content-type slideshow
 
 echo "Create/Update QuerySearches"
 call demo-preview ems:admin:update query-search pages
+call demo-preview ems:admin:update query-search documents
 
 echo "Create/Update Dashboards"
 call demo-preview ems:admin:update dashboard welcome
@@ -79,6 +80,7 @@ call demo-preview ems:local:push --force
 
 echo "Upload documents"
 call demo-preview ems:document:upload page
+call demo-preview ems:document:upload structure
 call demo-preview ems:document:upload slideshow
 
 echo "Align live"
