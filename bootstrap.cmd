@@ -1,3 +1,4 @@
+@echo off
 call demo-preview ems:admin:login --username=demo
 
 echo "Upload assets"
@@ -55,6 +56,7 @@ call demo-preview ems:admin:update content-type page
 call demo-preview ems:admin:update content-type structure
 call demo-preview ems:admin:update content-type publication
 call demo-preview ems:admin:update content-type slideshow
+call demo-preview ems:admin:update content-type form_instance
 
 echo "Create/Update QuerySearches"
 call demo-preview ems:admin:update query-search pages
@@ -81,7 +83,9 @@ call demo-preview ems:local:push --force
 echo "Upload documents"
 call demo-preview ems:document:upload page
 call demo-preview ems:document:upload structure
+call demo-preview ems:document:upload publication
 call demo-preview ems:document:upload slideshow
+call demo-preview ems:document:upload form_instance
 
 echo "Align live"
 call demo-admin ems:environment:align preview live --force

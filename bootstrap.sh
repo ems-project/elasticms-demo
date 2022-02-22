@@ -56,6 +56,7 @@ echo "Create/Update ContentTypes"
 ./demo-preview.sh ems:admin:update content-type structure
 ./demo-preview.sh ems:admin:update content-type publication
 ./demo-preview.sh ems:admin:update content-type slideshow
+./demo-preview.sh ems:admin:update content-type form_instance
 
 echo "Create/Update QuerySearches"
 ./demo-preview.sh ems:admin:update query-search pages
@@ -81,8 +82,10 @@ echo "Push templates, routes and translations"
 
 echo "Upload documents"
 ./demo-preview.sh ems:document:upload page
-./demo-preview.sh ems:document:upload slideshow
 ./demo-preview.sh ems:document:upload structure
+./demo-preview.sh ems:document:upload publication
+./demo-preview.sh ems:document:upload slideshow
+./demo-preview.sh ems:document:upload form_instance
 
 echo "Align live"
 ./demo-admin.sh ems:environment:align preview live --force
