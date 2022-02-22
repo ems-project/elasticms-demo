@@ -1,30 +1,33 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
     plugins: [
+        new CleanWebpackPlugin({
+            cleanOnceBeforeBuildPatterns: ['**/*'],
+        }),
         new CopyPlugin({
             patterns: [
                 {
-                    from: 'src/img/*',
-                    to: 'img/[name].[ext]',
-                    // to options: [path][name].[contenthash].[ext]'
+                    from: 'img/**',
+                },
+                {
+                    from: 'other/**',
                 },
             ],
         }),
         new MiniCssExtractPlugin({
-            // Options similar to the same options in webpackOptions.output
-            // both options are optional
             filename: "css/[name].css",
             chunkFilename: "[id].css"
         }),
     ],
-    context: path.resolve(__dirname, './'),
+    context: path.resolve(__dirname, './src/'),
     entry: {
-        'index': './src/index.js',
-        'admin': './src/admin.js',
-        'reveal': './src/reveal.js',
+        'index': './index.js',
+        'admin': './admin.js',
+        'reveal': './reveal.js',
     },
     output: {
         path: path.resolve(__dirname, 'dist'),

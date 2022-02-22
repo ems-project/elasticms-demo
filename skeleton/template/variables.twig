@@ -1,14 +1,15 @@
 {% spaceless %}
     {% trans_default_domain trans_default_domain %}
     {% set locale = app.request.locale %}
-    
-    {% set wyiwygReplacesDefault = { 
-        'src="https://www.youtube.com/': 'allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen src="https://www.youtube-nocookie.com/',
 
+    {% set wyiwygReplacesDefault = {
+        'src="https://www.youtube.com/': 'allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen src="https://www.youtube-nocookie.com/',
         '%toc%': '<div id="toc"><h2 class="not-in-toc">' ~ 'toc'|trans ~ '</h2></div>',
     } %}
-    
-    {# 
+
+    {% set locales = ['en','fr','nl','de'] %}
+
+    {#
         locales: list of available locales for this target
         hostPattern: The host pattern is used to generate the switch language URLS:
             %environment%
@@ -29,9 +30,9 @@
             },
             hostPattern: 'demo-%environment%.elasticms.eu',
             canonicals: {
-                'en': 'demo.elasticms.eu',    
-                'fr': 'demo.elasticms.eu',    
-                'nl': 'demo.elasticms.eu',    
+                'en': 'demo.elasticms.eu',
+                'fr': 'demo.elasticms.eu',
+                'nl': 'demo.elasticms.eu',
                 'de': 'demo.elasticms.eu'
             },
             isLive: true,
@@ -40,9 +41,9 @@
                 search_type: {
                     type: 'Type',
                     types: [
-                        'news', 
-                        'page', 
-                        'faq', 
+                        'news',
+                        'page',
+                        'faq',
                         'link',
                     ],
                 },
@@ -72,9 +73,9 @@
             },
             hostPattern: 'demo-%environment%.elasticms.eu',
             canonicals: {
-                'en': 'demo.elasticms.eu',    
-                'nl': 'demo.elasticms.eu',    
-                'fr': 'demo.elasticms.eu',    
+                'en': 'demo.elasticms.eu',
+                'nl': 'demo.elasticms.eu',
+                'fr': 'demo.elasticms.eu',
                 'de': 'demo.elasticms.eu'
             },
             isLive: true,
@@ -86,9 +87,9 @@
                 search_type: {
                     type: 'Type',
                     types: [
-                        'news', 
-                        'page', 
-                        'faq', 
+                        'news',
+                        'page',
+                        'faq',
                         'link',
                     ],
                 },
@@ -110,7 +111,7 @@
             footerMenu: 'menu:AXD8Ea7tPIEQM_S9N3do'
         }
     } %}
-    
+
     {% set monthsTrans = {
         '%January%': 'month.January'|trans,
         '%February%': 'month.February'|trans,
@@ -132,7 +133,7 @@
     {% set environment = app.request.get('_environment', 'live') %}
     {% set language = targetConfig.locales|filter(v => v == app.request.locale)|keys|first  %}
     {% set assetPath = emsch_assets_version(siteHashAssets) %}
-    
+
     {%- block request %}{% endblock request -%}
 
 {% endspaceless %}

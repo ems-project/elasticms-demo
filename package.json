@@ -25,6 +25,7 @@
     "@babel/preset-env": "^7.12.10",
     "babel-loader": "^8.2.2",
     "bestzip": "^2.1.7",
+    "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^6.4.0",
     "css-loader": "^3.6.0",
     "file-loader": "^6.2.0",

@@ -1,19 +1,19 @@
 robots.txt:
     config:
-        path: /robots.txt
+        path: robots.txt
         defaults: { _format: txt }
     template_static: template/seo/robots.txt.twig
 favicon.ico:
     config:
         path: favicon.ico
-        controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction'
-        defaults: { path: /bundles/emsch_assets/img/favicon.ico, permanent: 'true', keepQueryParams: 'true' }
+        controller: 'emsch.controller.router::redirect'
+    template_static: template/redirects/favicon.json.twig
 sitemap.xml:
     config:
         path: sitemap.xml
         defaults: { _format: xml }
         requirements: {  }
-    template_static: template/sitemap.xml.twig
+    template_static: template/seo/sitemap.xml.twig
 google_verification:
     config:
         path: google559a317bdba2ec40.html
@@ -42,6 +42,11 @@ emsch_slideshow:
         path: { en: 'slideshow/{slug}', fr: 'presentation/{slug}' }
     query: '{"query":{"bool":{"must":[{"term":{"%locale%.show":true}},{"term":{"%locale%.slug":"%slug%"}},{"terms":{"_contenttype":["slideshow"]}}]}},"size":1}'
     template_static: template/slideshow/revealjs.html.twig
+emsch_page:
+    config:
+        path: { en: 'page/{slug}', fr: 'page/{slug}' }
+    query: '{"query":{"bool":{"must":[{"term":{"%locale%.show":true}},{"term":{"%locale%.slug":"%slug%"}},{"terms":{"_contenttype":["page"]}}]}},"size":1}'
+    template_static: template/page/by_type.html.twig
 emsch_search_site:
     config:
         path: { en: search, fr: fr/chercher, nl: nl/zoeken, de: de/suche }
