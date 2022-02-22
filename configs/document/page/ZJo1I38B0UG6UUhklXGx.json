@@ -1,0 +1,13 @@
+{
+    "en": {
+        "blocks": "[]",
+        "show": true,
+        "title": "Documentations"
+    },
+    "fr": {
+        "blocks": "[]",
+        "show": false
+    },
+    "label": "Documentations",
+    "type": "page"
+}

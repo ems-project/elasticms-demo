@@ -6,7 +6,7 @@
         "content": [
             {
                 "locale": "en",
-                "text": "{\"instance_id\":\"demo_v1_\",\"languages\":{\"French\":\"fr\", \"Dutch\":\"nl\",  \"English\": \"en\", \"German\": \"de\" },\"target_groups\":{\"Documentation\":\"doc\", \"Website\": \"site\"}}"
+                "text": "{\r\n  \"locales\": [\r\n    \"en\",\r\n    \"fr\",\r\n    \"nl\",\r\n    \"de\"\r\n  ]\r\n}"
             }
         ]
     },

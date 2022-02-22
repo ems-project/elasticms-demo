@@ -1,0 +1,14 @@
+{
+    "en": {
+        "blocks": "[]",
+        "show": true,
+        "title": "Contact us"
+    },
+    "fr": {
+        "blocks": "[]",
+        "show": true,
+        "title": "Contactez-nous"
+    },
+    "label": "Contact form",
+    "type": "page"
+}
