@@ -1,1 +1,4 @@
-error.target-not-found: 'Page non trouvée'
+error:
+    target-not-found: 'Page non trouvée'
+site:
+    name: 'Site web Démo'

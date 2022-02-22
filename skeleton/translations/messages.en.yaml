@@ -1,4 +1,6 @@
-error.target-not-found: 'Page not found'
-site.name: 'elasticms-demo'
-site.team: 'elasticms team'
-site.copy: 'Designed and built with all the love in the world by the'
+error:
+    target-not-found: 'Page not found'
+site:
+    copy: 'Designed and built with all the love in the world by the'
+    name: elasticms-demo
+    team: 'elasticms team'
