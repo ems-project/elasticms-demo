@@ -4,32 +4,42 @@
 {% set paths = rawData.paths|array_key('uid') %}
 {% set blocks = attribute(rawData, locale).structure|default("{}")|ems_json_menu_nested_decode %}
 
+
+{% set sections = {} %}
+{% for item in blocks.children %}
+    {% set links = {} %}
+    {% for link in item.children %}
+        {% set pathInfo = attribute(paths, link.id)|default(false) %}
+        {% if pathInfo %}
+            {% set links = links|merge({(link.label): path('emsch_path', {path: pathInfo.path})}) %}
+        {% elseif link.object.link is defined %}
+            {% set links = links|merge({(link.label): link.object.link}) %}
+        {% endif %}
+    {% endfor %}
+    {% set sections = sections|merge({(item.label): links}) %}
+{% endfor %}
+
+
+
 <footer class="bd-footer py-5 mt-5 bg-light">
     <div class="container py-5">
         <div class="row">
             <div class="col-lg-3 mb-3">
-                <a class="d-inline-flex align-items-center mb-2 link-dark text-decoration-none" href="{{ path('emsch_homepage') }}" aria-label="Bootstrap">
-                    <img src="{{ asset('img/icon70.png', 'emsch') }}" width="35" height="35">
+                <a class="d-inline-flex align-items-center mb-2 link-dark text-decoration-none" href="{{ path('emsch_homepage') }}" aria-label="{{ 'site.name'|trans }}">
+                    <img src="{{ asset("img/logos/logo-#{locale}.png", 'emsch') }}" width="35" height="35" alt="">
                     &nbsp;
-                    <span class="fs-5">elasticms: demo</span>
+                    <span class="fs-5">{{ 'site.name'|trans }}</span>
                 </a>
                 <ul class="list-unstyled small text-muted">
-                    <li class="mb-2">Designed and built with all the love in the world by the <a href="/docs/5.1/about/team/">Bootstrap team</a> with the help of <a href="https://github.com/twbs/bootstrap/graphs/contributors">our contributors</a>.</li>
-                    <li class="mb-2">Code licensed <a href="https://github.com/twbs/bootstrap/blob/main/LICENSE" target="_blank" rel="license noopener">MIT</a>, docs <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="license noopener">CC BY 3.0</a>.</li>
-                    <li class="mb-2">Currently v5.1.3.</li>
+                    <li class="mb-2">{{ 'site.copy'|trans }} <a href="https://github.com/orgs/ems-project/people">{{ 'site.team'|trans }}</a>.</li>
                 </ul>
             </div>
-            {%  for item in blocks.children %}
+            {% for section, links in sections %}
                 <div class="col-6 col-lg-2 mb-3{% if loop.first %} offset-lg-1{% endif %}">
-                    <h5>{{ item.label|default('') }}</h5>
-                    <ul class="list-unstyled">
-                        {% for link in item.children %}
-                            {% set pathInfo = attribute(paths, link.id)|default(false) %}
-                            {%  if pathInfo %}
-                                {% if link.type == 'document' %}
-                                    <li class="mb-2"><a href="{{ path('emsch_path', {path: pathInfo.path}) }}">{{ link.label|default('') }}</a></li>
-                                {% endif %}
-                            {% endif %}
+                    <span class="h5">{{ section }}</span>
+                    <ul class="list-unstyled mt-1">
+                        {% for label, url in links %}
+                            <li class="mb-2"><a href="{{ url }}">{{ label }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
