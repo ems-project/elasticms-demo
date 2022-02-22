@@ -3,13 +3,13 @@
 {% set paths = source.paths|default([])|array_key('path') %}
 {% set pathInfo = attribute(paths, app.request.get('path')) %}
 {% set target = pathInfo.target|emsch_get %}
-{% set source = target.source %}
+{% set source = target.source|default(null) %}
 
 {% set baseTemplate = '@EMSCH/template/structure/target-not-found.html.twig' %}
 
-{% if target.contentType == 'slideshow' %}
+{% if target.contentType|default(null) == 'slideshow' %}
     {% set baseTemplate = '@EMSCH/template/slideshow/revealjs.html.twig' %}
-{% elseif target.contentType == 'page' %}
+{% elseif target.contentType|default(null) == 'page' %}
     {% set baseTemplate = '@EMSCH/template/page/by_type.html.twig' %}
 {% endif %}
 

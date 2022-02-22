@@ -4,5 +4,5 @@
 
 {% block main -%}
     <h1>{{ attribute(source, locale).title|default('') }}</h1>
-
+    {% block blocks %}{% endblock %}
 {%- endblock main %}
