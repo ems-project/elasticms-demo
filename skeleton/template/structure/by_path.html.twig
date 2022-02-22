@@ -1,0 +1,13 @@
+{% trans_default_domain trans_default_domain %}
+{% set structure = source %}
+{% set paths = source.paths|default([])|array_key('path') %}
+{% set pathInfo = attribute(paths, app.request.get('path')) %}
+{% set target = pathInfo.target|emsch_get %}
+{% set source = target.source %}
+
+{% set baseTemplate = '@EMSCH/template/structure/target-not-found.html.twig' %}
+
+
+
+{% extends baseTemplate %}
+

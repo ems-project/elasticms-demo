@@ -2,7 +2,7 @@ robots.txt:
     config:
         path: /robots.txt
         defaults: { _format: txt }
-    template_static: template/seo/robots.txt
+    template_static: template/seo/robots.txt.twig
 favicon.ico:
     config:
         path: favicon.ico
@@ -123,26 +123,12 @@ emsch_homepage:
         path: { en: /, fr: /fr, nl: /nl, de: /de }
     query: '{"query":{"bool":{"must":[{"term":{"%locale%.show":true}},{"term":{"%locale%.slug":"\/"}},{"terms":{"_contenttype":["page"]}}]}},"size":1}'
     template_static: template/page/by_type.html.twig
-emsch_page:
+emsch_path:
     config:
-        path: { en: '/{slug}', fr: '/fr/{slug}', nl: '/nl/{slug}', de: '/de/{slug}' }
-        requirements: { slug: '^(?!(fr|nl|de|_wdt|_profiler|demo|doc|file)(/.*$)?).+' }
-    query: '{"query":{"bool":{"must":[{"term":{"_contenttype":"page"}},{"term":{"slug_%_locale%":"%slug%"}}]}},"size":1}'
-    template_source: '[template]'
-emsch_target_site:
-    config:
-        path: { en: '{target}/{slug}', fr: 'fr/{target}/{slug}', nl: 'nl/{target}{slug}', de: 'de/{target}/{slug}' }
-        requirements: { slug: '^(?!(fr|nl|de|_wdt|_profiler)(/.*$)?).*', _locale: en|fr|nl|de, target: demo }
-        defaults: { _target_group: site, target: demo, _locale: en, slug: '' }
-    query: '{"query":{"bool":{"should":[{"bool":{"must":[{"term":{"_contenttype":{"value":"target"}}},{"term":{"target_group":{"value":"site"}}},{"term":{"locales":{"value":"%_locale%"}}},{"term":{"slugs":{"value":"%slug%"}}}]}},{"bool":{"must_not":[{"exists":{"field":"menu_%_locale%"}}],"must":[{"term":{"_contenttype":{"value":"page"}}},{"term":{"target_group":{"value":"site"}}},{"term":{"slug_%_locale%":{"value":"%slug%"}}}]}}],"minimum_should_match":1}}}'
-    template_static: template/page/target.html.twig
-emsch_target_doc:
-    config:
-        path: { en: 'doc/{slug}', fr: 'fr/doc/{slug}', nl: 'nl/doc/{slug}', de: 'de/doc/{slug}' }
-        requirements: { slug: .+ }
-        defaults: { slug: '', _locale: en, _target_group: doc }
-    query: '{"query":{"bool":{"should":[{"bool":{"must":[{"term":{"_contenttype":{"value":"target"}}},{"term":{"target_group":{"value":"doc"}}},{"term":{"locales":{"value":"%_locale%"}}},{"term":{"slugs":{"value":"%slug%"}}}]}},{"bool":{"must_not":[{"exists":{"field":"menu_%_locale%"}}],"must":[{"term":{"_contenttype":{"value":"page"}}},{"term":{"target_group":{"value":"doc"}}},{"term":{"slug_%_locale%":{"value":"%slug%"}}}]}}],"minimum_should_match":1}}}'
-    template_static: template/page/target.html.twig
+        path: { en: '/{path}', fr: '/fr/{path}', nl: '/nl/{path}', de: '/de/{path}' }
+        requirements: { path: '^(?!(fr|nl|de|_wdt|_profiler|demo|doc|file)(/.*$)?).+' }
+    query: '{"query":{"bool":{"must":[{"nested":{"path":"paths","query":{"term":{"paths.path":"%path%"}}}},{"nested":{"path":"paths","query":{"term":{"paths.locale":"%_locale%"}}}},{"terms":{"_contenttype":["structure"]}}]}},"size":1}'
+    template_static: template/structure/by_path.html.twig
 emsch_language_selection:
     config:
         path: demo

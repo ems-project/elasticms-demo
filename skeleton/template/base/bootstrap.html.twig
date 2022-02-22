@@ -18,7 +18,9 @@
         },
     })) }}
     <main role="main">
-        {% block main -%}{%- endblock main %}
+        <div class="container">
+            {% block main -%}{%- endblock main %}
+        </div>
     </main>
     {{ render_esi(controller('emsch.controller.embed::fragment', {
         template: '@EMSCH/template/fragments/footer.html.twig',

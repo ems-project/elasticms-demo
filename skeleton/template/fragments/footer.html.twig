@@ -1,6 +1,8 @@
 {% trans_default_domain trans_default_domain %}
 
-{% set blocks = attribute(structure|emsch_get.source, locale).structure|default("{}")|ems_json_decode %}
+{% set rawData = structure|emsch_get.source %}
+{% set paths = rawData.paths|array_key('uid') %}
+{% set blocks = attribute(rawData, locale).structure|default("{}")|ems_json_menu_nested_decode %}
 
 <footer class="bd-footer py-5 mt-5 bg-light">
     <div class="container py-5">
@@ -17,13 +19,16 @@
                     <li class="mb-2">Currently v5.1.3.</li>
                 </ul>
             </div>
-            {%  for item in blocks %}
+            {%  for item in blocks.children %}
                 <div class="col-6 col-lg-2 mb-3{% if loop.first %} offset-lg-1{% endif %}">
                     <h5>{{ item.label|default('') }}</h5>
                     <ul class="list-unstyled">
                         {% for link in item.children %}
-                            {% if link.type == 'document' %}
-                                <li class="mb-2"><a href="/docs/5.1/getting-started/">{{ link.label|default('') }}</a></li>
+                            {% set pathInfo = attribute(paths, link.id)|default(false) %}
+                            {%  if pathInfo %}
+                                {% if link.type == 'document' %}
+                                    <li class="mb-2"><a href="{{ path('emsch_path', {path: pathInfo.path}) }}">{{ link.label|default('') }}</a></li>
+                                {% endif %}
                             {% endif %}
                         {% endfor %}
                     </ul>

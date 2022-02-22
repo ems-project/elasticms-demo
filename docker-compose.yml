@@ -233,10 +233,8 @@ services:
 #      - ../EMSClientHelperBundle:/opt/src/vendor/elasticms/client-helper-bundle
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.skeletons.rule=HostRegexp(`{project:[a-z0-9\\-_\\.]+}-{environment:template|preview|staging|live}.localhost`,`{project:[a-z0-9\\-_\\.]+}-{environment:template|preview|staging|live}-dev.localhost`)"
-      - "traefik.http.routers.skeletons.entrypoints=web"
-      - "traefik.http.routers.forms.rule=Host(`forms.localhost`)"
-      - "traefik.http.routers.forms.entrypoints=web"
+      - "traefik.http.routers.skeletons.rule=HostRegexp(`{project:[a-z0-9\\-_\\.]+}-{environment:preview|staging|live}.localhost`,`{project:[a-z0-9\\-_\\.]+}-{environment:preview|staging|live}-dev.localhost`)"
+      - "traefik.http.routers.skeletons.entrypoints=web,websecure"
       - "traefik.http.services.skeleton.loadbalancer.server.port=9000"
 
 volumes:
