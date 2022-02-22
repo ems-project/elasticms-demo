@@ -8,6 +8,11 @@ favicon.ico:
         path: favicon.ico
         controller: 'emsch.controller.router::redirect'
     template_static: template/redirects/favicon.json.twig
+apple-touch-icon.png:
+    config:
+        path: apple-touch-icon.png
+        controller: 'emsch.controller.router::redirect'
+    template_static: template/redirects/apple-touch-icon.json.twig
 sitemap.xml:
     config:
         path: sitemap.xml
@@ -17,19 +22,8 @@ sitemap.xml:
 google_verification:
     config:
         path: google559a317bdba2ec40.html
-    template_static: template/google.html.twig
-sitemap_content_type:
-    config:
-        path: 'sitemap-{_target_group}-{contentType}-p{page}.xml'
-        defaults: { _format: xml, page: 0 }
-        requirements: { _target_group: site|doc, contentType: page|news|publication|faq, page: \d+ }
-    template_static: template/sitemap.xml.twig
-apple-touch-icon.png:
-    config:
-        path: apple-touch-icon.png
-        controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction'
-        defaults: { path: /bundles/emsch_assets/img/apple-touch-icon.png, permanent: 'true', keepQueryParams: 'true' }
-emsch_publication_test_site:
+    template_static: template/seo/google.html.twig
+emsch_publication:
     config:
         path: { en: 'publications/{slug}', fr: 'fr/publications/{slug}', nl: 'nl/publicaties/{slug}', de: 'de/publikation/{slug}' }
         controller: 'emsch.controller.router:asset'
@@ -47,76 +41,6 @@ emsch_page:
         path: { en: 'page/{slug}', fr: 'page/{slug}' }
     query: '{"query":{"bool":{"must":[{"term":{"%locale%.show":true}},{"term":{"%locale%.slug":"%slug%"}},{"terms":{"_contenttype":["page"]}}]}},"size":1}'
     template_static: template/page/by_type.html.twig
-emsch_search_site:
-    config:
-        path: { en: search, fr: fr/chercher, nl: nl/zoeken, de: de/suche }
-        defaults: { _target_group: site, l: 10 }
-        controller: 'emsch.controller.search::handle'
-    template_static: template/search/results.html.twig
-emsch_search_site_json:
-    config:
-        path: { en: search.json, fr: fr/chercher.json, nl: nl/zoeken.json, de: de/suche.json }
-        defaults: { _format: json, _target_group: site, l: 10 }
-        controller: 'emsch.controller.search::handle'
-    template_static: template/search/results.json.twig
-emsch_faq_site:
-    config:
-        path: { en: 'faq/{slug}', fr: 'fr/faq/{slug}', nl: 'nl/faq/{slug}', de: 'de/faq/{slug}' }
-        defaults: { _target_group: site }
-    query: '{"query":{"bool":{"must":[{"terms":{"_contenttype":["faq"]}},{"term":{"target_group":"site"}},{"term":{"show_%_locale%":true}},{"term":{"slug_%_locale%":"%slug%"}}]}},"size":1}'
-    template_static: template/page/faq.html.twig
-emsch_news_site:
-    config:
-        path: { en: news, fr: fr/actualites, nl: nl/nieuws, de: de/nutzungsrechte }
-        defaults: { _target_group: site }
-    template_static: template/page/news_overview.html.twig
-emsch_news_site_rss:
-    config:
-        path: { en: rss.xml, fr: fr/rss.xml, nl: nl/rss.xml, de: de/rss.xml }
-        defaults: { _target_group: site, _format: xml }
-    template_static: template/rss/news.xml.json
-emsch_news_item_site:
-    config:
-        path: { en: 'news/{year}/{month}/{day}/{slug}', fr: 'fr/actualites/{year}/{month}/{day}/{slug}', nl: 'nl/nieuws/{year}/{month}/{day}/{slug}', de: 'de/nutzungsrechte/{year}/{month}/{day}/{slug}' }
-        defaults: { _target_group: site }
-        requirements: { year: \d+, month: \d+, day: \d+ }
-    query: '{"query":{"bool":{"must":[{"terms":{"_contenttype":["news"]}},{"term":{"search_dates":"%year%\/%month%\/%day%"}},{"term":{"target_group":"site"}},{"term":{"show_%_locale%":true}},{"term":{"slug_%_locale%":"%slug%"}}]}},"size":1}'
-    template_static: template/page/news_item.html.twig
-emsch_search_doc:
-    config:
-        path: { en: doc/search, fr: fr/doc/chercher, nl: nl/doc/zoeken, de: de/doc/suche }
-        defaults: { _target_group: doc, l: 10 }
-        controller: 'emsch.controller.search::handle'
-    template_static: template/search/results.html.twig
-emsch_search_doc_json:
-    config:
-        path: { en: doc/search.json, fr: fr/doc/chercher.json, nl: nl/doc/zoeken.json, de: de/doc/suche.json }
-        defaults: { _format: json, _target_group: doc, l: 10 }
-        controller: 'emsch.controller.search::handle'
-    template_static: template/search/results.json.twig
-emsch_faq_doc:
-    config:
-        path: { en: 'doc/faq/{slug}', fr: 'fr/doc/faq/{slug}', nl: 'nl/doc/faq/{slug}', de: 'de/doc/faq/{slug}' }
-        defaults: { _target_group: doc }
-    query: '{"query":{"bool":{"must":[{"terms":{"_contenttype":["faq"]}},{"term":{"target_group":"doc"}},{"term":{"show_%_locale%":true}},{"term":{"slug_%_locale%":"%slug%"}}]}},"size":1}'
-    template_static: template/page/faq.html.twig
-emsch_news_doc:
-    config:
-        path: { en: doc/news, fr: fr/doc/actualites, nl: nl/doc/nieuws, de: de/doc/nutzungsrechte }
-        defaults: { _target_group: doc }
-    template_static: template/page/news_overview.html.twig
-emsch_news_doc_rss:
-    config:
-        path: { en: doc/rss.xml, fr: fr/doc/rss.xml, nl: nl/doc/rss.xml, de: de/doc/rss.xml }
-        defaults: { _target_group: doc, _format: xml }
-    template_static: template/rss/news.xml.json
-emsch_news_item_doc:
-    config:
-        path: { en: 'doc/news/{year}/{month}/{day}/{slug}', fr: 'doc/actualites/{year}/{month}/{day}/{slug}', nl: 'doc/nieuws/{year}/{month}/{day}/{slug}', de: 'doc/nutzungsrechte/{year}/{month}/{day}/{slug}' }
-        defaults: { _target_group: doc }
-        requirements: { year: \d+, month: \d+, day: \d+ }
-    query: '{"query":{"bool":{"must":[{"terms":{"_contenttype":["news"]}},{"term":{"search_dates":"%year%\/%month%\/%day%"}},{"term":{"target_group":"doc"}},{"term":{"show_%_locale%":true}},{"term":{"slug_%_locale%":"%slug%"}}]}},"size":1}'
-    template_static: template/page/news_item.html.twig
 emsch_missing_translation:
     config:
         path: '/{_locale}/missing/{contentType}/{ouuid}'
@@ -131,12 +55,6 @@ emsch_homepage:
 emsch_path:
     config:
         path: { en: '/{path}', fr: '/fr/{path}', nl: '/nl/{path}', de: '/de/{path}' }
-        requirements: { path: '^(?!(fr|nl|de|_wdt|_profiler|demo|doc|file)(/.*$)?).+' }
+        requirements: { path: '^(?!(fr/|nl/|de/|_wdt/|_profiler/|file/)(.*$)?).+' }
     query: '{"query":{"bool":{"must":[{"nested":{"path":"paths","query":{"term":{"paths.path":"%path%"}}}},{"nested":{"path":"paths","query":{"term":{"paths.locale":"%_locale%"}}}},{"terms":{"_contenttype":["structure"]}}]}},"size":1}'
     template_static: template/structure/by_path.html.twig
-emsch_language_selection:
-    config:
-        path: demo
-        defaults: { _target_group: site, _locale: en }
-    query: '{"query":{"bool":{"should":[{"bool":{"must":[{"term":{"_contenttype":{"value":"target"}}},{"term":{"target_group":{"value":"site"}}},{"term":{"locales":{"value":"%_locale%"}}},{"term":{"slugs":{"value":""}}}]}},{"bool":{"must_not":[{"exists":{"field":"menu_%_locale%"}}],"must":[{"term":{"_contenttype":{"value":"page"}}},{"term":{"target_group":{"value":"site"}}},{"term":{"slug_%_locale%":{"value":""}}}]}}],"minimum_should_match":1}}}'
-    template_static: template/page/target.html.twig
