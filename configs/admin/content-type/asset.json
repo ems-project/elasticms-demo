@@ -15,7 +15,6 @@
         "businessIdField": "",
         "deleted": false,
         "askForOuuid": false,
-        "dirty": false,
         "color": "orange",
         "fieldType": {
             "class": "EMS\\CoreBundle\\Entity\\FieldType",
@@ -148,7 +147,7 @@
                                             },
                                             "mappingOptions": {
                                                 "index": "analyzed",
-                                                "analyzer": "standard",
+                                                "analyzer": null,
                                                 "copy_to": "live_search"
                                             },
                                             "restrictionOptions": {
@@ -373,7 +372,6 @@
         "editTwigWithWysiwyg": false,
         "webContent": false,
         "autoPublish": false,
-        "active": true,
         "templates": [
             {
                 "class": "EMS\\CoreBundle\\Entity\\Template",

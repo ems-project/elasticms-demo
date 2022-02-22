@@ -43,6 +43,11 @@ call demo-preview ems:admin:update wysiwyg-profile Standard
 echo "Create/Update i18n"
 call demo-preview ems:admin:update i18n config
 call demo-preview ems:admin:update i18n ems.documentation.body
+call demo-preview ems:admin:update i18n locale.fr
+call demo-preview ems:admin:update i18n locale.nl
+call demo-preview ems:admin:update i18n locale.de
+call demo-preview ems:admin:update i18n locale.en
+call demo-preview ems:admin:update i18n asset.type.manual
 
 echo "Create/Update Environments"
 call demo-preview ems:admin:update environment preview

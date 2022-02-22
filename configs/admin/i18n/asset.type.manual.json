@@ -4,22 +4,22 @@
     "properties": {
         "identifier": "asset.type.manual",
         "content": [
-          {
-            "locale": "en",
-            "text": "Manual"
-          },
-          {
-            "locale": "fr",
-            "text": "Manuel"
-          },
-          {
-            "locale": "nl",
-            "text": "Handleiding"
-          },
-          {
-            "locale": "de",
-            "text": "Benutzerhandbuch"
-          }
+            {
+                "locale": "en",
+                "text": "Manual"
+            },
+            {
+                "locale": "fr",
+                "text": "Manuel"
+            },
+            {
+                "locale": "nl",
+                "text": "Handleiding"
+            },
+            {
+                "locale": "de",
+                "text": "Benutzerhandbuch"
+            }
         ]
     },
     "replaced": []
