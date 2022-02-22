@@ -1,49 +1,36 @@
+{% extends '@EMSCH/template/fragments/structure.html.twig' %}
 {% trans_default_domain trans_default_domain %}
 
-{% set rawData = structure|emsch_get.source %}
-{% set paths = rawData.paths|array_key('uid') %}
-{% set blocks = attribute(rawData, locale).structure|default("{}")|ems_json_menu_nested_decode %}
 
-
-{% set sections = {} %}
-{% for item in blocks.children %}
-    {% set links = {} %}
-    {% for link in item.children %}
-        {% set pathInfo = attribute(paths, link.id)|default(false) %}
-        {% if pathInfo %}
-            {% set links = links|merge({(link.label): path('emsch_path', {path: pathInfo.path})}) %}
-        {% elseif link.object.link is defined %}
-            {% set links = links|merge({(link.label): link.object.link}) %}
-        {% endif %}
-    {% endfor %}
-    {% set sections = sections|merge({(item.label): links}) %}
-{% endfor %}
-
-
-
-<footer class="bd-footer py-5 mt-5 bg-light">
-    <div class="container py-5">
-        <div class="row">
-            <div class="col-lg-3 mb-3">
-                <a class="d-inline-flex align-items-center mb-2 link-dark text-decoration-none" href="{{ path('emsch_homepage') }}" aria-label="{{ 'site.name'|trans }}">
-                    <img src="{{ asset("img/logos/logo-#{locale}.png", 'emsch') }}" width="35" height="35" alt="">
-                    &nbsp;
-                    <span class="fs-5">{{ 'site.name'|trans }}</span>
-                </a>
-                <ul class="list-unstyled small text-muted">
-                    <li class="mb-2">{{ 'site.copy'|trans }} <a href="https://github.com/orgs/ems-project/people">{{ 'site.team'|trans }}</a>.</li>
-                </ul>
-            </div>
-            {% for section, links in sections %}
-                <div class="col-6 col-lg-2 mb-3{% if loop.first %} offset-lg-1{% endif %}">
-                    <span class="h5">{{ section }}</span>
-                    <ul class="list-unstyled mt-1">
-                        {% for label, url in links %}
-                            <li class="mb-2"><a href="{{ url }}">{{ label }}</a></li>
-                        {% endfor %}
+{% block request %}
+    <footer class="bd-footer py-5 mt-5 bg-light">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-3 mb-3">
+                    <a class="d-inline-flex align-items-center mb-2 link-dark text-decoration-none" href="{{ path('emsch_homepage') }}" aria-label="{{ 'site.name'|trans }}">
+                        <img src="{{ asset("img/logos/logo-#{locale}.png", 'emsch') }}" width="35" height="35" alt="">
+                        &nbsp;
+                        <span class="fs-5">{{ 'site.name'|trans }}</span>
+                    </a>
+                    <ul class="list-unstyled small text-muted">
+                        <li class="mb-2">{{ 'site.copy'|trans }} <a href="https://github.com/orgs/ems-project/people">{{ 'site.team'|trans }}</a>.</li>
                     </ul>
                 </div>
-            {% endfor %}
+                {% for section in blocks.children %}
+                    <div class="col-6 col-lg-2 mb-3{% if loop.first %} offset-lg-1{% endif %}">
+                        <span class="h5">{{ section.label}}</span>
+                        <ul class="list-unstyled mt-1">
+                            {% for link in section.children %}
+                                <li class="mb-2">
+                                    {% if attribute(urls, link.id) is defined %}
+                                        <a href="{{ attribute(urls, link.id) }}">{{ link.label }}</a>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-    </div>
-</footer>
+    </footer>
+{% endblock request %}

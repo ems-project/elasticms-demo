@@ -1,0 +1,16 @@
+{% set rawData = structure|emsch_get.source %}
+{% set paths = rawData.paths|default([])|array_key('uid') %}
+{% set blocks = attribute(rawData, locale).structure|default("{}")|ems_json_menu_nested_decode %}
+
+{% set urls = {} %}
+{% for item in blocks %}
+    {% set pathInfo = attribute(paths, item.id)|default(false) %}
+    {% if pathInfo %}
+        {% set urls = urls|merge({(item.id): path('emsch_path', {path: pathInfo.path})}) %}
+    {% elseif item.object.link is defined %}
+        {% set urls = urls|merge({(item.id): item.object.link}) %}
+    {% endif %}
+{% endfor %}
+
+
+{% block request %}{% endblock %}

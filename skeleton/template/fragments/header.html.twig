@@ -1,40 +1,55 @@
+{% extends '@EMSCH/template/fragments/structure.html.twig' %}
 {% trans_default_domain trans_default_domain %}
-<header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled">Disabled</a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+
+{% block dropdown %}
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="{{ section.id }}" role="button"
+           data-toggle="dropdown" aria-expanded="false">
+            {{ section.label }}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="{{ section.id }}">
+            {% for link in section.children|filter(link => attribute(urls, link.id) is defined) %}
+                <a class="dropdown-item" href="{{ attribute(urls, link.id) }}">{{ link.label }}</a>
+            {% endfor %}
         </div>
-    </nav>
-</header>
+    </li>
+{% endblock %}
+
+{% block item %}
+    {% if attribute(urls, section.id) is defined %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ attribute(urls, section.id) }}">{{ section.label }}</a>
+        </li>
+    {% endif %}
+{% endblock %}
+
+{% block request %}
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{{ path('emsch_homepage') }}">
+                <img src="{{ asset("img/logos/logo-#{locale}.png", 'emsch') }}" width="30" height="30" alt="{{ 'site.name'|trans }}">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ 'aria.toggle-navbar'|trans }}">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    {% for section in blocks.children %}
+                        {% if section.children|length > 0 %}
+                            {{ block('dropdown') }}
+                        {% else %}
+                            {{ block('item') }}
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+    {#            <form class="form-inline my-2 my-lg-0">#}
+    {#                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">#}
+    {#                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>#}
+    {#            </form>#}
+            </div>
+        </nav>
+    </header>
+{% endblock %}
