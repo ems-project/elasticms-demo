@@ -1,0 +1,13 @@
+{
+    "en": {
+        "show": true,
+        "structure": "[{\"id\":\"ad318c34-f03b-4240-b36e-a1ae13f896c9\",\"label\":\"Elasticms is an open source CMS\",\"type\":\"text\",\"object\":{\"body\":\"<p>Elasticms is an open source CMS</p>\",\"label\":\"Elasticms is an open source CMS\"},\"children\":[]}]",
+        "title": "About"
+    },
+    "fr": {
+        "show": false,
+        "structure": "[]"
+    },
+    "label": "About",
+    "type": "page"
+}
