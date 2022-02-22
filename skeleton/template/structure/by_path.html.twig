@@ -7,6 +7,12 @@
 
 {% set baseTemplate = '@EMSCH/template/structure/target-not-found.html.twig' %}
 
+{% if target.contentType == 'slideshow' %}
+    {% set baseTemplate = '@EMSCH/template/slideshow/revealjs.html.twig' %}
+{% elseif target.contentType == 'page' %}
+    {% set baseTemplate = '@EMSCH/template/page/by_type.html.twig' %}
+{% endif %}
+
 
 
 {% extends baseTemplate %}
