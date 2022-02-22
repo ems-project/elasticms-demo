@@ -1,4 +1,6 @@
 #/bin/bash
+./demo-preview.sh ems:admin:login
+
 echo "Update admin configs Filters"
 demo-preview.sh ems:admin:get filter --export
 
