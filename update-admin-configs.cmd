@@ -38,4 +38,5 @@ call demo-preview ems:document:download publication
 call demo-preview ems:document:download slideshow
 call demo-preview ems:document:download structure
 call demo-preview ems:document:download form_instance
+call demo-preview ems:document:download asset
 

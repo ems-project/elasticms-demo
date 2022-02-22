@@ -38,4 +38,5 @@ demo-preview.sh ems:document:download publication
 demo-preview.sh ems:document:download slideshow
 demo-preview.sh ems:document:download structure
 demo-preview.sh ems:document:download form_instance
+demo-preview.sh ems:document:download asset
 

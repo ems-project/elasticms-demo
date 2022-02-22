@@ -57,6 +57,7 @@ call demo-preview ems:admin:update content-type structure
 call demo-preview ems:admin:update content-type publication
 call demo-preview ems:admin:update content-type slideshow
 call demo-preview ems:admin:update content-type form_instance
+call demo-preview ems:admin:update content-type asset
 
 echo "Create/Update QuerySearches"
 call demo-preview ems:admin:update query-search pages
@@ -86,6 +87,7 @@ call demo-preview ems:document:upload structure
 call demo-preview ems:document:upload publication
 call demo-preview ems:document:upload slideshow
 call demo-preview ems:document:upload form_instance
+call demo-preview ems:document:upload asset
 
 echo "Align live"
 call demo-admin ems:environment:align preview live --force
