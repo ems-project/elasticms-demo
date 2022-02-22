@@ -15,7 +15,7 @@
         "businessIdField": "",
         "deleted": false,
         "askForOuuid": false,
-        "color": "aqua",
+        "color": null,
         "fieldType": {
             "class": "EMS\\CoreBundle\\Entity\\FieldType",
             "arguments": [],
@@ -59,7 +59,7 @@
         "deleteRole": "ROLE_WEBMASTER",
         "trashRole": "ROLE_WEBMASTER",
         "ownerRole": "not-defined",
-        "orderKey": 2,
+        "orderKey": 1,
         "rootContentType": true,
         "editTwigWithWysiwyg": true,
         "webContent": true,
