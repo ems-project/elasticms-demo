@@ -1,5 +1,5 @@
 aria:
-  toggle-navbar: 'Toggle navigation'
+    toggle-navbar: 'Toggle navigation'
 error:
     target-not-found: 'Page not found'
 site:
