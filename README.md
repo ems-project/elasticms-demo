@@ -47,9 +47,10 @@ Every script bellow exist as `.cmd` and as `.sh` file.
 
 ## Troubleshooting
 
-### Check local services
+### Useful links
 
- - [Traefik](http://localhost:8888) : HTTP reverse proxy
- - [mailhog](http://mailhog.localhost) : Mail catcher
+ - [Traefik](http://localhost:8888) : An HTTP reverse proxy
+ - [mailhog](http://mailhog.localhost) : A Mail catcher
  - [kibana](http://kibana.localhost) : A dev tools to query elasticsearch
- - [elasticsearch](http://es.localhost/_cluster/health) : Verify that the status is `green`
+ - [elasticsearch](http://es.localhost/_cluster/health) : The search engine, Verify that the status is `green`
+ - [minio](http://minio.localhost) : A S3 like storage service 
