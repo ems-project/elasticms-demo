@@ -28,7 +28,7 @@ Go back to your console:
 - `./create-admin.sh` (or `create-admin.cmd` under Windows)
 - `./bootstrap.sh` (or `bootstrap.cmd` under Windows)
 
-Check the [preview](http://demo-preview.localhost/slideshow/toto)
+Check the [preview](http://demo-preview.localhost)
 
 You can now login with your just defined password and the user `demo` in [elasticms](http://demo-admin.localhost/dashboard).
 
@@ -63,3 +63,4 @@ Every script bellow exist as `.cmd` and as `.sh` file.
  - [kibana](http://kibana.localhost) : A dev tools to query elasticsearch
  - [elasticsearch](http://es.localhost/_cluster/health) : The search engine, Verify that the status is `green`
  - [minio](http://minio.localhost) : A S3 like storage service 
+ - [elasticms debug](http://demo-admin-dev.localhost/) : elasticms in Symfony debug mode 
