@@ -52,6 +52,25 @@ emsch_homepage:
         path: { en: /, fr: /fr, nl: /nl, de: /de }
     query: '{"query":{"bool":{"must":[{"term":{"%locale%.show":true}},{"term":{"%locale%.slug":"\/"}},{"terms":{"_contenttype":["page"]}}]}},"size":1}'
     template_static: template/page/by_type.html.twig
+form_iframe:
+  config:
+    path: '/iframe/{ouuid}/{_locale}'
+    controller: 'emsf.controller.form::iframe'
+form_init:
+  config:
+    path: '/init-form/{ouuid}/{_locale}'
+    controller: 'emsf.controller.form::initForm'
+    method: [POST]
+form_submit:
+  config:
+    path: '/form/{ouuid}/{_locale}'
+    controller: 'emsf.controller.form::submitForm'
+    method: [POST]
+form_dynamic_field:
+  config:
+    path: '/ajax/{ouuid}/{_locale}'
+    controller: 'emsf.controller.form::dynamicFieldAjax'
+    method: [POST]
 emsch_path:
     config:
         path: { en: '/{path}', fr: '/fr/{path}', nl: '/nl/{path}', de: '/de/{path}' }

@@ -1,3 +1,5 @@
+ems_form:
+  loading: 'The form is currently loading... If not please reload the page.'
 aria:
     toggle-navbar: 'Toggle navigation'
 error:

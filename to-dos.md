@@ -11,3 +11,4 @@
 - test slugs (publication, page, slideshows) are unique on finalize
 - back to ems
 - channels (preview and live)
+- photos carousel (block)
