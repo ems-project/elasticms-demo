@@ -13,3 +13,6 @@
 - channels (preview and live)
 - photos carousel (block)
 - translate date's months with symfony?
+- deadline in mini  crm for submission + cleaning
+- remove hardcoded key from submission in forms
+- 
