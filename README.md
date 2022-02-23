@@ -47,6 +47,10 @@ Every script bellow exist as `.cmd` and as `.sh` file.
 
 ## Troubleshooting
 
+### FAQ
+
+- The labels are not translated in the skeleton: clear the cache for the corresponding skeleton i.e. `demo-preview cache:clear`
+
 ### Useful commands
 
 - `doc ps` : List containers
