@@ -1,22 +1,31 @@
+require('webpack');
 const path = require('path');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-module.exports = {
+let config = {
+    mode: 'production',
     plugins: [
         new CleanWebpackPlugin({
             cleanOnceBeforeBuildPatterns: ['**/*'],
         }),
         new CopyPlugin({
-            patterns: [
-                {
-                    from: 'img/**',
-                },
-                {
-                    from: 'other/**',
-                },
-            ],
+            patterns: [{
+                from: "img/**",
+                globOptions: {
+                    dot: true,
+                    gitignore: true,
+                    ignore: [".github/**/*", "**/*.php"],
+                }
+            },{
+                from: "other/**",
+                globOptions: {
+                    dot: true,
+                    gitignore: true,
+                    ignore: [".github/**/*", "**/*.php"],
+                }
+            }],
         }),
         new MiniCssExtractPlugin({
             filename: "css/[name].css",
@@ -30,10 +39,10 @@ module.exports = {
         'reveal': './reveal.js',
     },
     output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'js/[name].js',
-        //publicPath: '../bundles/emscore/',
+        path: path.resolve(__dirname, "./dist"),
+        filename: "./js/[name].js"
     },
+    devtool: 'source-map',
     module: {
         rules: [
             {
@@ -46,12 +55,12 @@ module.exports = {
                         publicPath: '../'
                     }
                 },{
-                    loader: 'css-loader', // translates CSS into CommonJS
+                    loader: 'css-loader',
                     options: {
                         sourceMap: true
                     }
                 }, {
-                    loader: 'less-loader' // compiles Less to CSS
+                    loader: 'less-loader'
                 }]
             },
             {
@@ -68,10 +77,12 @@ module.exports = {
                     options: {
                         sourceMap: true
                     }
-                },
-                    // 'postcss-loader',
-                    'sass-loader',
-                ],
+                },{
+                    loader: 'sass-loader',
+                    options: {
+                      sourceMap: true,
+                    }
+                }],
             },
             {
                 test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
@@ -92,7 +103,9 @@ module.exports = {
                         ]
                     }
                 }]
-            }
+            },
         ]
     }
-};
+}
+
+module.exports = config;
