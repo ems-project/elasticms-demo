@@ -12,3 +12,4 @@
 - back to ems
 - channels (preview and live)
 - photos carousel (block)
+- translate date's months with symfony?

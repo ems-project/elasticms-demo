@@ -10,3 +10,10 @@
         {{ block("render", "@EMSCH/template/page/blocks/abstract-block.html.twig") }}
     {% endwith %}
 {% endblock %}
+
+
+
+{% block javascript %}
+    {{ parent() }}
+    {{ include('@EMSCH/template/form/formJs.html.twig') }}
+{% endblock %}

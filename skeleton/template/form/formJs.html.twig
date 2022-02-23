@@ -1,0 +1,118 @@
+{%- trans_default_domain trans_default_domain -%}
+<script type="application/javascript" src="{{ asset('form.js', 'emsform') }}"></script>
+<script type="application/javascript">
+    var onIframeLoad = function() {
+        new emsForm({
+            'idForm': 'ems-form-custom',
+            'idMessage': 'ems-message-custom',
+            'idIframe': 'ems-form-iframe-custom',
+            'onLoad': function() {
+                console.log('My onload function');
+                var $form = $('#ems-form-custom form');
+
+                var $profile = $('.profile');
+                var $restOfForm = $('<div id="rest-of-form"></div>');
+                $restOfForm.append($profile.parent().siblings().not('h2'));
+                $restOfForm.insertAfter($profile.parent());
+                $profile.on('change', function() {
+                    if ($(this).val() != '') {
+                        $('#rest-of-form').show();
+                        $(this).parent().removeClass('mb-0');
+
+                        if ($(this).val() == 'citizen') {
+                            $('.citizen').each(function() {
+                                $(this).parent().show();
+                                if ($(this).data('was-required') == 'true') {
+                                    $(this).attr('required', 'required');
+                                }
+                            });
+                            $('.employer').each(function() {
+                                $(this).parent().hide();
+                                if ($(this).attr('required') == 'required') {
+                                    $(this).data('was-required', 'true');
+                                    $(this).removeAttr('required');
+                                }
+                            });
+                        } else {
+                            $('.employer').each(function() {
+                                $(this).parent().show();
+                                if ($(this).data('was-required') == 'true') {
+                                    $(this).attr('required', 'required');
+                                }
+                            });
+                            $('.citizen').each(function() {
+                                $(this).parent().hide();
+                                if ($(this).attr('required') == 'required') {
+                                    $(this).data('was-required', 'true');
+                                    $(this).removeAttr('required');
+                                }
+                            });
+                        }
+                    } else {
+                        $('#rest-of-form').hide();
+                        $(this).parent().addClass('mb-0');
+                    }
+                });
+                $profile.trigger('change');
+                $('.choice-select').addClass('custom-select');
+
+                var $lastnameGroup = $('.lastname').parent();
+                var $firstnameGroup = $('.firstname').parent();
+                var $namesRow = $('<div class="row"></div>');
+                var $lastnameCol = $('<div class="col"></div>');
+                var $firstnameCol = $('<div class="col"></div>');
+                $namesRow.insertBefore($lastnameGroup);
+                $namesRow.append($lastnameCol.append($lastnameGroup));
+                $namesRow.append($firstnameCol.append($firstnameGroup));
+
+                var $emailGroup = $('.email').parent();
+                var $phoneGroup = $('.phone').parent();
+                var $namesRow = $('<div class="row"></div>');
+                var $emailCol = $('<div class="col d-flex justify-content-end flex-column"></div>');
+                var $phoneCol = $('<div class="col"></div>');
+                $namesRow.insertBefore($emailGroup);
+                $namesRow.append($emailCol.append($emailGroup));
+                $namesRow.append($phoneCol.append($phoneGroup));
+
+                var $postcodeGroup = $('.postcode').parent();
+                var $municipalityGroup = $('.municipality').parent();
+                var $namesRow = $('<div class="row"></div>');
+                var $postcodeCol = $('<div class="col d-flex justify-content-end flex-column col-3"></div>');
+                var $municipalityCol = $('<div class="col"></div>');
+                $namesRow.insertBefore($postcodeGroup);
+                $namesRow.append($postcodeCol.append($postcodeGroup));
+                $namesRow.append($municipalityCol.append($municipalityGroup));
+
+                $('.submit').parent().addClass('mb-0');
+
+                $form.find('label:not(.required)').each(function() {
+                    $(this).html($(this).text() + ' <span class="text-muted">({{ 'ems_form.optional_field'|trans }})</span>');
+                });
+
+                $('#form_firm_title').val($('#event_title').text()).parent().hide();
+            },
+            'onSubmit': function() {
+                console.log('My submit function');
+                $('#ems-form-custom').find('input,button').attr('disabled',true);
+            },
+            'onError': function(errorMessage) {
+                console.log('My error function:' + errorMessage);
+                $('#ems-form-custom').parent().html("{{ 'ems_form.submit_error'|trans|e('js') }}".replace('%error%', errorMessage));
+            },
+            'onResponse': function(json) {
+                console.log('My response function');
+                var response = JSON.parse(json);
+                var parent = $('#ems-form-custom').parent();
+                $.each(response, function() {
+                    var submit = JSON.parse(this);
+                    if (submit.status === 'success') {
+                        parent.html("<div class=\"alert alert-success\">{{ 'ems_form.success'|trans|e('js') }}</div>".replace('%uid%', submit.uid));
+                    }
+                    else {
+                        parent.html("<div class=\"alert alert-error\">{{ 'ems_form.failed'|trans|e('js') }}</div>");
+                    }
+                });
+            }
+        }).init();
+    };
+</script>

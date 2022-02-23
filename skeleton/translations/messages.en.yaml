@@ -1,7 +1,8 @@
-ems_form:
-  loading: 'The form is currently loading... If not please reload the page.'
 aria:
     toggle-navbar: 'Toggle navigation'
+ems_form:
+  loading: 'The form is currently loading... If not please reload the page.'
+  ignore_iframe: 'Technical iframe, please ignore'
 error:
     target-not-found: 'Page not found'
 site:

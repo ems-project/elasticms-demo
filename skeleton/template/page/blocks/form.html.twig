@@ -1,6 +1,7 @@
 {% extends '@EMSCH/template/page/blocks/abstract-block.html.twig' %}
 
 {% block widget %}
+    {% trans_default_domain trans_default_domain %}
     {% set form = item.object.link|emsch_get|default('') %}
     <div id="ems-form-custom" class="mb-5">
         <p>{{ 'ems_form.loading'|trans|raw }}</p>
@@ -9,5 +10,5 @@
     <iframe id="ems-form-iframe-custom" src="{{ absolute_url(path('form_iframe', {
         ouuid:form.ouuid,
         _locale: locale
-    })) }}" style="display:none;" onload="onIframeLoad()" title="Technical iframe, please ignore"></iframe>
+    })) }}" style="display:none;" onload="onIframeLoad()" title="{{ '' }}"></iframe>
 {% endblock widget %}
