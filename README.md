@@ -3,15 +3,12 @@ A default elasticms local setup using docker-compose
 
 ## Prerequisites
 
-You need [Docker Desktop](https://www.docker.com/get-started) or docker-compose (or alternative like Podman)
+You need [Docker Desktop](https://www.docker.com/get-started) or docker-compose (or an alternative as Podman)
  
 The following ports must be available:
  - 8888: Traefik UI
  - 80: Web HTTP
  - 443: Web HTTPS
-
-Optionally you can also install [NodeJS and NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm). 
-
 
 ## Install steps
 
@@ -34,6 +31,19 @@ Go back to your console:
 Check the [preview](http://demo-preview.localhost/slideshow/toto)
 
 You can now login with your just defined password and the user `demo` in [elasticms](http://demo-admin.localhost/dashboard).
+
+## Commands
+
+Every script bellow exist as `.cmd` and as `.sh` file.
+
+- `bootstrap`: Create (or update) elasticms from the local config files (push everything)
+- `create-admin`: Create a `demo` user with ADMIN and API rights 
+- `demo-admin`: Run the elasticms's Symfony console 
+- `demo-preview`: Run the skeleton's Symfony console in preview context
+- `demo-live`: Run the skeleton's Symfony console in live context
+- `doc`: Shortcut to docker-compose
+- `npm`: Run a npm console (in a docker run container)
+- `update-local-configs`: Update the local config files from elasticms (pull everything)
 
 ## Troubleshooting
 
