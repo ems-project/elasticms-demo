@@ -14,10 +14,10 @@ The following ports must be available:
 
 Open a terminal and run the following commands:
 - `npm install`: install NPM dependencies
-  - or `npm.sh install` or `npm.cmd install` 
+  - or `./npm.sh install`
 - `npm run prod`: Build the frontend assets (js, css, ...)
-  - or `npm.sh run prod` or `npm.cmd run prod`
-- `docker-compose up -d`: Start the docker container
+  - or `./npm.sh run prod`
+- `docker-compose up -d`: Start the docker container (in daemon mode)
 
 Go to [minio](http://minio.localhost/login) and login with those credentials:
 - user: accesskey
@@ -46,6 +46,11 @@ Every script bellow exist as `.cmd` and as `.sh` file.
 - `update-local-configs`: Update the local config files from elasticms (pull everything)
 
 ## Troubleshooting
+
+### Useful commands
+
+- `doc ps` : List containers
+- `doc logs -f` : View output from containers
 
 ### Useful links
 
