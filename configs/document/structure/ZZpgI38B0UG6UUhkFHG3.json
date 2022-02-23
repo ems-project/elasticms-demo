@@ -1,13 +1,13 @@
 {
     "en": {
         "baseurl": "",
-        "structure": "[{\"id\":\"bbf811ee-7ab3-4d79-930d-9dee9eb5ee3b\",\"label\":\"About\",\"type\":\"document\",\"object\":{\"label\":\"About\",\"link\":\"page:lRa6I38B_loUDXhuvEhS\"},\"children\":[]},{\"id\":\"e9c5f3d3-21d0-4f87-b2a3-b7e5c9e457af\",\"label\":\"Tests\",\"type\":\"section\",\"object\":{\"label\":\"Tests\"},\"children\":[{\"id\":\"b137b992-8ef6-46c0-ae3f-0d0bd5c3b8ca\",\"label\":\"Blocks\",\"type\":\"document\",\"object\":{\"label\":\"Blocks\",\"link\":\"page:Z5qhI38B0UG6UUhkdnE1\"},\"children\":[]},{\"id\":\"547b6bf3-2d96-4ba1-98b1-5302bdf3414d\",\"label\":\"Sitemap (xml)\",\"type\":\"link\",\"object\":{\"label\":\"Sitemap (xml)\",\"link\":\"/sitemap.xml\"},\"children\":[]},{\"id\":\"67da2a55-c388-4df2-9687-6b7ef6ae6343\",\"label\":\"Robots (txt)\",\"type\":\"link\",\"object\":{\"label\":\"Robots (txt)\",\"link\":\"/robots.txt\"},\"children\":[]},{\"id\":\"97f73d7c-b7f2-480f-8882-c8c86baa3c48\",\"label\":\"favicon.ico\",\"type\":\"link\",\"object\":{\"label\":\"favicon.ico\",\"link\":\"/favicon.ico\"},\"children\":[]},{\"id\":\"f9c556e4-ab1b-4cec-b638-b9ae7079786c\",\"label\":\"apple-touch-icon.png\",\"type\":\"link\",\"object\":{\"label\":\"apple-touch-icon.png\",\"link\":\"/apple-touch-icon.png\"},\"children\":[]}]}]"
+        "structure": "[{\"id\":\"bbf811ee-7ab3-4d79-930d-9dee9eb5ee3b\",\"label\":\"About\",\"type\":\"document\",\"object\":{\"label\":\"About\",\"link\":\"page:lRa6I38B_loUDXhuvEhS\"},\"children\":[]},{\"id\":\"e9c5f3d3-21d0-4f87-b2a3-b7e5c9e457af\",\"label\":\"Tests\",\"type\":\"section\",\"object\":{\"label\":\"Tests\"},\"children\":[{\"id\":\"b137b992-8ef6-46c0-ae3f-0d0bd5c3b8ca\",\"label\":\"Blocks\",\"type\":\"document\",\"object\":{\"label\":\"Blocks\",\"link\":\"page:Z5qhI38B0UG6UUhkdnE1\"},\"children\":[]},{\"id\":\"94b7ac1d-6b46-404d-a141-95b49c45d333\",\"label\":\"Advance form\",\"type\":\"document\",\"object\":{\"label\":\"Advance form\",\"link\":\"page:AYcFJn8Be-ZNjEIk6F53\"},\"children\":[]},{\"id\":\"547b6bf3-2d96-4ba1-98b1-5302bdf3414d\",\"label\":\"Sitemap (xml)\",\"type\":\"link\",\"object\":{\"label\":\"Sitemap (xml)\",\"link\":\"/sitemap.xml\"},\"children\":[]},{\"id\":\"67da2a55-c388-4df2-9687-6b7ef6ae6343\",\"label\":\"Robots (txt)\",\"type\":\"link\",\"object\":{\"label\":\"Robots (txt)\",\"link\":\"/robots.txt\"},\"children\":[]},{\"id\":\"97f73d7c-b7f2-480f-8882-c8c86baa3c48\",\"label\":\"favicon.ico\",\"type\":\"link\",\"object\":{\"label\":\"favicon.ico\",\"link\":\"/favicon.ico\"},\"children\":[]},{\"id\":\"f9c556e4-ab1b-4cec-b638-b9ae7079786c\",\"label\":\"apple-touch-icon.png\",\"type\":\"link\",\"object\":{\"label\":\"apple-touch-icon.png\",\"link\":\"/apple-touch-icon.png\"},\"children\":[]}]}]"
     },
     "fr": {
         "baseurl": "",
         "structure": "[]"
     },
-    "label": "NavBar",
+    "label": "Header",
     "paths": [
         {
             "locale": "en",
@@ -20,6 +20,12 @@
             "path": "blocks",
             "target": "page:Z5qhI38B0UG6UUhkdnE1",
             "uid": "b137b992-8ef6-46c0-ae3f-0d0bd5c3b8ca"
+        },
+        {
+            "locale": "en",
+            "path": "advance-form",
+            "target": "page:AYcFJn8Be-ZNjEIk6F53",
+            "uid": "94b7ac1d-6b46-404d-a141-95b49c45d333"
         }
     ]
 }

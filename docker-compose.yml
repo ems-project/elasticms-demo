@@ -177,11 +177,11 @@ services:
       - DB_DRIVER=pgsql
       - DB_HOST=postgres
       - DB_PORT=5432
-      - MAILER_URL=smtp://mailhog_ems:1025
+      - MAILER_URL=smtp://mailhog:1025
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - "EMS_ELASTICSEARCH_HOSTS=[\"http://es01:9200\",\"http://es02:9200\",\"http://es03:9200\"]"
-      - EMSCO_FROM_EMAIL_ADDRESS=ems_mysql@example.com
+      - EMSCO_FROM_EMAIL_ADDRESS=ems_demo@example.com
       - "EMSCO_FROM_EMAIL_NAME=elasticms"
       - EMSCO_TIKA_SERVER=http://tika:9998
       - CLI_PHP_MEMORY_LIMIT=512M
@@ -211,7 +211,7 @@ services:
       - PHP_FPM_REQUEST_MAX_MEMORY_IN_MEGABYTES=64
       - CONTAINER_HEAP_PERCENT=0.8
       - ES_ENDPOINT_URL=http://es01:9200
-      - MAILER_URL=null://localhost
+      - MAILER_URL=smtp://mailhog:1025
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - "EMS_ELASTICSEARCH_HOSTS=[\"http://es01:9200\",\"http://es02:9200\",\"http://es03:9200\"]"

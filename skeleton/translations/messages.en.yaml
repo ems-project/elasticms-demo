@@ -1,8 +1,11 @@
 aria:
-    toggle-navbar: 'Toggle navigation'
+  toggle-navbar: 'Toggle navigation'
+attachments_browse: Browse
+ems_file_browse: Browse
 ems_form:
   loading: 'The form is currently loading... If not please reload the page.'
   ignore_iframe: 'Technical iframe, please ignore'
+  success: 'Your request has been submitted'
 error:
     target-not-found: 'Page not found'
 site:

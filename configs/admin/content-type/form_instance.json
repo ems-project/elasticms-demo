@@ -655,9 +655,9 @@
                                                                                     "class": "col-md-12",
                                                                                     "lastOfRow": false,
                                                                                     "helptext": null,
-                                                                                    "values": "fr\r\nnl\r\nde",
-                                                                                    "labels": "FR\r\nNL\r\nDE",
-                                                                                    "icon": null
+                                                                                    "values": "en\r\nfr\r\nnl\r\nde",
+                                                                                    "labels": "English\r\nFrench\r\nDutch\r\nGerman",
+                                                                                    "icon": "fa fa-language"
                                                                                 },
                                                                                 "mappingOptions": [],
                                                                                 "restrictionOptions": [],
@@ -2359,12 +2359,86 @@
                             ]
                         },
                         "replaced": []
+                    },
+                    {
+                        "class": "EMS\\CoreBundle\\Entity\\FieldType",
+                        "arguments": [],
+                        "properties": {
+                            "type": "EMS\\CoreBundle\\Form\\DataField\\ComputedFieldType",
+                            "name": "live_search",
+                            "contentType": null,
+                            "deleted": false,
+                            "description": null,
+                            "options": {
+                                "displayOptions": {
+                                    "label": "Live Search",
+                                    "class": "hidden",
+                                    "lastOfRow": false,
+                                    "helptext": null,
+                                    "valueTemplate": null,
+                                    "json": false,
+                                    "displayTemplate": null
+                                },
+                                "mappingOptions": {
+                                    "mappingOptions": "{\r\n        \"type\": \"search_as_you_type\",\r\n        \"analyzer\": \"standard\"\r\n}",
+                                    "copy_to": null
+                                },
+                                "restrictionOptions": [],
+                                "extraOptions": {
+                                    "extra": null,
+                                    "clear_on_copy": false,
+                                    "postProcessing": null
+                                },
+                                "raw_data": []
+                            },
+                            "orderKey": 6,
+                            "parent": null,
+                            "children": []
+                        },
+                        "replaced": []
+                    },
+                    {
+                        "class": "EMS\\CoreBundle\\Entity\\FieldType",
+                        "arguments": [],
+                        "properties": {
+                            "type": "EMS\\CoreBundle\\Form\\DataField\\ComputedFieldType",
+                            "name": "label_search",
+                            "contentType": null,
+                            "deleted": false,
+                            "description": null,
+                            "options": {
+                                "displayOptions": {
+                                    "label": "Live Search",
+                                    "class": "hidden",
+                                    "lastOfRow": false,
+                                    "helptext": null,
+                                    "valueTemplate": null,
+                                    "json": false,
+                                    "displayTemplate": null
+                                },
+                                "mappingOptions": {
+                                    "mappingOptions": "{\r\n        \"type\": \"search_as_you_type\",\r\n        \"analyzer\": \"standard\"\r\n}",
+                                    "copy_to": null
+                                },
+                                "restrictionOptions": [],
+                                "extraOptions": {
+                                    "extra": null,
+                                    "clear_on_copy": false,
+                                    "postProcessing": null
+                                },
+                                "raw_data": []
+                            },
+                            "orderKey": 7,
+                            "parent": null,
+                            "children": []
+                        },
+                        "replaced": []
                     }
                 ]
             },
             "replaced": []
         },
-        "labelField": "",
+        "labelField": "label",
         "colorField": "",
         "userField": null,
         "dateField": null,
