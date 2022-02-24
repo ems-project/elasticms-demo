@@ -1,0 +1,12 @@
+{% extends 'bootstrap_4_layout.html.twig' %}
+
+{% block form_row -%}
+    {% if ems_meta.rules|default([])|length > 0 %}
+        {% set row_attr = row_attr|merge({
+            'data-rules': ems_meta.rules|json_encode|e('html_attr'),
+            'data-show-hide': ems_meta.show_hide|default('show')|e('html_attr'),
+            'data-all-any': ems_meta.all_any|default('any')|e('html_attr'),
+        }) %}
+    {%  endif %}
+    {{ parent() }}
+{% endblock  %}
