@@ -1,13 +1,13 @@
 import $ from "jquery";
 
-export default function dynForms() {
+export default function dynForms(formId) {
     const $ = require('jquery');
-    const dynForms = $('form.dyn-form');
+    const dynForms = $('#'+formId+' form');
 
     const getValue = function(name) {
         let array = [];
         let isArray = false;
-        var objects = document.querySelectorAll('[name="'+name+'"]');
+        var objects = document.querySelectorAll('[name="form'+name+'"]');
 
         for (var i = 0; i < objects.length; i++) {
             if (objects[i].getAttribute('type') === 'radio') {
@@ -98,6 +98,9 @@ export default function dynForms() {
 
     function countValidRules(rules) {
         let counter = 0;
+        if (rules === undefined) {
+            return;
+        }
 
         const objectKeys = Object.keys(rules);
         for (let i = 0; i < objectKeys.length; i++) {
