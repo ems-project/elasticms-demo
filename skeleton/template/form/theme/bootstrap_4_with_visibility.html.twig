@@ -22,3 +22,19 @@
     {%  endif %}
     {{ parent() }}
 {%- endblock %}
+
+{% block ems_markup_row -%}
+    {% set attr = attr|merge({
+        'class': 'form-group',
+    }) %}
+    {% if config.meta.rules|default([])|length > 0 %}
+        {% set attr = attr|merge({
+            'data-rules': config.meta.rules|json_encode,
+            'data-show-hide': config.meta.show_hide|default('show'),
+            'data-all-any': config.meta.all_any|default('any'),
+        }) %}
+    {%  endif %}
+    <div {{ block('attributes') }}>
+        {{ form.vars.config.markup|emsch_routing }}
+    </div>
+{%- endblock %}
