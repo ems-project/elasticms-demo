@@ -303,7 +303,7 @@
                                                         },
                                                         "restrictionOptions": {
                                                             "mandatory": true,
-                                                            "mandatory_if": "%locale%.show",
+                                                            "mandatory_if": "show",
                                                             "minimum_role": null
                                                         },
                                                         "extraOptions": {
