@@ -1,12 +1,11 @@
 
-- Menu from la chambre
-- admin's overviews (colibri or instructions)
-- rights by roles
-- search
-- search with load more in mobile
 - form
-- index bundle's documentations (md) in a separate (managed?) alias 
+- Back to top
 - computed field with indexed content for search engine
+- search
+- admin's overviews (colibri or instructions)
+- search with load more in mobile
+- index bundle's documentations (md) in a separate (managed?) alias 
 - test slugs (publication, page, slideshows) are unique on finalize
 - back to ems
 - channels (preview and live)
@@ -21,3 +20,5 @@
 - remove AppControllers
 - chunk upload field in form
 - i18n with user's prefered locale
+- breadcrumb
+- rights by roles
