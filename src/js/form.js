@@ -57,6 +57,10 @@ export class skeletonForm
     }
 
     onSubmit(elementForm, elementMessage) {
+        const inputs = elementForm.querySelectorAll('input,button,textarea');
+        for (let i = 0; i < inputs.length; i++) {
+            inputs[i].setAttribute('disabled',true)
+        }
         console.log('My submit function');
     }
 
