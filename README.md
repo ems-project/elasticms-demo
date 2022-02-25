@@ -50,6 +50,7 @@ Every script bellow exist as `.cmd` and as `.sh` file.
 ### FAQ
 
 - The labels are not translated in the skeleton: clear the cache for the corresponding skeleton i.e. `demo-preview cache:clear`
+- I do not see form submissions in the elasticms mini-CRM: Please update the auth-key in the form config 
 
 ### Useful commands
 
