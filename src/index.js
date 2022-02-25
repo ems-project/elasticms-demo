@@ -13,6 +13,7 @@ import toc from "./js/toc";
 import externalLink from "./js/external-link";
 import form from "./js/form";
 import {NavBar} from "./js/navbar";
+import multilevelNavbar from "./js/multilevel-navbar";
 
 adminMenu();
 back2top();
@@ -20,6 +21,7 @@ ajaxSearch();
 toc();
 externalLink();
 form();
+multilevelNavbar();
 
 const navBar = new NavBar();
 navBar.activateBestItem();

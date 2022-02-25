@@ -1,18 +1,40 @@
 {% extends '@EMSCH/template/fragments/structure.html.twig' %}
 {% trans_default_domain trans_default_domain %}
 
+{% block dropdownSubmenu %}
+    <li class="dropdown-submenu">
+        <a class="dropdown-item dropdown-toggle" href="{{ attribute(urls, link.id) }}">{{ link.label }}</a>
+        <ul class="dropdown-menu">
+            {% for link in link.children|filter(link => attribute(urls, link.id) is defined) %}
+                {% if link.children|length > 0 %}
+                    {{ block('dropdownSubmenu') }}
+                {% else %}
+                    {{ block('dropdownItem') }}
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </li>
+{% endblock %}
+
+{% block dropdownItem %}
+    <li><a class="dropdown-item" href="{{ attribute(urls, link.id) }}">{{ link.label }}</a></li>
+{% endblock %}
 
 {% block dropdown %}
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="{{ section.id }}" role="button"
-           data-toggle="dropdown" aria-expanded="false">
+           data-toggle="dropdown" aria-haspopup="true"aria-expanded="false">
             {{ section.label }}
         </a>
-        <div class="dropdown-menu" aria-labelledby="{{ section.id }}">
+        <ul class="dropdown-menu" aria-labelledby="{{ section.id }}">
             {% for link in section.children|filter(link => attribute(urls, link.id) is defined) %}
-                <a class="dropdown-item" href="{{ attribute(urls, link.id) }}">{{ link.label }}</a>
+                {% if link.children|length > 0 %}
+                    {{ block('dropdownSubmenu') }}
+                {% else %}
+                    {{ block('dropdownItem') }}
+                {% endif %}
             {% endfor %}
-        </div>
+        </ul>
     </li>
 {% endblock %}
 
