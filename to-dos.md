@@ -1,5 +1,5 @@
 
-
+- Menu from la chambre
 - add an `active` class and a ` <span class="sr-only">(current)</span>` to the active page in the header menu (JS)
 - admin's overviews
 - rights by roles
@@ -15,4 +15,10 @@
 - translate date's months with symfony?
 - deadline in mini  crm for submission + cleaning
 - remove hardcoded key from submission in forms
-- 
+- i18n as ChoicesFieldType keys/values
+- skip menu
+- %locales%.show
+- clean revisions history (by CT)
+- remove AppControllers
+- chunk upload field in form
+- i18n with user's prefered locale
