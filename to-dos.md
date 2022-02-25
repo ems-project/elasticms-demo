@@ -1,10 +1,10 @@
 
 - Menu from la chambre
 - add an `active` class and a ` <span class="sr-only">(current)</span>` to the active page in the header menu (JS)
-- admin's overviews
+- admin's overviews (colibri or instructions)
 - rights by roles
 - search
-- search with load more
+- search with load more in mobile
 - form
 - index bundle's documentations (md) in a separate (managed?) alias 
 - computed field with indexed content for search engine
