@@ -192,7 +192,7 @@ services:
 #      - ../EMSCoreBundle:/opt/src/vendor/elasticms/core-bundle
 #      - ../EMSCoreBundle/src/Resources/translations:/opt/src/translations
 #      - ../EMSClientHelperBundle:/opt/src/vendor/elasticms/client-helper-bundle
-#      - ../EMSFormBundle:/opt/src/vendor/elasticms/form-bundle
+      - ../EMSFormBundle:/opt/src/vendor/elasticms/form-bundle
 #      - ../EMSSubmissionBundle:/opt/src/vendor/elasticms/submission-bundle
     labels:
       - "traefik.enable=true"
@@ -228,7 +228,7 @@ services:
       - ./skeleton:/opt/src/local/demo_pgsql_v1_preview
       - ./skeleton:/opt/src/local/demo_pgsql_v1_live
 #      - ../EMSCommonBundle:/opt/src/vendor/elasticms/common-bundle
-#      - ../EMSFormBundle:/opt/src/vendor/elasticms/form-bundle
+      - ../EMSFormBundle:/opt/src/vendor/elasticms/form-bundle
 #      - ../EMSSubmissionBundle:/opt/src/vendor/elasticms/submission-bundle
 #      - ../EMSClientHelperBundle:/opt/src/vendor/elasticms/client-helper-bundle
     labels:
