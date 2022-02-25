@@ -1,0 +1,13 @@
+{
+    "en": {
+        "show": true,
+        "structure": "[]",
+        "title": "SEO pages"
+    },
+    "fr": {
+        "show": false,
+        "structure": "[]"
+    },
+    "label": "SEO pages",
+    "type": "page"
+}
