@@ -1,5 +1,7 @@
 aria:
   toggle-navbar: 'Toggle navigation'
+  navbar:
+    active-item: '(active)'
 attachments_browse: Browse
 ems_file_browse: Browse
 ems_form:
