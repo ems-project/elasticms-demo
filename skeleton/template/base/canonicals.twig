@@ -1,6 +1,15 @@
 {% extends '@EMSCH/template/variables.twig' %}
 
-{% set canonicalUrls = {
-    fr: 'toto',
-    nl: 'toto',
-} %}
+{% if emsLink.contentType|default(null) == 'structure' %}
+    {% set canonicalUrls = {
+        fr: 'toto',
+        nl: 'toto',
+    } %}
+{% elseif emsLink.contentType|default(null) == 'page' %}
+
+    {% set canonicalUrls = {
+        fr: 'toto',
+        nl: 'toto',
+    } %}
+{% endif %}
+

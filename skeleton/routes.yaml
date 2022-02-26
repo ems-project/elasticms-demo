@@ -1,3 +1,10 @@
+_emsch_go_to:
+  config:
+    path: '/_emsch/go-to/{_locale}/{contentType}/{ouuid}'
+    requirements: { ouuid: \S+ }
+    defaults: { _format: json }
+    controller: 'emsch.controller.router::redirect'
+  template_static: template/redirects/_emsch_go_to.json.twig
 robots.txt:
     config:
         path: robots.txt

@@ -1,0 +1,54 @@
+{% apply spaceless %}
+    {% set url = null %}
+    {%- if attribute(source, locale).show|default(false) -%}
+        {% set paths = emsch_search('structure', {
+            "query": {
+                "bool": {
+                    "must": [
+                        {
+                            "nested": {
+                            "path": "paths",
+                            "query": {
+                                "term": {
+                                    "paths.target": "page:#{id}"
+                                }
+                            }
+                        }
+                        },
+                        {
+                            "nested": {
+                            "path": "paths",
+                            "query": {
+                                "term": {
+                                    "paths.locale": "#{locale}"
+                                }
+                            }
+                        }
+                        }
+                    ]
+                }
+            },
+            "sort": [
+                {
+                    "order": {
+                        "order": "asc",
+                        "missing": "_last"
+                    }
+                }
+            ],
+            "_source": [
+                "paths.*"
+            ]
+        }).hits.hits.0._source.paths|default([]) %}
+
+        {% for path in paths|filter(path => path.target|default(null) == "page:#{id}" and path.locale|default(null) == locale) %}
+            {% set url = path('emsch_path', {path: path.path}) %}
+        {% endfor %}
+
+        {% if null == url %}
+            {% set url = path('emsch_page', { slug: attribute(source, locale).slug }) %}
+        {% endif %}
+
+    {% endif %}
+    {{ url == null ? path('emsch_not_found') : url }}
+{%  endapply %}
