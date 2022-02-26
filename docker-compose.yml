@@ -220,6 +220,7 @@ services:
       - 'TRUSTED_HOSTS=localhost,*.localhost'
       - 'EMSCH_ASSET_LOCAL_FOLDER=skeleton'
       - 'BACKEND_URL=http://demo-pgsql-admin-dev.localhost:9000'
+      - VARNISH_ENABLED=true
     volumes:
       - ./configs/skeleton:/opt/configs
       - ./configs/admin:/opt/src/admin
@@ -233,8 +234,13 @@ services:
 #      - ../EMSClientHelperBundle:/opt/src/vendor/elasticms/client-helper-bundle
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.skeletons.rule=HostRegexp(`{project:[a-z0-9\\-_\\.]+}-{environment:preview|staging|live}.localhost`,`{project:[a-z0-9\\-_\\.]+}-{environment:preview|staging|live}-dev.localhost`)"
-      - "traefik.http.routers.skeletons.entrypoints=web,websecure"
+      - "traefik.http.routers.varnish.rule=HostRegexp(`{project:[a-z0-9\\-_\\.]+}-{environment:preview|staging|live}.localhost`,`{project:[a-z0-9\\-_\\.]+}-{environment:preview|staging|live}-dev.localhost`)"
+      - "traefik.http.routers.varnish.entrypoints=web,websecure"
+      - "traefik.http.routers.varnish.service=varnish"
+      - "traefik.http.services.varnish.loadbalancer.server.port=6081"
+      - "traefik.http.routers.skeleton.rule=HostRegexp(`{project:[a-z0-9\\-_\\.]+}-{environment:preview|staging|live}-nocache.localhost`,`{project:[a-z0-9\\-_\\.]+}-{environment:preview|staging|live}-nocache-dev.localhost`)"
+      - "traefik.http.routers.skeleton.entrypoints=web,websecure"
+      - "traefik.http.routers.skeleton.service=skeleton"
       - "traefik.http.services.skeleton.loadbalancer.server.port=9000"
 
 volumes:

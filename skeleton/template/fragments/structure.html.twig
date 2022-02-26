@@ -1,3 +1,4 @@
+{% extends '@EMSCH/template/variables.twig' %}
 {% set rawData = structure|emsch_get.source %}
 {% set paths = rawData.paths|default([])|array_key('uid') %}
 {% set blocks = attribute(rawData, locale).structure|default("{}")|ems_json_menu_nested_decode %}
@@ -12,5 +13,3 @@
     {% endif %}
 {% endfor %}
 
-
-{% block request %}{% endblock %}

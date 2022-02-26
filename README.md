@@ -64,4 +64,16 @@ Every script bellow exist as `.cmd` and as `.sh` file.
  - [kibana](http://kibana.localhost) : A dev tools to query elasticsearch
  - [elasticsearch](http://es.localhost/_cluster/health) : The search engine, Verify that the status is `green`
  - [minio](http://minio.localhost) : A S3 like storage service 
- - [elasticms debug](http://demo-admin-dev.localhost/) : elasticms in Symfony debug mode 
+ - [elasticms](http://demo-admin.localhost/) : elasticms
+ - [elasticms debug](http://demo-admin-dev.localhost/) : elasticms in Symfony debug mode
+ - Test the website:
+   - [preview](http://demo-preview.localhost/) : skeleton with preview's contents 
+   - [live](http://demo-live.localhost/) : skeleton with preview's contents
+ - Develop the website:
+   - [preview debug](http://demo-preview-dev.localhost/) : skeleton with preview's contents in symfony debug mode
+   - [live debug](http://demo-live-dev.localhost/) : skeleton with preview's contents in symfony debug mode
+ - Debug issue with varnish:
+   - [preview nocache](http://demo-preview-nocache.localhost/) : skeleton with preview's contents without cache (varnish is by passed)
+   - [preview debug nocache](http://demo-preview-nocache-dev.localhost/) : skeleton with preview's contents in symfony debug mode without cache (varnish is by passed)
+   - [live nocache](http://demo-live-nocache.localhost/) : skeleton with preview's contents without cache (varnish is by passed)
+   - [live debug nocache](http://demo-live-nocache-dev.localhost/) : skeleton with preview's contents in symfony debug mode without cache (varnish is by passed) 

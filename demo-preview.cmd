@@ -1,1 +1,1 @@
-docker-compose exec skeleton demo-preview %*
+docker-compose exec skeleton demo-preview-dev %*

@@ -1,4 +1,5 @@
-
+- language switch
+- error pages
 - form
 - computed field with indexed content for search engine
 - search
