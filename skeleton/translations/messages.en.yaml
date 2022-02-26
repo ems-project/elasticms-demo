@@ -16,3 +16,7 @@ site:
     copy: 'Designed and built with all the love in the world by the'
     name: elasticms-demo
     team: 'elasticms team'
+navbar:
+  search: Search
+  search-input: Search
+  swith-to-locale: English

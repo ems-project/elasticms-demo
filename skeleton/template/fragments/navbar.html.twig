@@ -47,31 +47,21 @@
 {% endblock %}
 
 {% block request %}
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" data-active-message="{{ 'aria.navbar.active-item'|trans }}">
-            <a class="navbar-brand" href="{{ path('emsch_homepage') }}">
-                <img src="{{ asset("img/logos/logo-#{locale}.png", 'emsch') }}" width="30" height="30" alt="{{ 'site.name'|trans }}">
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ 'aria.toggle-navbar'|trans }}">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    {% for section in blocks.children %}
-                        {% if section.children|length > 0 %}
-                            {{ block('dropdown') }}
-                        {% else %}
-                            {{ block('item') }}
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-    {#            <form class="form-inline my-2 my-lg-0">#}
-    {#                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">#}
-    {#                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>#}
-    {#            </form>#}
+    <ul class="navbar-nav mr-auto">
+        {% for section in blocks.children %}
+            {% if section.children|length > 0 %}
+                {{ block('dropdown') }}
+            {% else %}
+                {{ block('item') }}
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+        <div class="input-group mr-sm-2">
+            <input type="search" class="form-control" placeholder="{{ 'navbar.search-input'|trans }}" aria-label="{{ 'navbar.search-input'|trans }}">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button"><i class="fas fa-search"></i> <span class="sr-only">{{ 'navbar.search'|trans }}</span></button>
             </div>
-        </nav>
-    </header>
+        </div>
+    </form>
 {% endblock %}

@@ -2,3 +2,5 @@ error:
     target-not-found: 'Page not found'
 site:
     name: 'Demo website'
+navbar:
+  swith-to-locale: 'Nederlands'
