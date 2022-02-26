@@ -1,4 +1,4 @@
-a.skip-main {
+a.skip-to-content {
   left:-999px;
   position:absolute;
   top:auto;
@@ -7,7 +7,7 @@ a.skip-main {
   overflow:hidden;
   z-index:-999;
 }
-a.skip-main:focus, a.skip-main:active {
+a.skip-to-content:focus, a.skip-to-content:active {
   color: #fff;
   background-color:#000;
   left: auto;

@@ -11,6 +11,7 @@
 {%- endblock %}
 
 {% block body -%}
+    <a class="skip-to-content" href="#content">{{ 'aria.skip-to-content'|trans }}</a>
     {{ render_esi(controller('emsch.controller.embed::fragment', {
         template: '@EMSCH/template/fragments/header.html.twig',
         context: {
