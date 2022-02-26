@@ -1,6 +1,8 @@
 - language switch
 - error pages
-- form
+- advance form
+- js to handle JS response
+- 1 page 2 form
 - computed field with indexed content for search engine
 - search
 - admin's overviews (colibri or instructions)
@@ -21,3 +23,4 @@
 - i18n with user's prefered locale
 - breadcrumb
 - rights by roles
+- debug c:c skeleton on start
