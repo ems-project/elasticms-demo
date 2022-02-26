@@ -1,6 +1,5 @@
 
 - form
-- Back to top
 - computed field with indexed content for search engine
 - search
 - admin's overviews (colibri or instructions)
@@ -14,7 +13,6 @@
 - deadline in mini  crm for submission + cleaning
 - remove hardcoded key from submission in forms
 - i18n as ChoicesFieldType keys/values
-- skip menu
 - %locales%.show
 - clean revisions history (by CT)
 - remove AppControllers

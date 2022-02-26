@@ -4,9 +4,14 @@
 export default function back2top() {
     const $ = require('jquery');
     const $backToTop = $('#back2top');
+    let offsetTop = 60;
+    const mainContent = document.getElementById('content');
+    if (mainContent) {
+        offsetTop = mainContent.offsetTop;
+    }
 
     const scrollCallback = function() {
-        if ($(this).scrollTop() > 100) {
+        if ($(this).scrollTop() > offsetTop) {
             $backToTop.fadeIn();
         } else {
             $backToTop.fadeOut();

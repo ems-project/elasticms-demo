@@ -19,16 +19,16 @@ export class skeletonForm
     }
 
     loadForm(iframe) {
+        const self = this;
         const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
         if (iframeDoc.readyState  !== 'complete'){
             iframe.onload = function() {
-                loadForm(iframe);
+                self.loadForm(iframe);
             }
             return;
         }
         const formId = iframe.getAttribute('data-form-id');
         const messageId = iframe.getAttribute('data-message-id');
-        const self = this;
 
         const emsForm = new window.emsForm({
             'idForm': formId,

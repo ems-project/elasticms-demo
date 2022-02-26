@@ -1,14 +1,15 @@
 aria:
-    navbar:
-        active-item: (active)
-    skip-to-content: 'Skip to main content'
-    toggle-navbar: 'Toggle navigation'
+  back-to-top: 'Back to top'
+  toggle-navbar: 'Toggle navigation'
+  navbar:
+    active-item: '(active)'
+  skip-to-content: 'Skip to main content'
 attachments_browse: Browse
 ems_file_browse: Browse
 ems_form:
-    ignore_iframe: 'Technical iframe, please ignore'
-    loading: 'The form is currently loading... If not please reload the page.'
-    success: 'Your request has been submitted'
+  loading: 'The form is currently loading... If not please reload the page.'
+  ignore_iframe: 'Technical iframe, please ignore'
+  success: 'Your request has been submitted'
 error:
     target-not-found: 'Page not found'
 site:
