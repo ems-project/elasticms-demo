@@ -24,3 +24,5 @@
 - breadcrumb
 - rights by roles
 - debug c:c skeleton on start
+- reorder content type from 1
+- script to create a demo bucket in minio

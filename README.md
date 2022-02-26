@@ -19,18 +19,31 @@ Open a terminal and run the following commands:
   - or `./npm.sh run prod`
 - `docker-compose up -d`: Start the docker container (in daemon mode)
 
+Before continuing, check that all services have been correctly started by running `docker-compose ps`. All services must be in `Up` state or in `Up (healthy)` state. 
+
 Go to [minio](http://minio.localhost/login) and login with those credentials:
 - user: accesskey
 - password: secretkey
   And create a `demo` bucket.
 
 Go back to your console:
-- `./create-admin.sh` (or `create-admin.cmd` under Windows)
+- `./create-users.sh` (or `create-users.cmd` under Windows)
+  - A `demo` admin user is created with the email and the password that you provide
 - `./bootstrap.sh` (or `bootstrap.cmd` under Windows)
 
-Check the [preview](http://demo-preview.localhost)
+Check the [preview](http://demo-preview.localhost) and the [live](http://demo-live.localhost)
 
-You can now login with your just defined password and the user `demo` in [elasticms](http://demo-admin.localhost/dashboard).
+You can now login with your just defined password (with the`./create-users.sh` script) and the username `demo` in [elasticms](http://demo-admin.localhost/dashboard).
+
+## Jobs
+
+## User
+
+Some default user are created by the `./create-users.sh` script:
+- author: can edit web documents
+- publisher: can edit and publish web documents in live
+- webmaster: can edit and publish all kind of documents
+
 
 ## Commands
 
@@ -51,6 +64,7 @@ Every script bellow exist as `.cmd` and as `.sh` file.
 
 - The labels are not translated in the skeleton: clear the cache for the corresponding skeleton i.e. `demo-preview cache:clear`
 - I do not see form submissions in the elasticms mini-CRM: Please update the auth-key in the form config 
+- Updates in the webpack/npm application (`/src`) are not taken into account with the `npm run watch` command: In some cases docker-compose doesn't allow npm to be notified on file changes. You should, or use the `npm run dev` command eachtime that you need. Or use a local installation of npm.
 
 ### Useful commands
 

@@ -47,6 +47,7 @@ echo "Create/Update i18n"
 ./demo-preview.sh ems:admin:update i18n locale.nl
 ./demo-preview.sh ems:admin:update i18n locale.de
 ./demo-preview.sh ems:admin:update i18n locale.en
+./demo-preview.sh ems:admin:update i18n locales
 ./demo-preview.sh ems:admin:update i18n asset.type.manual
 
 echo "Create/Update Environments"
