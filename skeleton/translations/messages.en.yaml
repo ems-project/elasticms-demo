@@ -1,5 +1,3 @@
-breadcrumb:
-  home: Home
 aria:
     back-to-top: 'Back to top'
     navbar:
@@ -7,6 +5,8 @@ aria:
     skip-to-content: 'Skip to main content'
     toggle-navbar: 'Toggle navigation'
 attachments_browse: Browse
+breadcrumb:
+    home: Home
 ems_file_browse: Browse
 ems_form:
     ignore_iframe: 'Technical iframe, please ignore'
