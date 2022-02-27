@@ -161,8 +161,10 @@ services:
     networks:
       default:
         aliases:
-          - demo-pgsql-admin.localhost
-          - demo-pgsql-admin-dev.localhost
+            - demo-admin.localhost
+            - demo-admin-dev.localhost
+            - demo-pgsql-admin.localhost
+            - demo-pgsql-admin-dev.localhost
     environment:
       - PUID=1000
       - PGID=1000
