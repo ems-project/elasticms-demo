@@ -5,6 +5,11 @@ _emsch_go_to:
     defaults: { _format: json }
     controller: 'emsch.controller.router::redirect'
   template_static: template/redirects/_emsch_go_to.json.twig
+_emsch_error:
+  config:
+    path: '/_emsch/error/{_locale}/{statusCode}.{_format}'
+    defaults: { _format: html }
+  template_static: template/error/by_code.html.twig
 robots.txt:
     config:
         path: robots.txt

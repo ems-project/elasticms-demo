@@ -1,19 +1,21 @@
 {% extends '@EMSCH/template/variables.twig' %}
 
-{% set locales = ['en','fr','nl','de'] %}
+{%  if emsLink is defined %}
+    {% set locales = ['en','fr','nl','de'] %}
 
-{% if emsLink.contentType|default(null) in ['structure'] %}
-    {% set link = "ems://object:#{target.contentType}:#{target.ouuid}" %}
-{% else %}
-    {% set link = emsLink.__toString() %}
+    {% if emsLink.contentType|default(null) in ['structure'] %}
+        {% set link = "ems://object:#{target.contentType}:#{target.ouuid}" %}
+    {% else %}
+        {% set link = emsLink.__toString() %}
+    {% endif %}
+
+    {% set canonicalUrls = {} %}
+    {% for locale in locales %}
+        {% set canonicalUrls = canonicalUrls|merge({
+            (locale): link|emsch_routing(locale, app.request.getBaseUrl),
+        }) %}
+    {% endfor %}
+
+    {% set canonicalUrl = app.request.getSchemeAndHttpHost()~attribute(canonicalUrls, app.request.locale)|default(null) %}
+    {% set canonicalUrls = canonicalUrls|default([])|filter((u, l) => l != app.request.locale and u != link|default(''))|map(u => app.request.getSchemeAndHttpHost()~u) %}
 {% endif %}
-
-{% set canonicalUrls = {} %}
-{% for locale in locales %}
-    {% set canonicalUrls = canonicalUrls|merge({
-        (locale): link|emsch_routing(locale, app.request.getBaseUrl),
-    }) %}
-{% endfor %}
-
-{% set canonicalUrl = app.request.getSchemeAndHttpHost()~attribute(canonicalUrls, app.request.locale)|default(null) %}
-{% set canonicalUrls = canonicalUrls|default([])|filter((u, l) => l != app.request.locale and u != link|default(''))|map(u => app.request.getSchemeAndHttpHost()~u) %}

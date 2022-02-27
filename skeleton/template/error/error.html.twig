@@ -1,25 +1,27 @@
 {% extends '@EMSCH/template/base/bootstrap.html.twig' %}
 {% trans_default_domain trans_default_domain %}
 
+{% set type = (statusCode/1) < 500 ? 'warning' : 'danger' %}
+
 {% block canonical %}{% endblock %}
 
 
 {% block title %}{{ 'error.title'|trans }}{% endblock %}
 
-{% block body %}
+{% block main %}
     <main role="main" class="container mt-5 mb-5" id="main-content">
         <div class="row">
             <div class="col-md-8 offset-md-2">
-                <div class="alert alert-danger" role="alert">
-                    <h1><i class="fa fa-danger text-yellow"></i> {{ 'error.title'|trans }}</h1>
+                <div class="alert alert-{{ type }}" role="alert">
+                    <h1>{% block icon %}<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {% endblock %}{{ block('title') }}</h1>
                     <p>
-                        {{ 'error.description'|trans }}
+                        {% block description %}{{ 'error.description'|trans }}{% endblock %}
                     </p>
                     <form class="search-form">
                         <div class="input-group">
                             <input type="text" name="search" class="form-control" placeholder="{{ 'action.search'|trans|e('html_attr') }}" aria-label="{{ 'action.search'|trans|e('html_attr') }}" name="q">
                             <div class="input-group-append">
-                                <button type="submit" name="submit" class="btn btn-danger btn-flat">
+                                <button type="submit" name="submit" class="btn btn-{{ type }} btn-flat">
                                     <i class="fa fa-search"></i>
                                     {{ 'action.search'|trans }}
                                 </button>

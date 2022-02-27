@@ -11,7 +11,12 @@ ems_form:
     loading: 'The form is currently loading... If not please reload the page.'
     success: 'Your request has been submitted'
 error:
-    target-not-found: 'Page not found'
+  description: 'An unexpected error occurred. Please try again.'
+  title: 'An error occurred'
+  target-not-found: 'Page not found'
+  404:
+    title: 'Page not found'
+    description: 'Please check the url or use the search engine.'
 site:
     copy: 'Designed and built with all the love in the world by the'
     name: elasticms-demo
