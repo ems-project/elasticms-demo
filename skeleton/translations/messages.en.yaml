@@ -1,5 +1,3 @@
-js:
-  file_selected: '%count% files selected'
 aria:
     back-to-top: 'Back to top'
     navbar:
@@ -21,6 +19,8 @@ error:
     description: 'An unexpected error occurred. Please try again.'
     target-not-found: 'Page not found'
     title: 'An error occurred'
+js:
+    file_selected: '%count% files selected'
 missing:
     but-available-in: 'English version:'
     description: 'See below for alternative versions.'
