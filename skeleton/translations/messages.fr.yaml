@@ -1,6 +1,6 @@
 error:
     target-not-found: 'Page non trouvée'
+navbar:
+    swith-to-locale: Français
 site:
     name: 'Site web Démo'
-navbar:
-  swith-to-locale: 'Français'
