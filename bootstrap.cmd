@@ -68,6 +68,7 @@ call demo-preview ems:admin:update content-type asset
 echo "Create/Update QuerySearches"
 call demo-preview ems:admin:update query-search pages
 call demo-preview ems:admin:update query-search documents
+call demo-preview ems:admin:update query-search forms
 
 echo "Create/Update Dashboards"
 call demo-preview ems:admin:update dashboard welcome

@@ -231,10 +231,10 @@ services:
       - ./dist:/opt/src/public/skeleton:ro
       - ./skeleton:/opt/src/local/demo_pgsql_v1_preview
       - ./skeleton:/opt/src/local/demo_pgsql_v1_live
-#      - ../EMSCommonBundle:/opt/src/vendor/elasticms/common-bundle
+      - ../EMSCommonBundle:/opt/src/vendor/elasticms/common-bundle
 #      - ../EMSFormBundle:/opt/src/vendor/elasticms/form-bundle
 #      - ../EMSSubmissionBundle:/opt/src/vendor/elasticms/submission-bundle
-#      - ../EMSClientHelperBundle:/opt/src/vendor/elasticms/client-helper-bundle
+      - ../EMSClientHelperBundle:/opt/src/vendor/elasticms/client-helper-bundle
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.varnish.rule=HostRegexp(`{project:[a-z0-9\\-_\\.]+}-{environment:preview|staging|live}.localhost`,`{project:[a-z0-9\\-_\\.]+}-{environment:preview|staging|live}-dev.localhost`)"

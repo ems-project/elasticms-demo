@@ -68,6 +68,7 @@ echo "Create/Update ContentTypes"
 echo "Create/Update QuerySearches"
 ./demo-preview.sh ems:admin:update query-search pages
 ./demo-preview.sh ems:admin:update query-search documents
+./demo-preview.sh ems:admin:update query-search forms
 
 echo "Create/Update Dashboards"
 ./demo-preview.sh ems:admin:update dashboard welcome

@@ -23,3 +23,5 @@
 - reorder content type from 1
 - script to create a demo bucket in minio
 - publication route
+- search with *
+- missing tranlation document with one translation
