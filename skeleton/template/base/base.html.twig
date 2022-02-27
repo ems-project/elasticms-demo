@@ -7,7 +7,7 @@
     {% apply spaceless %}
         {{ parent() }}
         <!doctype html>
-        <html lang="{{ app.request.locale }}" data-trans-domain="{{ trans_default_domain|e('html_attr') }}">
+        <html lang="{{ app.request.locale }}" data-trans-domain="{{ trans_default_domain|e('html_attr') }}" data-base-url="{{ baseUrl }}">
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">

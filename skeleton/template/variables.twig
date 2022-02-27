@@ -7,6 +7,10 @@
         'src="https://www.youtube.com/': 'allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen src="https://www.youtube-nocookie.com/',
     } %}
     {% set assetPath = emsch_assets_version('02c0553e539f7d5d4f4494683118c106d60edd4d') %}
+    {% set baseUrl = '/' %}
+    {% if app.user %}
+        {% set baseUrl = "/channel/#{trans_default_domain}" %}
+    {% endif %}
 
     {%- block request %}{% endblock request -%}
 

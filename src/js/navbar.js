@@ -3,6 +3,10 @@ export class NavBar {
     }
 
     activateBestItem() {
+        if (window.location.pathname === '/' || window.location.pathname === document.documentElement.getAttribute('data-base-url')) {
+            return;
+        }
+
         const bestItems = document.querySelectorAll('header nav.navbar a[href^="' + window.location.pathname + window.location.search + '"]')
         if (bestItems.length <= 0) {
             return;
