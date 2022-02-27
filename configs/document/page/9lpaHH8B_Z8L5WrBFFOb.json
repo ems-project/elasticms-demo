@@ -2,13 +2,13 @@
     "en": {
         "show": true,
         "slug": "/",
-        "structure": "[{\"id\":\"38315322-8b85-4499-8775-55409c20db85\",\"label\":\"On home in preview\",\"type\":\"text\",\"object\":{\"body\":\"<p>On home in preview</p>\",\"label\":\"Content on the homepage\"},\"children\":[]}]",
+        "structure": "[{\"id\":\"38315322-8b85-4499-8775-55409c20db85\",\"label\":\"On home in preview\",\"type\":\"text\",\"object\":{\"body\":\"<p>On home in preview</p>\",\"label\":\"On home in preview\"},\"children\":[]}]",
         "title": "elasticms-demo: Welcome on the elasticms Demo website"
     },
     "fr": {
         "show": true,
         "slug": "/",
-        "structure": "[{\"id\":\"b436f678-53a5-4347-b30c-c638e2be68d2\",\"label\":\"Introduction\",\"type\":\"paragraph\",\"object\":{\"label\":\"Introduction\",\"body\":\"<p>Bienvenue sur le site elasticms de d&eacute;mo qui est un bon point de d&eacute;part pour un nouveau projet.</p>\"},\"children\":[]}]",
+        "structure": "[{\"id\":\"e9da82c7-93ce-4a88-a0ec-14f93d40b55e\",\"label\":\"Bienvenu sur le site demo d'elasticms.\",\"type\":\"text\",\"object\":{\"body\":\"<p>Bienvenu sur le site demo d&#39;elasticms.</p>\",\"label\":\"Bienvenu sur le site demo d'elasticms.\"},\"children\":[]}]",
         "title": "elasticms-demo: Bienvenue sur le site web demo d'elasticms"
     },
     "label": "Homepage",
