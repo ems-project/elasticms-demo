@@ -1,5 +1,3 @@
-- language switch
-- error pages
 - advance form
 - js to handle JS response
 - 1 page 2 form
@@ -21,7 +19,6 @@
 - remove AppControllers
 - chunk upload field in form
 - i18n with user's prefered locale
-- breadcrumb
 - rights by roles
 - debug c:c skeleton on start
 - reorder content type from 1

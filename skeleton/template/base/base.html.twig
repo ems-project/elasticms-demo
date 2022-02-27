@@ -1,6 +1,8 @@
 {% extends '@EMSCH/template/base/canonicals.twig' %}
 {% trans_default_domain trans_default_domain %}
 
+{% block title %}{% endblock %}
+
 {% block request -%}
     {% apply spaceless %}
         {{ parent() }}
@@ -10,7 +12,7 @@
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>{% block title %}{% endblock %}</title>
+            <title>{% block headtitle %}{% block metatitle %}{{ block('title') }}{% endblock %} | {{ 'site.name'|trans }}{% endblock %}</title>
             <meta name="description" content="{% block meta_description %}{% endblock %}">
             {% block canonical %}<link rel="canonical" href="{{ canonicalUrl }}" />{% endblock %}
             <link rel="icon" type="image/png" sizes="64x64" href="{{ asset('img/head/icon64.png', 'emsch') }}">

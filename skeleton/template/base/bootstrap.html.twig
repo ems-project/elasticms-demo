@@ -46,6 +46,16 @@
             </div>
         </nav>
     </header>
+    {% block breadcrumb -%}
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('emsch_homepage') }}"><i class="fa fa-home" aria-hidden="true"></i> <span class="sr-only">{{ 'breadcrumb.home'|trans }}</span></a></li>
+                {% block breadcrumb_items -%}
+                    <li class="breadcrumb-item active" aria-current="page">{{ block('title') }}</li>
+                {%- endblock %}
+            </ol>
+        </nav>
+    {%- endblock breadcrumb %}
     <main role="main" id="content">
         <div class="container">
             {% block main -%}{%- endblock main %}

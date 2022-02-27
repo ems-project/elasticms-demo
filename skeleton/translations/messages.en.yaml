@@ -1,3 +1,5 @@
+breadcrumb:
+  home: Home
 aria:
     back-to-top: 'Back to top'
     navbar:
