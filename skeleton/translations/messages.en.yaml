@@ -22,6 +22,7 @@ error:
 js:
     file_selected: '%count% files selected'
     form_error: 'The form faced an issue : %message%'
+    form_error_try_later: 'The form faced an issue, please try again later'
     form_saved: 'Your request has been saved with the identifier %uid%'
 missing:
     but-available-in: 'English version:'

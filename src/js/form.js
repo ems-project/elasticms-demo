@@ -73,6 +73,7 @@ export class skeletonForm
     }
 
     onError(elementForm, elementMessage, errorMessage) {
+        this.addErrorMessage(elementMessage, this.translations.form_error_try_later);
         console.log('My error function:' + errorMessage);
     }
 
