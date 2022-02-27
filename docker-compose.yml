@@ -219,7 +219,8 @@ services:
       - 'TRUSTED_PROXIES=127.0.0.1,REMOTE_ADDR'
       - 'TRUSTED_HOSTS=localhost,*.localhost'
       - 'EMSCH_ASSET_LOCAL_FOLDER=skeleton'
-      - 'BACKEND_URL=http://demo-pgsql-admin-dev.localhost:9000'
+      - 'BACKEND_URL=http://demo-admin-dev.localhost:9000'
+      - 'ADMIN_URL=http://demo-admin.localhost'
       - VARNISH_ENABLED=true
     volumes:
       - ./configs/skeleton:/opt/configs

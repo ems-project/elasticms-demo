@@ -7,7 +7,6 @@
 - search with load more in mobile
 - index bundle's documentations (md) in a separate (managed?) alias 
 - test slugs (publication, page, slideshows) are unique on finalize
-- back to ems
 - channels (preview and live)
 - photos carousel (block)
 - translate date's months with symfony?
@@ -24,4 +23,3 @@
 - reorder content type from 1
 - script to create a demo bucket in minio
 - publication route
-- getEmsLink in common's document

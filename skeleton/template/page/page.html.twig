@@ -5,6 +5,6 @@
 {% block metatitle %}{{ attribute(source, locale).metatitle|default(block('title')) }}{% endblock %}
 
 {% block main -%}
-    <h1>{{ block('title') }}</h1>
+    <h1 {{ emsch_admin_menu(target.getEmsLink|default(emsLink)) }}>{{ block('title') }}</h1>
     {% block blocks %}{% endblock %}
 {%- endblock main %}
