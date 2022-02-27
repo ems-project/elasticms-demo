@@ -53,6 +53,13 @@ export class skeletonForm
 
     onLoad(elementForm, elementMessage) {
         dynForm(elementForm.id);
+        const self = this;
+        const fileFields = elementForm.querySelectorAll('input[type=file]');
+        for (let i = 0; i < fileFields.length; i++) {
+            fileFields[i].onchange = function() {
+                self.updateFileField(this);
+            }
+        }
         console.log('My onload function');
     }
 
@@ -70,5 +77,38 @@ export class skeletonForm
 
     onResponse(elementForm, elementMessage, json) {
         console.log('My response function');
+    }
+
+    updateFileField(fileField) {
+        const filenames = [];
+        for (var i = 0; i < fileField.files.length; ++i) {
+            filenames.push(fileField.files.item(i).name.split("\\").pop().replace('%20', ' '));
+        }
+        const translations = JSON.parse(document.body.getAttribute('data-translations'));
+
+        console.log(translations);
+
+        const fileLabel = fileField.parentNode.querySelector('.custom-file-label');
+        const fileList = fileField.parentNode.parentNode.querySelector('.file-list');
+        console.log(fileList);
+        if(filenames.length === 0) {
+            fileLabel.classList.remove('selected');
+            fileLabel.innerHTML = '';
+            fileList.innerHTML = '';
+        }
+        else if (filenames.length === 1) {
+            fileLabel.classList.add('selected');
+            fileLabel.innerHTML = filenames.pop();
+            fileList.innerHTML = '';
+        }
+        else {
+            fileLabel.classList.add('selected');
+            fileLabel.innerHTML = translations.file_selected.replace('%count%', filenames.length);
+            for (var i = 0; i < filenames.length; ++i) {
+                const li = document.createElement('li');
+                li.innerHTML = filenames[i];
+                fileList.appendChild(li);
+            }
+        }
     }
 }

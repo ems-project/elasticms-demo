@@ -25,7 +25,9 @@
             <meta name="msapplication-TileColor" content="#3B3F41">
             {% block head %}{% endblock %}
         </head>
-        <body>
+        <body data-translations="{{ {
+            file_selected: 'js.file_selected'|trans,
+        }|json_encode }}">
             {% block body %}{% endblock %}
             {% block javascript %}{% endblock %}
         </body>

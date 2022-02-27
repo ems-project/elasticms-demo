@@ -38,3 +38,9 @@
         {{ form.vars.config.markup|emsch_routing }}
     </div>
 {%- endblock %}
+
+{% block file_widget -%}
+    {{ parent() }}
+    <ul class="file-list"></ul>
+{% endblock -%}
+

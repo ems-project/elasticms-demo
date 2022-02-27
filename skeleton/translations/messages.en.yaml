@@ -1,3 +1,5 @@
+js:
+  file_selected: '%count% files selected'
 aria:
     back-to-top: 'Back to top'
     navbar:
