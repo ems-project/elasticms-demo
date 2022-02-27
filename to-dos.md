@@ -11,7 +11,7 @@
 - channels (preview and live)
 - photos carousel (block)
 - translate date's months with symfony?
-- deadline in mini  crm for submission + cleaning
+- deadline in mini crm for submission + cleaning
 - remove hardcoded key from submission in forms
 - i18n as ChoicesFieldType keys/values
 - %locales%.show
@@ -23,3 +23,5 @@
 - debug c:c skeleton on start
 - reorder content type from 1
 - script to create a demo bucket in minio
+- publication route
+- getEmsLink in common's document

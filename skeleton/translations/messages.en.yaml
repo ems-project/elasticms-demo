@@ -19,6 +19,10 @@ error:
     description: 'An unexpected error occurred. Please try again.'
     target-not-found: 'Page not found'
     title: 'An error occurred'
+missing:
+    but-available-in: 'English version:'
+    description: 'Please find bellow alternatives.'
+    title: 'This page is not available in English'
 navbar:
     search: Search
     search-input: Search

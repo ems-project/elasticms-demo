@@ -2,7 +2,7 @@
     {% trans_default_domain trans_default_domain %}
 
     {% set locale = app.request.locale %}
-    {% set locales = ['en','fr','nl','de'] %}
+    {% set locales = app.request.server.all['EMSCH_LOCALES']|default('[]')|ems_json_decode %}
     {% set wyiwygReplaces = {
         'src="https://www.youtube.com/': 'allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen src="https://www.youtube-nocookie.com/',
     } %}
