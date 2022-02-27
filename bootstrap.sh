@@ -29,6 +29,7 @@ echo "Create/Update Schedules"
 ./demo-preview.sh ems:admin:update schedule check-aliases
 ./demo-preview.sh ems:admin:update schedule clear-logs
 ./demo-preview.sh ems:admin:update schedule publish-releases
+./demo-preview.sh ems:admin:update schedule remove-expired-submissions
 
 echo "Create/Update WYSIWYG Style Sets"
 ./demo-preview.sh ems:admin:update wysiwyg-style-set DemoStyleSet
@@ -76,6 +77,7 @@ echo "Create/Update Dashboards"
 
 echo "Create/Update Channels"
 ./demo-preview.sh ems:admin:update channel preview
+./demo-preview.sh ems:admin:update channel live
 
 echo "Rebuild environments and activate content types"
 #./demo-preview.sh ems:admin:job rebuild-preview

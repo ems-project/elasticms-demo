@@ -29,6 +29,7 @@ echo "Create/Update Schedules"
 call demo-preview ems:admin:update schedule check-aliases
 call demo-preview ems:admin:update schedule clear-logs
 call demo-preview ems:admin:update schedule publish-releases
+call demo-preview ems:admin:update schedule remove-expired-submissions
 
 echo "Create/Update WYSIWYG Style Sets"
 call demo-preview ems:admin:update wysiwyg-style-set DemoStyleSet
@@ -76,6 +77,7 @@ call demo-preview ems:admin:update dashboard default-search
 
 echo "Create/Update Channels"
 call demo-preview ems:admin:update channel preview
+call demo-preview ems:admin:update channel live
 
 echo "Rebuild environments and activate content types"
 #call demo-preview ems:admin:job rebuild-preview

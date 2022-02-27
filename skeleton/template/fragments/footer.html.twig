@@ -23,7 +23,12 @@
                             {% for link in section.children %}
                                 <li class="mb-2">
                                     {% if attribute(urls, link.id) is defined %}
-                                        <a href="{{ attribute(urls, link.id) }}">{{ link.label }}</a>
+                                        <a href="{{ attribute(urls, link.id) }}">
+                                            {{ link.label }}
+                                            {% if attribute(urls, link.id)|slice(0,1) != '/' %}
+                                                <i class="fas fa-external-link-alt fa-xs" aria-hidden="true"></i>
+                                            {% endif %}
+                                        </a>
                                     {% endif %}
                                 </li>
                             {% endfor %}

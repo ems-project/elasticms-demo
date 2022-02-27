@@ -10,8 +10,8 @@
         "contentCss": "css/app.css",
         "contentJs": "js/app.js",
         "assets": {
-            "sha1": "0aba081318f425f5d5fc920463553d59cfbf3000",
-            "mimetype": "application/x-zip-compressed",
+            "sha1": "02c0553e539f7d5d4f4494683118c106d60edd4d",
+            "mimetype": "application/zip",
             "filename": "bundle.zip"
         },
         "saveDir": null
