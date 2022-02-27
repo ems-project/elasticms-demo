@@ -1,8 +1,6 @@
 ## elasticms-demo
 
 - feat: advance form
-- feat: js to handle JS response
-- 
 - feat: computed field with indexed content for search engine
 - feat: search
 - feat: admin's overviews (colibri or instructions)
@@ -25,6 +23,7 @@
 
 - fix: 2 forms on the same page
 - feat: chunk upload field in form
+- feat: translate submission responses
 
 ## EMSCoreBundle
 

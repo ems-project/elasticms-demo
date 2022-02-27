@@ -7,7 +7,7 @@
     <div id="ems-form-{{ item.id }}" class="mb-5">
         <p>{{ 'ems_form.loading'|trans|raw }}</p>
     </div>
-    <div id="ems-message-{{ item.id }}" class="d-none"></div>
+    <div id="ems-message-{{ item.id }}"></div>
     <iframe id="ems-form-iframe-{{ item.id }}" src="{{ absolute_url(path('form_iframe', {
         ouuid:form.ouuid,
         _locale: locale

@@ -16,6 +16,7 @@ export class skeletonForm
     constructor(iframe)
     {
         this.iframe = iframe;
+        this.translations = JSON.parse(document.body.getAttribute('data-translations'));
     }
 
     loadForm(iframe) {
@@ -76,6 +77,17 @@ export class skeletonForm
     }
 
     onResponse(elementForm, elementMessage, json) {
+        const responses = JSON.parse(json);
+        for (var i = 0; i < responses.length; ++i) {
+            const response = JSON.parse(responses[i]);
+            if ('error' === response.status) {
+                this.addErrorMessage(elementMessage, this.translations.form_error.replace('%message%', response.data));
+                return;
+            } else if (response.uid !== undefined) {
+                this.addSuccessMessage(elementMessage, this.translations.form_saved.replace('%uid%', response.uid));
+            }
+            console.log(response);
+        }
         console.log('My response function');
     }
 
@@ -84,9 +96,6 @@ export class skeletonForm
         for (var i = 0; i < fileField.files.length; ++i) {
             filenames.push(fileField.files.item(i).name.split("\\").pop().replace('%20', ' '));
         }
-        const translations = JSON.parse(document.body.getAttribute('data-translations'));
-
-        console.log(translations);
 
         const fileLabel = fileField.parentNode.querySelector('.custom-file-label');
         const fileList = fileField.parentNode.parentNode.querySelector('.file-list');
@@ -103,12 +112,32 @@ export class skeletonForm
         }
         else {
             fileLabel.classList.add('selected');
-            fileLabel.innerHTML = translations.file_selected.replace('%count%', filenames.length);
+            fileLabel.innerHTML = this.translations.file_selected.replace('%count%', filenames.length);
             for (var i = 0; i < filenames.length; ++i) {
                 const li = document.createElement('li');
                 li.innerHTML = filenames[i];
                 fileList.appendChild(li);
             }
         }
+    }
+
+    addSuccessMessage(elementMessage, message) {
+        const div = document.createElement('div');
+        div.classList.add('p-3');
+        div.classList.add('mb-2');
+        div.classList.add('bg-success');
+        div.classList.add('text-white');
+        div.innerHTML = message;
+        elementMessage.appendChild(div);
+    }
+
+    addErrorMessage(elementMessage, message) {
+        const div = document.createElement('div');
+        div.classList.add('p-3');
+        div.classList.add('mb-2');
+        div.classList.add('bg-warning');
+        div.classList.add('text-white');
+        div.innerHTML = message;
+        elementMessage.appendChild(div);
     }
 }
