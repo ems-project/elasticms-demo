@@ -54,7 +54,9 @@
         {% endif %}
 
     {% endif %}
-    {% if url is not same as (null) %}
+    {% if url %}
         {{ url }}
+    {% else %}
+        {{ path('emsch_missing_translation', {contentType: 'page', ouuid: id, _locale: locale}) }}
     {% endif %}
 {%  endapply %}

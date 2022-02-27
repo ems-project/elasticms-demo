@@ -21,7 +21,7 @@ error:
     title: 'An error occurred'
 missing:
     but-available-in: 'English version:'
-    description: 'Please find bellow alternatives.'
+    description: 'See below for alternative versions.'
     title: 'This page is not available in English'
 navbar:
     search: Search
