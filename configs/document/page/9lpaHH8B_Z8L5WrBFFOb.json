@@ -1,17 +1,33 @@
 {
-    "en": {
+    "de": {
+        "metatitle": "elasticms-demo: Willkommen",
         "show": true,
         "slug": "/",
-        "structure": "[{\"id\":\"38315322-8b85-4499-8775-55409c20db85\",\"label\":\"On home in preview\",\"type\":\"text\",\"object\":{\"body\":\"<p>On home in preview</p>\",\"label\":\"On home in preview\"},\"children\":[]}]",
-        "title": "elasticms-demo: Welcome on the elasticms Demo website"
+        "structure": "[{\"id\":\"bfe7f08f-1041-4c7f-936c-17f7102f48c6\",\"label\":\"Willkommen auf unserer Seite.\",\"type\":\"text\",\"object\":{\"body\":\"<p>Willkommen auf unserer Seite.</p>\",\"label\":\"Willkommen auf unserer Seite.\"},\"children\":[]}]",
+        "title": "Willkommen auf elasticms-demo"
+    },
+    "en": {
+        "metatitle": "elasticms-demo: Welcome",
+        "show": true,
+        "slug": "/",
+        "structure": "[{\"id\":\"38315322-8b85-4499-8775-55409c20db85\",\"label\":\"Welcome on our site.\",\"type\":\"text\",\"object\":{\"body\":\"<p>Welcome on our site.</p>\",\"label\":\"Welcome on our site.\"},\"children\":[]}]",
+        "title": "Welcome on elasticms-demo"
     },
     "fr": {
+        "metatitle": "elasticms-demo: Bienvenue",
         "show": true,
         "slug": "/",
-        "structure": "[{\"id\":\"e9da82c7-93ce-4a88-a0ec-14f93d40b55e\",\"label\":\"Bienvenu sur le site demo d'elasticms.\",\"type\":\"text\",\"object\":{\"body\":\"<p>Bienvenu sur le site demo d&#39;elasticms.</p>\",\"label\":\"Bienvenu sur le site demo d'elasticms.\"},\"children\":[]}]",
-        "title": "elasticms-demo: Bienvenue sur le site web demo d'elasticms"
+        "structure": "[{\"id\":\"e9da82c7-93ce-4a88-a0ec-14f93d40b55e\",\"label\":\"Welcome on our site.\",\"type\":\"text\",\"object\":{\"body\":\"<p>Welcome on our site.</p>\",\"label\":\"Welcome on our site.\"},\"children\":[]}]",
+        "title": "Bienvenue sur elasticms-demo"
     },
     "label": "Homepage",
+    "nl": {
+        "metatitle": "elasticms-demo: Welkom",
+        "show": true,
+        "slug": "/",
+        "structure": "[{\"id\":\"7504bd42-22b3-4a9c-953a-6244ddd4f4f8\",\"label\":\"Welkom op onze site.\",\"type\":\"text\",\"object\":{\"body\":\"<p>Welkom op onze site.</p>\",\"label\":\"Welkom op onze site.\"},\"children\":[]}]",
+        "title": "Welkom op elasticms-demo"
+    },
     "published_date": "2022-02-21T13:54:26+01:00",
     "type": "homepage"
 }

@@ -47,7 +47,7 @@
 {% endblock %}
 
 {% block request %}
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav mr-auto" {{ emsch_admin_menu(structure) }}>
         {% for section in blocks.children %}
             {% if section.children|length > 0 %}
                 {{ block('dropdown') }}
