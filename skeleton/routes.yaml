@@ -40,13 +40,13 @@ emsch_publication:
     template_static: template/asset/publication.json.twig
 emsch_slideshow:
     config:
-        path: { en: 'slideshow/{slug}', fr: 'presentation/{slug}' }
-    query: '{"query":{"bool":{"must":[{"term":{"%locale%.show":true}},{"term":{"%locale%.slug":"%slug%"}},{"terms":{"_contenttype":["slideshow"]}}]}},"size":1}'
+        path: { en: 'slideshow/{slug}', fr: 'fr/presentation/{slug}' }
+    query: '{"query":{"bool":{"must":[{"term":{"%_locale%.show":true}},{"term":{"%_locale%.slug":"%slug%"}},{"terms":{"_contenttype":["slideshow"]}}]}},"size":1}'
     template_static: template/slideshow/revealjs.html.twig
 emsch_page:
     config:
-        path: { en: 'page/{slug}', fr: 'page/{slug}' }
-    query: '{"query":{"bool":{"must":[{"term":{"%locale%.show":true}},{"term":{"%locale%.slug":"%slug%"}},{"terms":{"_contenttype":["page"]}}]}},"size":1}'
+        path: { en: 'page/{slug}', fr: 'fr/page/{slug}' }
+    query: '{"query":{"bool":{"must":[{"term":{"%_locale%.show":true}},{"term":{"%_locale%.slug":"%slug%"}},{"terms":{"_contenttype":["page"]}}]}},"size":1}'
     template_static: template/page/by_type.html.twig
     template_source: '[template]'
 emsch_missing_translation:
@@ -58,7 +58,7 @@ emsch_missing_translation:
 emsch_homepage:
     config:
         path: { en: /, fr: /fr, nl: /nl, de: /de }
-    query: '{"query":{"bool":{"must":[{"term":{"%locale%.show":true}},{"term":{"%locale%.slug":"\/"}},{"terms":{"_contenttype":["page"]}}]}},"size":1}'
+    query: '{"query":{"bool":{"must":[{"term":{"%_locale%.show":true}},{"term":{"%_locale%.slug":"\/"}},{"terms":{"_contenttype":["page"]}}]}},"size":1}'
     template_static: template/page/by_type.html.twig
 form_iframe:
     config:

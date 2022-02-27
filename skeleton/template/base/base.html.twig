@@ -3,6 +3,7 @@
 
 {% block request -%}
     {% apply spaceless %}
+        {{ parent() }}
         <!doctype html>
         <html lang="{{ app.request.locale }}" data-trans-domain="{{ trans_default_domain|e('html_attr') }}">
         <head>
@@ -11,7 +12,7 @@
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <title>{% block title %}{% endblock %}</title>
             <meta name="description" content="{% block meta_description %}{% endblock %}">
-
+            <link rel="canonical" href="{{ canonicalUrl }}" />
             <link rel="icon" type="image/png" sizes="64x64" href="{{ asset('img/head/icon64.png', 'emsch') }}">
             <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/head/icon180.png', 'emsch') }}">
             <meta name="msapplication-square70x70logo" content="{{ asset('img/head/icon70.png', 'emsch') }}">

@@ -1,6 +1,6 @@
 {% apply spaceless %}
     {% set url = null %}
-    {%- if attribute(source, locale).show|default(false) -%}
+    {%- if attribute(source, locale).show|default(null) -%}
         {% set paths = emsch_search('structure', {
             "query": {
                 "bool": {
@@ -42,13 +42,19 @@
         }).hits.hits.0._source.paths|default([]) %}
 
         {% for path in paths|filter(path => path.target|default(null) == "page:#{id}" and path.locale|default(null) == locale) %}
-            {% set url = path('emsch_path', {path: path.path}) %}
+            {% set url = path('emsch_path', {path: path.path, _locale: locale}) %}
         {% endfor %}
 
-        {% if null == url %}
-            {% set url = path('emsch_page', { slug: attribute(source, locale).slug }) %}
+        {% if url is same as (null) %}
+            {% if attribute(source, locale).slug == '/' %}
+                {% set url = path('emsch_homepage', {_locale: locale}) %}
+            {% else %}
+                {% set url = path('emsch_page', {slug: attribute(source, locale).slug, _locale: locale}) %}
+            {% endif %}
         {% endif %}
 
     {% endif %}
-    {{ url == null ? path('emsch_not_found') : url }}
+    {% if url is not same as (null) %}
+        {{ url }}
+    {% endif %}
 {%  endapply %}

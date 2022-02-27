@@ -641,7 +641,7 @@
                                                             "label": "Slug",
                                                             "class": "col-md-12",
                                                             "lastOfRow": false,
-                                                            "helptext": null,
+                                                            "helptext": "An url friendly identifier will be generated if left empty",
                                                             "prefixIcon": null,
                                                             "prefixText": null,
                                                             "suffixIcon": null,
@@ -662,7 +662,7 @@
                                                         "extraOptions": {
                                                             "extra": null,
                                                             "clear_on_copy": false,
-                                                            "postProcessing": null
+                                                            "postProcessing": "{% if _source.slug is not defined %}\r\n    {{ _source.title|ems_webalize|json_encode|raw }}\r\n{% endif %}"
                                                         },
                                                         "raw_data": [],
                                                         "migrationOptions": {
@@ -864,7 +864,7 @@
         "deleteRole": "ROLE_PUBLISHER",
         "trashRole": "ROLE_ADMIN",
         "ownerRole": "not-defined",
-        "orderKey": 0,
+        "orderKey": 8,
         "rootContentType": true,
         "editTwigWithWysiwyg": false,
         "webContent": true,
@@ -876,7 +876,7 @@
                 "properties": {
                     "name": "Show",
                     "icon": "fa fa-eye",
-                    "body": "{% spaceless %}\r\n    {% set slugs = {} %}\r\n    {% set slugs = slugs|merge([app.request.baseUrl]) %}\r\n    {% set slugs = slugs|merge(['channel', environment.name]) %}\r\n    {% if source.locale|default('en') != 'en' %}\r\n        {% set slugs = slugs|merge([source.locale]) %}\r\n    {% endif %}\r\n    {% set slugs = slugs|merge([source.path]) %}\r\n\r\n    {{ slugs|join('/') }}\r\n{% endspaceless %}",
+                    "body": "{% apply spaceless %}\r\n    {% set slugs = {} %}\r\n    {% set slugs = slugs|merge([app.request.baseUrl]) %}\r\n    {% set slugs = slugs|merge(['channel', environment.name, '_emsch', 'go-to', 'en', contentType, object._id]) %}\r\n\r\n    {{ slugs|join('/') }}\r\n{% endapply %}",
                     "header": null,
                     "editWithWysiwyg": false,
                     "renderOption": "externalLink",

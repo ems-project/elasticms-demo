@@ -9,7 +9,7 @@
         "options": {
             "searchConfig": "[]",
             "entryPath": "./",
-            "attributes": "{\r\n    \"_locale\": \"en\",\r\n    \"_backend\": \"http:\\/\\/demo-admin-dev.localhost\",\r\n    \"EMSCH_ENV\": \"demo_pgsql_v1_preview\",\r\n    \"EMSCH_ENVS\": \"{\\\"preview\\\":{\\\"regex\\\":\\\"\\/.*\\/\\\",\\\"alias\\\":\\\"demo_pgsql_v1_preview\\\",\\\"request\\\":{},\\\"backend\\\":\\\"https:\\/\\/demo-admin-dev.localhost\\\"}}\",\r\n    \"EMSCH_TEMPLATE_EMS_LINK\": \"@EMSCH\\/template\\/ems\\/{type}.ems_link.twig\",\r\n    \"EMSCH_LOCALES\": \"[\\\"en\\\",\\\"fr\\\",\\\"nl\\\",\\\"de\\\"]\",\r\n    \"EMSCH_TRANSLATION_TYPE\": \"label\",\r\n    \"EMSCH_ROUTE_TYPE\": \"route\",\r\n    \"EMSCH_TEMPLATES\": \"{\\\"template\\\":{\\\"name\\\":\\\"name\\\",\\\"code\\\":\\\"body\\\"}}\"\r\n}"
+            "attributes": "{\r\n    \"_locale\": \"en\",\r\n    \"_backend\": \"http:\\/\\/demo-admin-dev.localhost\",\r\n    \"EMSCH_ENV\": \"demo_pgsql_v1_preview\",\r\n    \"EMSCH_ENVS\": \"{\\\"preview\\\":{\\\"regex\\\":\\\"\\/.*\\/\\\",\\\"alias\\\":\\\"demo_pgsql_v1_preview\\\",\\\"request\\\":{},\\\"backend\\\":\\\"https:\\/\\/demo-admin-dev.localhost\\\"}}\"\r\n}"
         },
         "orderKey": 2
     },
