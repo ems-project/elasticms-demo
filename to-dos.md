@@ -52,6 +52,7 @@
   - require to refactor the DtataFieldType:: getJsonNames as non static method
     - require to refactor the RawDataTransformer as a service
       - require to remove the getData and setData methods from the Revision Entity
+
 ## EMSCommonBundle
 
 - feat: ems:admin:* managed-alias
