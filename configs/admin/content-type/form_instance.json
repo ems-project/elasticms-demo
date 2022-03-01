@@ -2462,7 +2462,7 @@
         "deleteRole": "ROLE_WEBMASTER",
         "trashRole": "ROLE_WEBMASTER",
         "ownerRole": "ROLE_WEBMASTER",
-        "orderKey": 4,
+        "orderKey": 5,
         "rootContentType": true,
         "editTwigWithWysiwyg": true,
         "webContent": false,

@@ -765,7 +765,7 @@
         "deleteRole": "ROLE_PUBLISHER",
         "trashRole": "ROLE_WEBMASTER",
         "ownerRole": "not-defined",
-        "orderKey": 3,
+        "orderKey": 4,
         "rootContentType": true,
         "editTwigWithWysiwyg": true,
         "webContent": false,
