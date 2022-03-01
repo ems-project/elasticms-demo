@@ -3,7 +3,6 @@ services:
 
   traefik:
     image: "traefik:v2.2"
-    container_name: "traefik_ems_demo"
     command:
       - "--log.level=WARNING"
       - "--api.insecure=true"
