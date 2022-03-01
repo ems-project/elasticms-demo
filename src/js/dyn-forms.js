@@ -1,8 +1,12 @@
 import $ from "jquery";
+import {observeDom} from './observeDom';
 
 export default function dynForms(formId) {
-    const $ = require('jquery');
     const dynForms = $('#'+formId+' form');
+
+    observeDom(document.getElementById(formId), function(mutations) {
+        updateVisibilities();
+    });
 
     const getValue = function(name) {
         let array = [];

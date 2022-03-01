@@ -162,8 +162,8 @@
                                     "multiple": false,
                                     "expanded": false,
                                     "select2": false,
-                                    "choices": "form_div_layout.html.twig\r\nform_table_layout.html.twig\r\nbootstrap_3_layout.html.twig\r\nbootstrap_3_horizontal_layout.html.twig\r\nbootstrap_4_layout.html.twig\r\nbootstrap_4_horizontal_layout.html.twig\r\nfoundation_5_layout.html.twig\r\n@EMSCH/template/sat_bootstrap_theme.html.twig\r\n@EMSCH/template/corona-quarantine-template.html.twig\r\n@EMSCH/template/bootstrap_4_layout_hotfix.html.twig",
-                                    "labels": "Div\r\nTable\r\nBootstrap 3\r\nBootstrap 3 Horizontal\r\nBootstrap 4\r\nBootstrap 4 Horizontal\r\nFoundation 5\r\nSAT Bootstrap 4\r\nQuarantine Bootstrap 4\r\nBootstrap 4 (duplicate file label id)",
+                                    "choices": "form_div_layout.html.twig\r\nform_table_layout.html.twig\r\nbootstrap_3_layout.html.twig\r\nbootstrap_3_horizontal_layout.html.twig\r\nbootstrap_4_layout.html.twig\r\nbootstrap_4_horizontal_layout.html.twig\r\nfoundation_5_layout.html.twig\r\n@EMSCH/template/form/theme/bootstrap_4_with_visibility.html.twig",
+                                    "labels": "Div\r\nTable\r\nBootstrap 3\r\nBootstrap 3 Horizontal\r\nBootstrap 4\r\nBootstrap 4 Horizontal\r\nFoundation 5\r\nBootstrap 4 with Visibility",
                                     "linked_collection": null,
                                     "collection_label_field": null
                                 },
@@ -657,7 +657,8 @@
                                                                                     "helptext": null,
                                                                                     "values": "en\r\nfr\r\nnl\r\nde",
                                                                                     "labels": "English\r\nFrench\r\nDutch\r\nGerman",
-                                                                                    "icon": "fa fa-language"
+                                                                                    "icon": "fa fa-language",
+                                                                                    "localePreferredFirst": true
                                                                                 },
                                                                                 "mappingOptions": [],
                                                                                 "restrictionOptions": [],
@@ -1480,9 +1481,10 @@
                                                             "class": "col-md-12",
                                                             "lastOfRow": false,
                                                             "helptext": null,
-                                                            "values": "fr\r\nnl\r\nde",
-                                                            "labels": "FR\r\nNL\r\nDE",
-                                                            "icon": null
+                                                            "values": "en\r\nfr\r\nnl\r\nde",
+                                                            "labels": "English\r\nFrench\r\nDutch\r\nGerman",
+                                                            "icon": null,
+                                                            "localePreferredFirst": true
                                                         },
                                                         "mappingOptions": [],
                                                         "restrictionOptions": [],
@@ -1671,7 +1673,8 @@
                                                                         "helptext": null,
                                                                         "values": "en\r\nfr\r\nnl\r\nde",
                                                                         "labels": "English\r\nFrench\r\nDutch\r\nGerman",
-                                                                        "icon": null
+                                                                        "icon": null,
+                                                                        "localePreferredFirst": true
                                                                     },
                                                                     "mappingOptions": [],
                                                                     "restrictionOptions": [],

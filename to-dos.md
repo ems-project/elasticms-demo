@@ -1,6 +1,5 @@
 ## elasticms-demo
 
-- feat: advance form
 - feat: computed field with indexed content for search engine
 - feat: search
 - feat: admin's overviews (colibri or instructions)
@@ -18,7 +17,7 @@
 - feat: draw.io
 - feat: draw.io in revision preview
 - test: add cypress.io to do frontend tests
-
+- feat: asynchronous file generation + JS app (ems_cache)
 
 ## EMSClientHelperbundle
 

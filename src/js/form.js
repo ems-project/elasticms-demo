@@ -61,24 +61,27 @@ export class skeletonForm
                 self.updateFileField(this);
             }
         }
+        let $firstInvalid = $('.is-invalid').first();
+        if ($firstInvalid.length > 0) {
+            this.focus_on_invalid($firstInvalid);
+        }
         console.log('My onload function');
     }
 
     onSubmit(elementForm, elementMessage) {
-        const inputs = elementForm.querySelectorAll('input,button,textarea');
+        const inputs = elementForm.querySelectorAll('input,button,textarea,select');
         for (let i = 0; i < inputs.length; i++) {
             inputs[i].setAttribute('disabled',true)
         }
-        console.log('My submit function');
     }
 
     onError(elementForm, elementMessage, errorMessage) {
         this.addErrorMessage(elementMessage, this.translations.form_error_try_later);
-        console.log('My error function:' + errorMessage);
     }
 
     onResponse(elementForm, elementMessage, json) {
         const responses = JSON.parse(json);
+        let displayedMessage = false;
         for (var i = 0; i < responses.length; ++i) {
             const response = JSON.parse(responses[i]);
             if ('error' === response.status) {
@@ -86,10 +89,12 @@ export class skeletonForm
                 return;
             } else if (response.uid !== undefined) {
                 this.addSuccessMessage(elementMessage, this.translations.form_saved.replace('%uid%', response.uid));
+                displayedMessage = true;
             }
-            console.log(response);
         }
-        console.log('My response function');
+        if (!displayedMessage) {
+            this.addSuccessMessage(elementMessage, this.translations.form_processed);
+        }
     }
 
     updateFileField(fileField) {
@@ -140,5 +145,16 @@ export class skeletonForm
         div.classList.add('text-white');
         div.innerHTML = message;
         elementMessage.appendChild(div);
+    }
+
+    focus_on_invalid(input) {
+        const group = input.closest('.form-group');
+        if (group.offset() === undefined)
+            return;
+        $('html, body').animate({
+            scrollTop: group.offset().top // scroll on form-group
+        }, 30, function() {
+            input.focus(); // then focus on form-control
+        });
     }
 }

@@ -24,6 +24,7 @@ js:
     form_error: 'The form faced an issue : %message%'
     form_error_try_later: 'The form faced an issue, please try again later'
     form_saved: 'Your request has been saved with the identifier %uid%'
+    form_processed: 'Your request has been saved'
 missing:
     but-available-in: 'English version:'
     description: 'See below for alternative versions.'
