@@ -7,7 +7,6 @@
 - feat: search with load more in mobile
 - feat: test slugs (publication, page, slideshows) are unique on finalize
 - feat: photos carousel (block)
-- feat: translate date's months with symfony?
 - feat: remove hardcoded key from submission in forms
 - feat: rights by roles
 - feat: script to create a demo bucket in minio
