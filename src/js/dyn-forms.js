@@ -4,14 +4,14 @@ import {observeDom} from './observeDom';
 export default function dynForms(formId) {
     const dynForms = $('#'+formId+' form');
 
-    observeDom(document.getElementById(formId), function(mutations) {
+    observeDom(document.getElementById(formId), function() {
         updateVisibilities();
     });
 
     const getValue = function(name) {
         let array = [];
         let isArray = false;
-        var objects = document.querySelectorAll('[name="form'+name+'"]');
+        const objects = document.querySelectorAll('[name="form'+name+'"]');
 
         for (var i = 0; i < objects.length; i++) {
             if (objects[i].getAttribute('type') === 'radio') {
@@ -83,7 +83,6 @@ export default function dynForms(formId) {
         if (isNaN(dateParsed) || isNaN(beforeParsed)) {
             return false;
         }
-        // console.log(date, ' before ', before, ' ? ', dateParsed < beforeParsed);
 
         return dateParsed < beforeParsed;
     }
@@ -95,7 +94,6 @@ export default function dynForms(formId) {
         if (isNaN(dateParsed) || isNaN(afterParsed)) {
             return false;
         }
-        // console.log(date, ' after ', after, ' ? ', dateParsed > afterParsed);
 
         return dateParsed > afterParsed;
     }
