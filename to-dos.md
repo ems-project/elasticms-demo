@@ -32,6 +32,9 @@
 
 ## EMSCoreBundle
 
+- feat: new emsco_i18n_list() twig function
+  - i.e. emsco_i18n_list('locales') => {fr: 'French', nl: 'Dutch'}
+  - i.e. emsco_i18n_list('config') => {en: '{"locales"= {"fr": "French", "nl": "Dutch"}}'}
 - feat: index bundle's documentations (md) in a separate (managed?) alias
 - ref: remove AppControllers
 - feat: clean revisions history (by CT)
