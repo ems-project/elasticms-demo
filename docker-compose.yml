@@ -156,7 +156,7 @@ services:
       - "traefik.http.services.mailhog.loadbalancer.server.port=8025"
 
   elasticms:
-    image: elasticms/admin:1.17.26
+    image: elasticms/admin:1.17.27
     networks:
       default:
         aliases:
@@ -252,3 +252,8 @@ volumes:
   redis:
   s3:
   postgres:
+
+#networks:
+#    default:
+#        external:
+#            name: skeleton
