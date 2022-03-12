@@ -7,6 +7,7 @@ aria:
 attachments_browse: Browse
 breadcrumb:
     home: Home
+ems.back_to_ems: 'Back to admin'
 ems_file_browse: Browse
 ems_form:
     ignore_iframe: 'Technical iframe, please ignore'

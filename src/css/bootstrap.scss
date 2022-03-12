@@ -5,6 +5,9 @@ $fa-font-path: "../../node_modules/@fortawesome/fontawesome-free/webfonts" !defa
 @import "~@fortawesome/fontawesome-free/scss/solid";
 @import "~@fortawesome/fontawesome-free/scss/regular";
 @import "~@fortawesome/fontawesome-free/scss/brands";
+$admin-menu-icon-fill: 'red';
+$admin-menu-font-color: white;
+$admin-menu-icon-size: 16;
 @import "~@elasticms/admin-menu/css/style";
 @import "aria";
 @import "back2top";
