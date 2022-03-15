@@ -3,7 +3,7 @@ const $ = require('jquery');
 window.$ = $;
 window.jQuery = $;
 
-import './css/bootstrap.scss';
+import './css/styles.scss';
 require('bootstrap');
 
 import adminMenu from '@elasticms/admin-menu';
