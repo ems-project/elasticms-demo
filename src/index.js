@@ -15,7 +15,7 @@ import form from "./js/form";
 import {NavBar} from "./js/navbar";
 import multilevelNavbar from "./js/multilevel-navbar";
 
-adminMenu();
+adminMenu('ems_demo_admin', '<i class="ems-icon"></i> Back to CMS');
 back2top();
 ajaxSearch();
 toc();
