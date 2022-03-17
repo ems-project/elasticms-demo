@@ -12,6 +12,8 @@ The following ports must be available:
 
 ## Install steps
 
+Create a `dist` folder.
+
 Open a terminal and run the following commands:
 - `npm install`: install NPM dependencies
   - or `./npm.sh install`
