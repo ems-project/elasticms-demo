@@ -12,6 +12,8 @@ The following ports must be available:
 
 ## Install steps
 
+Create a `dist` folder.
+
 Open a terminal and run the following commands:
 - `npm install`: install NPM dependencies
   - or `./npm.sh install`
@@ -29,7 +31,10 @@ Go to [minio](http://minio.localhost/login) and login with those credentials:
 Go back to your console:
 - `./create-users.sh` (or `create-users.cmd` under Windows)
   - A `demo` admin user is created with the email and the password that you provide
+  - You have now access to an empty [elasticms](http://demo-admin.localhost/dashboard) 
 - `./bootstrap.sh` (or `bootstrap.cmd` under Windows)
+
+[elasticms](http://demo-admin.localhost/dashboard)
 
 Check the [preview](http://demo-preview.localhost) and the [live](http://demo-live.localhost)
 

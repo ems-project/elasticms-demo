@@ -15,7 +15,10 @@ import form from "./js/form";
 import {NavBar} from "./js/navbar";
 import multilevelNavbar from "./js/multilevel-navbar";
 
-adminMenu('ems_demo_admin', '<i class="ems-icon"></i> Back to CMS');
+
+const translations = JSON.parse(document.body.getAttribute('data-translations'));
+
+adminMenu('esm_demo_admin', '<i class="ems-icon"></i><span class="sr-only">'+ (translations.back_to_ems === undefined ? 'Back to ems' : translations.back_to_ems) + '</span>');
 back2top();
 ajaxSearch();
 toc();

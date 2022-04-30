@@ -957,26 +957,6 @@
                 "properties": {
                     "name": "Overview",
                     "type": "ems.view.report",
-                    "icon": "fa fa-table",
-                    "options": {
-                        "body": "{}",
-                        "size": 0,
-                        "template": "{% set must = {} %}\r\n\r\n{% set filterQuery = [ {\r\n  \"multi_match\": {\r\n    \"fields\": [\r\n      \"live_search\",\r\n      \"live_search._2gram\",\r\n      \"live_search._3gram\"\r\n    ],\r\n    \"query\": \"%query%\",\r\n    \"operator\": \"and\", \r\n    \"type\": \"bool_prefix\"\r\n        \r\n  } } ] %}\r\n\r\n{{ emsco_datatable(['preview'],['page'], {\r\n    \"frontendOptions\": {\r\n        \"pageLength\": 100\r\n    },\r\n    \"query\": {\r\n        \"bool\": {\r\n          \"must\": must|merge(filterQuery)\r\n        }\r\n      },\r\n    \"row_context\": \"{% set foo = 'bar' %}\",\r\n    \"columns\": [{\r\n        \"label\": \"Label\",\r\n        \"template\": '<a href=\"' ~ \"{{path('data.revisions', {ouuid: data.id, type: data.contentType} ) }}\"~'\">' ~\"{{ data.source.label }}</a>\",\r\n        \"orderField\": \"label.alpha_order\"\r\n    },{\r\n        \"label\": \"Locale\",\r\n        \"template\": \"{{ data.source.locale }}\",\r\n        \"orderField\": \"locale\"\r\n    },{\r\n        \"label\": \"Draft\",\r\n        \"template\": \"{{ foo|default('nope') }}\"\r\n    },{\r\n        \"label\": \"Published\",\r\n        \"template\": \"{{ foo|default('nope') }}\"\r\n    },{\r\n        \"label\": \"Aligned\",\r\n        \"template\": \"{{ foo|default('nope') }}\"\r\n    },{\r\n        \"label\": \"Path\",\r\n        \"template\": \"{{ data.source.path }}\",\r\n        \"orderField\": \"path\"\r\n    }]\r\n}) }}\r\n\r\n\r\n{{ emsco_datatable_excel_path(['preview'],['page'], {\r\n    \"frontendOptions\": {\r\n        \"pageLength\": 100\r\n    },\r\n    \"query\": {\r\n        \"bool\": {\r\n          \"must\": must|merge(filterQuery)\r\n        }\r\n      },\r\n    \"row_context\": \"{% set foo = 'bar' %}{% dump('bar') %}\",\r\n    \"columns\": [{\r\n        \"label\": \"Label\",\r\n        \"template\": '<a href=\"' ~ \"{{path('data.revisions', {ouuid: data.id, type: data.contentType} ) }}\"~'\">' ~\"{{ data.source.label }}</a>\",\r\n        \"orderField\": \"label.alpha_order\"\r\n    },{\r\n        \"label\": \"Locale\",\r\n        \"template\": \"{{ data.source.locale }}\",\r\n        \"orderField\": \"locale\"\r\n    },{\r\n        \"label\": \"Draft\",\r\n        \"template\": \"{{ foo|default('nope') }}\"\r\n    },{\r\n        \"label\": \"Published\",\r\n        \"template\": \"{{ foo|default('nope') }}\"\r\n    },{\r\n        \"label\": \"Aligned\",\r\n        \"template\": \"{{ foo|default('nope') }}\"\r\n    },{\r\n        \"label\": \"Path\",\r\n        \"template\": \"{{ data.source.path }}\",\r\n        \"orderField\": \"path\"\r\n    }]\r\n}) }}",
-                        "header": null,
-                        "javascript": null
-                    },
-                    "orderKey": 0,
-                    "public": false,
-                    "role": null
-                },
-                "replaced": []
-            },
-            {
-                "class": "EMS\\CoreBundle\\Entity\\View",
-                "arguments": [],
-                "properties": {
-                    "name": "Overview v2",
-                    "type": "ems.view.report",
                     "icon": "fa fa-list",
                     "options": {
                         "body": "{}",
