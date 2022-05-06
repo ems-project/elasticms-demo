@@ -156,7 +156,7 @@ services:
       - "traefik.http.services.mailhog.loadbalancer.server.port=8025"
 
   elasticms:
-    image: elasticms/admin:1.17.27
+    image: elasticms/admin:1.19.1
     networks:
       default:
         aliases:
@@ -187,6 +187,7 @@ services:
       - EMSCO_TIKA_SERVER=http://tika:9998
       - CLI_PHP_MEMORY_LIMIT=512M
       - JOBS_ENABLED=true
+      - EMS_CACHE_PREFIX=demo-admin
     volumes:
       - ./configs/elasticms:/opt/configs
 #      - ../EMSCommonBundle:/opt/src/vendor/elasticms/common-bundle
@@ -202,7 +203,7 @@ services:
       - "traefik.http.services.ems_pgsql.loadbalancer.server.port=9000"
 
   skeleton:
-    image: elasticms/website-skeleton:3.8.9
+    image: elasticms/website-skeleton:3.9.2
     environment:
       - PUID=1000
       - PGID=1000
@@ -223,6 +224,7 @@ services:
       - 'BACKEND_URL=http://demo-admin-dev.localhost:9000'
       - 'ADMIN_URL=http://demo-admin.localhost'
       - VARNISH_ENABLED=true
+      - EMS_CACHE_PREFIX=demo-skeleton
     volumes:
       - ./configs/skeleton:/opt/configs
       - ./configs/admin:/opt/src/admin
