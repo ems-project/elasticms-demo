@@ -56,11 +56,11 @@
             {% endif %}
         {% endfor %}
     </ul>
-    <form class="form-inline my-2 my-lg-0">
+    <form class="form-inline my-2 my-lg-0" method="GET" action="{{ path('emsch_search') }}">
         <div class="input-group mr-sm-2">
-            <input type="search" class="form-control" placeholder="{{ 'navbar.search-input'|trans }}" aria-label="{{ 'navbar.search-input'|trans }}">
+            <input type="search" class="form-control" placeholder="{{ 'navbar.search-input'|trans }}" aria-label="{{ 'navbar.search-input'|trans }}" name="q">
             <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button"><i class="fas fa-search"></i> <span class="sr-only">{{ 'navbar.search'|trans }}</span></button>
+                <button class="btn btn-outline-secondary" type="submit"><i class="fas fa-search"></i> <span class="sr-only">{{ 'navbar.search'|trans }}</span></button>
             </div>
         </div>
     </form>

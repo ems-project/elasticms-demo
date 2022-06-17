@@ -17,9 +17,9 @@
                     <p>
                         {% block description %}{{ 'error.description'|trans }}{% endblock %}
                     </p>
-                    <form class="search-form">
+                    <form class="search-form" method="GET" action="{{ path('emsch_search') }}">
                         <div class="input-group">
-                            <input type="text" name="search" class="form-control" placeholder="{{ 'action.search'|trans|e('html_attr') }}" aria-label="{{ 'action.search'|trans|e('html_attr') }}" name="q">
+                            <input type="text" name="q" class="form-control" placeholder="{{ 'action.search'|trans|e('html_attr') }}" aria-label="{{ 'action.search'|trans|e('html_attr') }}">
                             <div class="input-group-append">
                                 <button type="submit" name="submit" class="btn btn-{{ type }} btn-flat">
                                     <i class="fa fa-search"></i>
