@@ -68,6 +68,11 @@ Every script bellow exist as `.cmd` and as `.sh` file.
 - `npm`: Run a npm console (in a docker run container)
 - `update-local-configs`: Update the local config files from elasticms (pull everything)
 
+## Overwrite local scripts
+
+You may want to overwrite some bash scripts (i.e. `demo-preview.sh`). For example if you are not using the provided docker-compose.yml file (i.e. the elasticms-demo projet is deployed in a Swarm cluster with existing traefik, postgfres, ... services).
+If those overwrite are defined in a prior path folder (PATH environment variable). The scripts `bootstrap` and `update-local-config` will continue to work.  
+
 ## Troubleshooting
 
 ### FAQ
