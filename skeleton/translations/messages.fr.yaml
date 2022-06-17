@@ -6,5 +6,11 @@ missing:
     title: 'Ce contenu n''est pas disponible en français'
 navbar:
     swith-to-locale: Français
+page:
+    metatitle:
+        all: Recherche
+        query: '%query% - Recherche'
+    search:
+        breadcrumb: Recherche
 site:
     name: 'Site web Démo'

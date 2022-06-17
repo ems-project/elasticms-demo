@@ -1,0 +1,32 @@
+{% extends '@EMSCH/template/page/page.html.twig' %}
+{% trans_default_domain trans_default_domain %}
+
+
+{%- block request %}
+    {% set canonicalUrls = {} %}
+    {% for locale in locales %}
+        {% set canonicalUrls = canonicalUrls|merge({
+            (locale): path('emsch_search', {_locale: locale}),
+        }) %}
+    {% endfor %}
+
+    {%  set canonicalUrl = attribute(canonicalUrls, app.request.locale) %}
+    {% set switchUrls = canonicalUrls %}
+    {{ parent() }}
+{% endblock request -%}
+
+
+{% block title -%}
+    {%- if app.request.get('q')|default(false) -%}
+    {%- else -%}
+    {%- endif -%}
+{%- endblock %}
+{% block metatitle %}
+    {%- if app.request.get('q')|default(false) -%}
+        {{ 'page.search.metatitle.query'|trans({'%query%': app.request.get('q')}) }}
+    {%- else -%}
+        {{ 'page.search.metatitle.all'|trans }}
+    {%- endif -%}
+{% endblock %}
+
+{% block breadcrumb_active_title -%}{{ 'page.search.breadcrumb'|trans }}{%- endblock %}
