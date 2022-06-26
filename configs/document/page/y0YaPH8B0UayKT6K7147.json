@@ -1,4 +1,9 @@
 {
+    "all_en": [
+        "This page contains 2 forms that can works independently.",
+        "And then the second form:"
+    ],
+    "creation_date": "2022-06-26T10:42:11+02:00",
     "de": {
         "show": false,
         "structure": "[]"
@@ -14,9 +19,19 @@
         "structure": "[]"
     },
     "label": "2 forms 1 page",
+    "live_search": [
+        "Two forms on the same",
+        "This page contains 2 forms that can works independently.",
+        "Contact form",
+        "And then the second form:",
+        "Advance form"
+    ],
     "nl": {
         "show": false,
         "structure": "[]"
     },
+    "title_en": [
+        "Two forms on the same"
+    ],
     "type": "page"
 }

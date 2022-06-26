@@ -1,4 +1,8 @@
 {
+    "all_en": [
+        "In this section you'll find the error pages"
+    ],
+    "creation_date": "2022-06-26T10:46:36+02:00",
     "en": {
         "show": true,
         "slug": "error-pages",
@@ -10,5 +14,12 @@
         "structure": "[]"
     },
     "label": "Error pages",
+    "live_search": [
+        "Error pages",
+        "In this section you'll find the error pages"
+    ],
+    "title_en": [
+        "Error pages"
+    ],
     "type": "page"
 }

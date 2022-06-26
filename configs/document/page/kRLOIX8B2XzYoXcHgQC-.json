@@ -1,4 +1,5 @@
 {
+    "creation_date": "2022-06-26T10:46:39+02:00",
     "en": {
         "show": true,
         "slug": "contact-us",
@@ -12,5 +13,16 @@
         "title": "Contactez-nous"
     },
     "label": "Contact form",
+    "live_search": [
+        "Contact us",
+        "Contact form",
+        "Contactez-nous"
+    ],
+    "title_en": [
+        "Contact us"
+    ],
+    "title_fr": [
+        "Contactez-nous"
+    ],
     "type": "page"
 }

@@ -1,4 +1,11 @@
 {
+    "all_en": [
+        "Elasticms is an open source CMS"
+    ],
+    "all_fr": [
+        "Elasticms est un project Open-Source"
+    ],
+    "creation_date": "2022-06-26T10:46:40+02:00",
     "en": {
         "show": true,
         "slug": "about",
@@ -12,5 +19,17 @@
         "title": "A propos"
     },
     "label": "About",
+    "live_search": [
+        "About",
+        "Elasticms is an open source CMS",
+        "A propos",
+        "Elasticms est un project Open-Source"
+    ],
+    "title_en": [
+        "About"
+    ],
+    "title_fr": [
+        "A propos"
+    ],
     "type": "page"
 }

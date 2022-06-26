@@ -1,4 +1,25 @@
 {
+    "all_de": [
+        "Ein kleiner Testtext."
+    ],
+    "all_en": [
+        "Elasticms is an open source CMS.\u00a0Elasticms is an open source CMS.\u00a0Elasticms is an open source CMS.\u00a0Elasticms is an open source CMS.\u00a0Elasticms is an open source CMS. Elasticms is an open source CMS."
+    ],
+    "all_fr": [
+        "Test d'un bloc avec des \u00c2cc\u00e9nts: \u00e2\u00e9\u00e0\u00e7\u00f9. Pour tester l'indexation\r\n\r\nEt plusieurs paragraphes",
+        "Contenu d'un autre bloc",
+        "Et d'un enfant"
+    ],
+    "all_nl": [
+        "Een kleine testtekst."
+    ],
+    "creation_date": "2022-06-26T10:46:37+02:00",
+    "de": {
+        "show": true,
+        "slug": "testen-der-bausteine",
+        "structure": "[{\"id\":\"09a6e569-95ca-4f16-aaab-16cfc49b7578\",\"label\":\"Ein kleiner Testtext.\",\"type\":\"text\",\"object\":{\"body\":\"<p>Ein kleiner Testtext.</p>\",\"label\":\"Ein kleiner Testtext.\"},\"children\":[]}]",
+        "title": "Testen der \u201eBausteine\u201c"
+    },
     "en": {
         "show": true,
         "slug": "test-blocks",
@@ -6,9 +27,41 @@
         "title": "Test blocks"
     },
     "fr": {
-        "show": false,
-        "structure": "[]"
+        "show": true,
+        "slug": "test-des-building-blocks",
+        "structure": "[{\"id\":\"75d3bfb8-a9bc-432a-b957-ea05b5f21551\",\"label\":\"Test d'un bloc avec des \u00c2cc\u00e9nts: \u00e2\u00e9\u00e0\u00e7\u00f9. Pour tester l'indexation\\r\\n\\r\\nEt plusieurs paragraphes\",\"type\":\"text\",\"object\":{\"body\":\"<p>Test d&#39;un bloc avec des &Acirc;cc&eacute;nts: &acirc;&eacute;&agrave;&ccedil;&ugrave;. Pour tester l&#39;indexation</p>\\r\\n\\r\\n<p>Et plusieurs paragraphes</p>\",\"label\":\"Test d'un bloc avec des \u00c2cc\u00e9nts: \u00e2\u00e9\u00e0\u00e7\u00f9. Pour tester l'indexation\\r\\n\\r\\nEt plusieurs paragraphes\"},\"children\":[]},{\"id\":\"9c697eb4-57e8-46fe-8b32-2243049d149f\",\"label\":\"Contenu d'un autre bloc\",\"type\":\"text\",\"object\":{\"body\":\"<p>Contenu d&#39;un autre bloc</p>\",\"label\":\"Contenu d'un autre bloc\"},\"children\":[{\"id\":\"184d39cd-da33-402a-984a-1dd12c13e3dc\",\"label\":\"Et d'un enfant\",\"type\":\"text\",\"object\":{\"body\":\"<p>Et d&#39;un enfant</p>\",\"label\":\"Et d'un enfant\"},\"children\":[]}]}]",
+        "title": "Test des \"building blocks\""
     },
     "label": "Test blocks",
+    "live_search": [
+        "Test blocks",
+        "Elasticms is an open source CMS.\u00a0Elasticms is an open source CMS.\u00a0Elasticms is an open source CMS.\u00a0Elasticms is an open source CMS.\u00a0Elasticms is an open source CMS. Elasticms is an open source CMS.",
+        "Test des \"building blocks\"",
+        "Test d'un bloc avec des \u00c2cc\u00e9nts: \u00e2\u00e9\u00e0\u00e7\u00f9. Pour tester l'indexation\r\n\r\nEt plusieurs paragraphes",
+        "Contenu d'un autre bloc",
+        "Et d'un enfant",
+        "Testen van de \"bouwstenen\"",
+        "Een kleine testtekst.",
+        "Testen der \u201eBausteine\u201c",
+        "Ein kleiner Testtext."
+    ],
+    "nl": {
+        "show": true,
+        "slug": "testen-van-de-bouwstenen",
+        "structure": "[{\"id\":\"e5c0536c-c0a4-420c-98d3-f26fa28d7b73\",\"label\":\"Een kleine testtekst.\",\"type\":\"text\",\"object\":{\"body\":\"<p>Een kleine testtekst.</p>\",\"label\":\"Een kleine testtekst.\"},\"children\":[]}]",
+        "title": "Testen van de \"bouwstenen\""
+    },
+    "title_de": [
+        "Testen der \u201eBausteine\u201c"
+    ],
+    "title_en": [
+        "Test blocks"
+    ],
+    "title_fr": [
+        "Test des \"building blocks\""
+    ],
+    "title_nl": [
+        "Testen van de \"bouwstenen\""
+    ],
     "type": "page"
 }

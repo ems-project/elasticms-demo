@@ -163,6 +163,7 @@
         "viewRole": "ROLE_ADMIN",
         "publishRole": "ROLE_ADMIN",
         "deleteRole": null,
+        "archiveRole": null,
         "trashRole": "ROLE_ADMIN",
         "ownerRole": null,
         "orderKey": 7,

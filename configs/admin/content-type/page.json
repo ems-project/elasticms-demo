@@ -7,7 +7,7 @@
         "singularName": "Page",
         "icon": "fa fa-leaf",
         "description": null,
-        "indexTwig": "{% if source.avatar is defined %}\r\n    <img src=\"{{ path('ems_asset_processor', {processor: 'preview', hash: source.avatar.sha1}) }}\">\r\n{% endif %}",
+        "indexTwig": null,
         "extra": null,
         "lockBy": null,
         "lockUntil": null,
@@ -221,7 +221,8 @@
                                                 "helptext": null,
                                                 "values": "en\r\nfr\r\nnl\r\nde",
                                                 "labels": "English\r\nFrench\r\nDutch\r\nGerman",
-                                                "icon": "fa fa-language"
+                                                "icon": "fa fa-language",
+                                                "localePreferredFirst": false
                                             },
                                             "mappingOptions": [],
                                             "restrictionOptions": [],
@@ -303,7 +304,7 @@
                                                         },
                                                         "restrictionOptions": {
                                                             "mandatory": false,
-                                                            "mandatory_if": null,
+                                                            "mandatory_if": "%locale%.show",
                                                             "minimum_role": null
                                                         },
                                                         "extraOptions": {
@@ -796,6 +797,78 @@
                                                             "protected": false
                                                         }
                                                     },
+                                                    "orderKey": 1,
+                                                    "parent": null,
+                                                    "children": []
+                                                },
+                                                "replaced": []
+                                            }
+                                        ]
+                                    },
+                                    "replaced": []
+                                },
+                                {
+                                    "class": "EMS\\CoreBundle\\Entity\\FieldType",
+                                    "arguments": [],
+                                    "properties": {
+                                        "type": "EMS\\CoreBundle\\Form\\DataField\\ContainerFieldType",
+                                        "name": "indexes",
+                                        "contentType": null,
+                                        "deleted": false,
+                                        "description": null,
+                                        "options": {
+                                            "displayOptions": {
+                                                "label": "Indexes",
+                                                "class": "col-md-12",
+                                                "lastOfRow": false,
+                                                "helptext": null,
+                                                "icon": "fa fa-database"
+                                            },
+                                            "mappingOptions": [],
+                                            "restrictionOptions": {
+                                                "minimum_role": null
+                                            },
+                                            "extraOptions": {
+                                                "extra": null,
+                                                "clear_on_copy": false,
+                                                "postProcessing": null
+                                            },
+                                            "raw_data": []
+                                        },
+                                        "orderKey": 2,
+                                        "parent": null,
+                                        "children": [
+                                            {
+                                                "class": "EMS\\CoreBundle\\Entity\\FieldType",
+                                                "arguments": [],
+                                                "properties": {
+                                                    "type": "EMS\\CoreBundle\\Form\\DataField\\ComputedFieldType",
+                                                    "name": "live_search",
+                                                    "contentType": null,
+                                                    "deleted": false,
+                                                    "description": null,
+                                                    "options": {
+                                                        "displayOptions": {
+                                                            "label": "Live Search",
+                                                            "class": "col-md-12",
+                                                            "lastOfRow": false,
+                                                            "helptext": null,
+                                                            "valueTemplate": "{% set data = {} %}\r\n\r\n{% for locale in ['en', 'fr', 'nl', 'de'] %}\r\n    {% if attribute(_source, locale).title is defined %}\r\n        {% set data = data|merge([attribute(_source, locale).title]) %}\r\n    {% endif %}\r\n    {% for item in attribute(_source, locale).structure|default('{}')|ems_json_menu_nested_decode %}\r\n         {% if item.type in ['form'] and item.object.label is defined %}\r\n             {% set data = data|merge([item.object.label]) %}\r\n         {% endif %}\r\n         {% if item.type in ['text'] and item.object.body is defined %}\r\n             {% set data = data|merge([item.object.body|striptags|ems_html_decode]) %}\r\n         {% endif %}\r\n    {% endfor %}\r\n{% endfor %}\r\n\r\n{{ data|json_encode|raw }}",
+                                                            "json": true,
+                                                            "displayTemplate": "<ul>\r\n    {% for item in data|default([]) %}\r\n        <li>{{ item }}</li>\r\n    {% endfor %}\r\n</ul>"
+                                                        },
+                                                        "mappingOptions": {
+                                                            "mappingOptions": "{\r\n        \"type\": \"search_as_you_type\",\r\n        \"analyzer\": \"standard\"\r\n}",
+                                                            "copy_to": null
+                                                        },
+                                                        "restrictionOptions": [],
+                                                        "extraOptions": {
+                                                            "extra": null,
+                                                            "clear_on_copy": false,
+                                                            "postProcessing": null
+                                                        },
+                                                        "raw_data": []
+                                                    },
                                                     "orderKey": 0,
                                                     "parent": null,
                                                     "children": []
@@ -807,23 +880,23 @@
                                                 "arguments": [],
                                                 "properties": {
                                                     "type": "EMS\\CoreBundle\\Form\\DataField\\ComputedFieldType",
-                                                    "name": "search",
+                                                    "name": "title_en",
                                                     "contentType": null,
                                                     "deleted": false,
                                                     "description": null,
                                                     "options": {
                                                         "displayOptions": {
-                                                            "label": "Search",
+                                                            "label": "Title En",
                                                             "class": "col-md-12",
                                                             "lastOfRow": false,
-                                                            "helptext": "This is a computed field",
-                                                            "valueTemplate": "{% set data = {} %}\r\n\r\n{% for item in _source.blocks|default('{}')|ems_json_menu_nested_decode %}\r\n     {% if item.object.label is defined %}\r\n         {% set data = data|merge([item.object.label]) %}\r\n     {% endif %}\r\n     {% if item.object.body is defined %}\r\n         {% set data = data|merge([item.object.body|striptags]) %}\r\n     {% endif %}\r\n     {% if item.object.value is defined %}\r\n         {% set data = data|merge([item.object.value]) %}\r\n     {% endif %}\r\n     {% if attribute(item.object, 'sub-title') is defined %}\r\n         {% set data = data|merge([attribute(item.object, 'sub-title')]) %}\r\n     {% endif %}\r\n{% endfor %}\r\n\r\n{{ data|json_encode|raw }}",
+                                                            "helptext": null,
+                                                            "valueTemplate": "{% if finalize %}\r\n    {% set data = [] %}\r\n    {% set source = _source.en %}\r\n    {% if source.title is defined %}\r\n        {% set data = data|merge([source.title]) %}\r\n    {% endif %}\r\n    \r\n    {{ data|json_encode|raw }}\r\n{% endif %}",
                                                             "json": true,
-                                                            "displayTemplate": "{{ data|json_encode }}"
+                                                            "displayTemplate": "<ul>\r\n    {% for item in data|default([]) %}\r\n        <li>{{ item }}</li>\r\n    {% endfor %}\r\n</ul>"
                                                         },
                                                         "mappingOptions": {
-                                                            "mappingOptions": "{\r\n    \"type\" : \"text\",\r\n    \"copy_to\": \"live_search\"\r\n}",
-                                                            "copy_to": "live_search"
+                                                            "mappingOptions": "{\r\n    \"type\": \"text\",\r\n    \"analyzer\": \"english\"\r\n}",
+                                                            "copy_to": null
                                                         },
                                                         "restrictionOptions": [],
                                                         "extraOptions": {
@@ -838,49 +911,350 @@
                                                     "children": []
                                                 },
                                                 "replaced": []
+                                            },
+                                            {
+                                                "class": "EMS\\CoreBundle\\Entity\\FieldType",
+                                                "arguments": [],
+                                                "properties": {
+                                                    "type": "EMS\\CoreBundle\\Form\\DataField\\ComputedFieldType",
+                                                    "name": "all_en",
+                                                    "contentType": null,
+                                                    "deleted": false,
+                                                    "description": null,
+                                                    "options": {
+                                                        "displayOptions": {
+                                                            "label": "Content En",
+                                                            "class": "col-md-12",
+                                                            "lastOfRow": false,
+                                                            "helptext": null,
+                                                            "valueTemplate": "{% if finalize %}\r\n    {% set data = [] %}\r\n    \r\n    {% for item in _source.en.structure|default('{}')|ems_json_menu_nested_decode %}\r\n         {% if item.type == 'text' and item.object.body is defined %}\r\n             {% set data = data|merge([item.object.body|striptags|ems_html_decode]) %}\r\n         {% endif %}\r\n    {% endfor %}\r\n    \r\n    {{ data|json_encode|raw }}\r\n{% endif %}",
+                                                            "json": true,
+                                                            "displayTemplate": "<ul>\r\n    {% for item in data|default([]) %}\r\n        <li>{{ item }}</li>\r\n    {% endfor %}\r\n</ul>"
+                                                        },
+                                                        "mappingOptions": {
+                                                            "mappingOptions": "{\r\n    \"type\": \"text\",\r\n    \"analyzer\": \"english\"\r\n}",
+                                                            "copy_to": null
+                                                        },
+                                                        "restrictionOptions": [],
+                                                        "extraOptions": {
+                                                            "extra": null,
+                                                            "clear_on_copy": false,
+                                                            "postProcessing": null
+                                                        },
+                                                        "raw_data": []
+                                                    },
+                                                    "orderKey": 2,
+                                                    "parent": null,
+                                                    "children": []
+                                                },
+                                                "replaced": []
+                                            },
+                                            {
+                                                "class": "EMS\\CoreBundle\\Entity\\FieldType",
+                                                "arguments": [],
+                                                "properties": {
+                                                    "type": "EMS\\CoreBundle\\Form\\DataField\\ComputedFieldType",
+                                                    "name": "title_fr",
+                                                    "contentType": null,
+                                                    "deleted": false,
+                                                    "description": null,
+                                                    "options": {
+                                                        "displayOptions": {
+                                                            "label": "Title Fr",
+                                                            "class": "col-md-12",
+                                                            "lastOfRow": false,
+                                                            "helptext": null,
+                                                            "valueTemplate": "{% if finalize %}\r\n    {% set data = [] %}\r\n    {% set source = _source.fr %}\r\n    {% if source.title is defined %}\r\n        {% set data = data|merge([source.title]) %}\r\n    {% endif %}\r\n    \r\n    {{ data|json_encode|raw }}\r\n{% endif %}",
+                                                            "json": true,
+                                                            "displayTemplate": "<ul>\r\n    {% for item in data|default([]) %}\r\n        <li>{{ item }}</li>\r\n    {% endfor %}\r\n</ul>"
+                                                        },
+                                                        "mappingOptions": {
+                                                            "mappingOptions": "{\r\n    \"type\": \"text\",\r\n    \"analyzer\": \"french\"\r\n}",
+                                                            "copy_to": null
+                                                        },
+                                                        "restrictionOptions": [],
+                                                        "extraOptions": {
+                                                            "extra": null,
+                                                            "clear_on_copy": false,
+                                                            "postProcessing": null
+                                                        },
+                                                        "raw_data": []
+                                                    },
+                                                    "orderKey": 3,
+                                                    "parent": null,
+                                                    "children": []
+                                                },
+                                                "replaced": []
+                                            },
+                                            {
+                                                "class": "EMS\\CoreBundle\\Entity\\FieldType",
+                                                "arguments": [],
+                                                "properties": {
+                                                    "type": "EMS\\CoreBundle\\Form\\DataField\\ComputedFieldType",
+                                                    "name": "all_fr",
+                                                    "contentType": null,
+                                                    "deleted": false,
+                                                    "description": null,
+                                                    "options": {
+                                                        "displayOptions": {
+                                                            "label": "Content Fr",
+                                                            "class": "col-md-12",
+                                                            "lastOfRow": false,
+                                                            "helptext": null,
+                                                            "valueTemplate": "{% if finalize %}\r\n    {% set data = [] %}\r\n    \r\n    {% for item in _source.fr.structure|default('{}')|ems_json_menu_nested_decode %}\r\n         {% if item.type == 'text' and item.object.body is defined %}\r\n             {% set data = data|merge([item.object.body|striptags|ems_html_decode]) %}\r\n         {% endif %}\r\n    {% endfor %}\r\n    \r\n    {{ data|json_encode|raw }}\r\n{% endif %}",
+                                                            "json": true,
+                                                            "displayTemplate": "<ul>\r\n    {% for item in data|default([]) %}\r\n        <li>{{ item }}</li>\r\n    {% endfor %}\r\n</ul>"
+                                                        },
+                                                        "mappingOptions": {
+                                                            "mappingOptions": "{\r\n    \"type\": \"text\",\r\n    \"analyzer\": \"french\"\r\n}",
+                                                            "copy_to": null
+                                                        },
+                                                        "restrictionOptions": [],
+                                                        "extraOptions": {
+                                                            "extra": null,
+                                                            "clear_on_copy": false,
+                                                            "postProcessing": null
+                                                        },
+                                                        "raw_data": []
+                                                    },
+                                                    "orderKey": 4,
+                                                    "parent": null,
+                                                    "children": []
+                                                },
+                                                "replaced": []
+                                            },
+                                            {
+                                                "class": "EMS\\CoreBundle\\Entity\\FieldType",
+                                                "arguments": [],
+                                                "properties": {
+                                                    "type": "EMS\\CoreBundle\\Form\\DataField\\ComputedFieldType",
+                                                    "name": "title_nl",
+                                                    "contentType": null,
+                                                    "deleted": false,
+                                                    "description": null,
+                                                    "options": {
+                                                        "displayOptions": {
+                                                            "label": "Title Nl",
+                                                            "class": "col-md-12",
+                                                            "lastOfRow": false,
+                                                            "helptext": null,
+                                                            "valueTemplate": "{% if finalize %}\r\n    {% set data = [] %}\r\n    {% set source = _source.nl %}\r\n    {% if source.title is defined %}\r\n        {% set data = data|merge([source.title]) %}\r\n    {% endif %}\r\n    \r\n    {{ data|json_encode|raw }}\r\n{% endif %}",
+                                                            "json": true,
+                                                            "displayTemplate": "<ul>\r\n    {% for item in data|default([]) %}\r\n        <li>{{ item }}</li>\r\n    {% endfor %}\r\n</ul>"
+                                                        },
+                                                        "mappingOptions": {
+                                                            "mappingOptions": "{\r\n    \"type\": \"text\",\r\n    \"analyzer\": \"dutch\"\r\n}",
+                                                            "copy_to": null
+                                                        },
+                                                        "restrictionOptions": [],
+                                                        "extraOptions": {
+                                                            "extra": null,
+                                                            "clear_on_copy": false,
+                                                            "postProcessing": null
+                                                        },
+                                                        "raw_data": []
+                                                    },
+                                                    "orderKey": 5,
+                                                    "parent": null,
+                                                    "children": []
+                                                },
+                                                "replaced": []
+                                            },
+                                            {
+                                                "class": "EMS\\CoreBundle\\Entity\\FieldType",
+                                                "arguments": [],
+                                                "properties": {
+                                                    "type": "EMS\\CoreBundle\\Form\\DataField\\ComputedFieldType",
+                                                    "name": "all_nl",
+                                                    "contentType": null,
+                                                    "deleted": false,
+                                                    "description": null,
+                                                    "options": {
+                                                        "displayOptions": {
+                                                            "label": "Content Nl",
+                                                            "class": "col-md-12",
+                                                            "lastOfRow": false,
+                                                            "helptext": null,
+                                                            "valueTemplate": "{% if finalize %}\r\n    {% set data = [] %}\r\n    \r\n    {% for item in _source.nl.structure|default('{}')|ems_json_menu_nested_decode %}\r\n         {% if item.type == 'text' and item.object.body is defined %}\r\n             {% set data = data|merge([item.object.body|striptags|ems_html_decode]) %}\r\n         {% endif %}\r\n    {% endfor %}\r\n    \r\n    {{ data|json_encode|raw }}\r\n{% endif %}",
+                                                            "json": true,
+                                                            "displayTemplate": "<ul>\r\n    {% for item in data|default([]) %}\r\n        <li>{{ item }}</li>\r\n    {% endfor %}\r\n</ul>"
+                                                        },
+                                                        "mappingOptions": {
+                                                            "mappingOptions": "{\r\n    \"type\": \"text\",\r\n    \"analyzer\": \"dutch\"\r\n}",
+                                                            "copy_to": null
+                                                        },
+                                                        "restrictionOptions": [],
+                                                        "extraOptions": {
+                                                            "extra": null,
+                                                            "clear_on_copy": false,
+                                                            "postProcessing": null
+                                                        },
+                                                        "raw_data": []
+                                                    },
+                                                    "orderKey": 6,
+                                                    "parent": null,
+                                                    "children": []
+                                                },
+                                                "replaced": []
+                                            },
+                                            {
+                                                "class": "EMS\\CoreBundle\\Entity\\FieldType",
+                                                "arguments": [],
+                                                "properties": {
+                                                    "type": "EMS\\CoreBundle\\Form\\DataField\\ComputedFieldType",
+                                                    "name": "title_de",
+                                                    "contentType": null,
+                                                    "deleted": false,
+                                                    "description": null,
+                                                    "options": {
+                                                        "displayOptions": {
+                                                            "label": "Title De",
+                                                            "class": "col-md-12",
+                                                            "lastOfRow": false,
+                                                            "helptext": null,
+                                                            "valueTemplate": "{% if finalize %}\r\n    {% set data = [] %}\r\n    {% set source = _source.de %}\r\n    {% if source.title is defined %}\r\n        {% set data = data|merge([source.title]) %}\r\n    {% endif %}\r\n    \r\n    {{ data|json_encode|raw }}\r\n{% endif %}",
+                                                            "json": true,
+                                                            "displayTemplate": "<ul>\r\n    {% for item in data|default([]) %}\r\n        <li>{{ item }}</li>\r\n    {% endfor %}\r\n</ul>"
+                                                        },
+                                                        "mappingOptions": {
+                                                            "mappingOptions": "{\r\n    \"type\": \"text\",\r\n    \"analyzer\": \"german\"\r\n}",
+                                                            "copy_to": null
+                                                        },
+                                                        "restrictionOptions": [],
+                                                        "extraOptions": {
+                                                            "extra": null,
+                                                            "clear_on_copy": false,
+                                                            "postProcessing": null
+                                                        },
+                                                        "raw_data": []
+                                                    },
+                                                    "orderKey": 7,
+                                                    "parent": null,
+                                                    "children": []
+                                                },
+                                                "replaced": []
+                                            },
+                                            {
+                                                "class": "EMS\\CoreBundle\\Entity\\FieldType",
+                                                "arguments": [],
+                                                "properties": {
+                                                    "type": "EMS\\CoreBundle\\Form\\DataField\\ComputedFieldType",
+                                                    "name": "all_de",
+                                                    "contentType": null,
+                                                    "deleted": false,
+                                                    "description": null,
+                                                    "options": {
+                                                        "displayOptions": {
+                                                            "label": "Content De",
+                                                            "class": "col-md-12",
+                                                            "lastOfRow": false,
+                                                            "helptext": null,
+                                                            "valueTemplate": "{% if finalize %}\r\n    {% set data = [] %}\r\n    \r\n    {% for item in _source.de.structure|default('{}')|ems_json_menu_nested_decode %}\r\n         {% if item.type == 'text' and item.object.body is defined %}\r\n             {% set data = data|merge([item.object.body|striptags|ems_html_decode]) %}\r\n         {% endif %}\r\n    {% endfor %}\r\n    \r\n    {{ data|json_encode|raw }}\r\n{% endif %}",
+                                                            "json": true,
+                                                            "displayTemplate": "<ul>\r\n    {% for item in data|default([]) %}\r\n        <li>{{ item }}</li>\r\n    {% endfor %}\r\n</ul>"
+                                                        },
+                                                        "mappingOptions": {
+                                                            "mappingOptions": "{\r\n    \"type\": \"text\",\r\n    \"analyzer\": \"german\"\r\n}",
+                                                            "copy_to": null
+                                                        },
+                                                        "restrictionOptions": [],
+                                                        "extraOptions": {
+                                                            "extra": null,
+                                                            "clear_on_copy": false,
+                                                            "postProcessing": null
+                                                        },
+                                                        "raw_data": []
+                                                    },
+                                                    "orderKey": 8,
+                                                    "parent": null,
+                                                    "children": []
+                                                },
+                                                "replaced": []
+                                            }
+                                        ]
+                                    },
+                                    "replaced": []
+                                },
+                                {
+                                    "class": "EMS\\CoreBundle\\Entity\\FieldType",
+                                    "arguments": [],
+                                    "properties": {
+                                        "type": "EMS\\CoreBundle\\Form\\DataField\\ContainerFieldType",
+                                        "name": "meta",
+                                        "contentType": null,
+                                        "deleted": false,
+                                        "description": null,
+                                        "options": {
+                                            "displayOptions": {
+                                                "label": "Meta",
+                                                "class": "col-md-12",
+                                                "lastOfRow": false,
+                                                "helptext": null,
+                                                "icon": null
+                                            },
+                                            "mappingOptions": [],
+                                            "restrictionOptions": {
+                                                "minimum_role": null
+                                            },
+                                            "extraOptions": {
+                                                "extra": null,
+                                                "clear_on_copy": false,
+                                                "postProcessing": null
+                                            },
+                                            "raw_data": []
+                                        },
+                                        "orderKey": 3,
+                                        "parent": null,
+                                        "children": [
+                                            {
+                                                "class": "EMS\\CoreBundle\\Entity\\FieldType",
+                                                "arguments": [],
+                                                "properties": {
+                                                    "type": "EMS\\CoreBundle\\Form\\DataField\\DateTimeFieldType",
+                                                    "name": "creation_date",
+                                                    "contentType": null,
+                                                    "deleted": false,
+                                                    "description": null,
+                                                    "options": {
+                                                        "displayOptions": {
+                                                            "label": "Creation Date",
+                                                            "class": "col-md-12",
+                                                            "lastOfRow": false,
+                                                            "helptext": "Only a webmaster can change this field",
+                                                            "displayFormat": "D/MM/YYYY HH:mm:ss",
+                                                            "parseFormat": "d/m/Y H:i:s",
+                                                            "daysOfWeekDisabled": "0,6",
+                                                            "hoursDisabled": null
+                                                        },
+                                                        "mappingOptions": {
+                                                            "index": null
+                                                        },
+                                                        "restrictionOptions": {
+                                                            "mandatory": false,
+                                                            "mandatory_if": null,
+                                                            "minimum_role": "ROLE_WEBMASTER"
+                                                        },
+                                                        "extraOptions": {
+                                                            "extra": null,
+                                                            "clear_on_copy": false,
+                                                            "postProcessing": "{%- if finalize and _source.creation_date is not defined -%}\r\n    {{- 'now'|date('c')|json_encode|raw -}}\r\n{%- endif -%}"
+                                                        },
+                                                        "raw_data": [],
+                                                        "migrationOptions": {
+                                                            "protected": false
+                                                        }
+                                                    },
+                                                    "orderKey": 1,
+                                                    "parent": null,
+                                                    "children": []
+                                                },
+                                                "replaced": []
                                             }
                                         ]
                                     },
                                     "replaced": []
                                 }
                             ]
-                        },
-                        "replaced": []
-                    },
-                    {
-                        "class": "EMS\\CoreBundle\\Entity\\FieldType",
-                        "arguments": [],
-                        "properties": {
-                            "type": "EMS\\CoreBundle\\Form\\DataField\\ComputedFieldType",
-                            "name": "live_search",
-                            "contentType": null,
-                            "deleted": false,
-                            "description": null,
-                            "options": {
-                                "displayOptions": {
-                                    "label": "Live Search",
-                                    "class": "hidden",
-                                    "lastOfRow": false,
-                                    "helptext": null,
-                                    "valueTemplate": null,
-                                    "json": false,
-                                    "displayTemplate": null
-                                },
-                                "mappingOptions": {
-                                    "mappingOptions": "{\r\n        \"type\": \"search_as_you_type\",\r\n        \"analyzer\": \"standard\"\r\n}",
-                                    "copy_to": null
-                                },
-                                "restrictionOptions": [],
-                                "extraOptions": {
-                                    "extra": null,
-                                    "clear_on_copy": false,
-                                    "postProcessing": null
-                                },
-                                "raw_data": []
-                            },
-                            "orderKey": 3,
-                            "parent": null,
-                            "children": []
                         },
                         "replaced": []
                     }
@@ -910,6 +1284,7 @@
         "viewRole": "ROLE_AUTHOR",
         "publishRole": "ROLE_PUBLISHER",
         "deleteRole": "ROLE_PUBLISHER",
+        "archiveRole": "not-defined",
         "trashRole": "ROLE_ADMIN",
         "ownerRole": "not-defined",
         "orderKey": 1,
@@ -961,7 +1336,7 @@
                     "options": {
                         "body": "{}",
                         "size": 0,
-                        "template": "{% set must = {} %}\r\n\r\n{% set filterQuery = [ {\r\n  \"multi_match\": {\r\n    \"fields\": [\r\n      \"live_search\",\r\n      \"live_search._2gram\",\r\n      \"live_search._3gram\"\r\n    ],\r\n    \"query\": \"%query%\",\r\n    \"operator\": \"and\", \r\n    \"type\": \"bool_prefix\"\r\n  \r\n  } } ] %}\r\n  \r\n{% set columnLastUpdate %}{% verbatim %}{{ data.source._finalization_datetime|default('now')|date(\"d/m/Y (H:i)\") }}{% endverbatim %}{% endset %}\r\n{% set columnCreation %}{% verbatim %}{{ data.source.creation_date|date(\"d/m/Y (H:i)\") }}{% endverbatim %}{% endset %}\r\n\r\n{{ emsco_datatable(['preview'],[contentType.name], {\r\n    \"frontendOptions\": {\r\n        \"pageLength\": 100,\r\n        \"order\": [[0, 'asc']]\r\n    },\r\n    \"query\": {\r\n        \"bool\": {\r\n          \"must\": must|merge(filterQuery)\r\n        }\r\n      },\r\n    \"row_context\": \"{% set docInfo = [line.data.contentType, line.data.id]|join(':')|emsco_document_info %}{% set revisionId = line.data.id|get_revision_id(line.data.contentType) %}{% set liveId = 2 %}{% set previewId = 1 %}\",\r\n    \"columns\": [\r\n        {\r\n            \"label\": \"Label\",\r\n            \"template\": '<a href=\"' ~ \"{{path('data.revisions', {ouuid: data.id, type: data.contentType} ) }}\"~'\">' ~\"{{ data.source.label }}</a>\",\r\n            \"orderField\": \"label.alpha_order\"\r\n        },\r\n        {\r\n            \"label\": \"Title EN\",\r\n            \"template\": '{{ data.source.en.title }}'\r\n        },\r\n        {\r\n            \"label\": \"Title FR\",\r\n            \"template\": '{{ data.source.fr.title }}'\r\n        },\r\n        {\r\n            \"label\": \"Title NL\",\r\n            \"template\": '{{ data.source.nl.title }}'\r\n        },\r\n        { \r\n            \"label\": \"Last Update\", \r\n            \"template\": columnLastUpdate|format, \r\n            \"orderField\": \"_finalization_datetime\" \r\n        },\r\n        { \r\n            \"label\": \"Creation\", \r\n            \"template\": columnCreation|format, \r\n            \"orderField\": \"creation_date\" \r\n        },\r\n        {\r\n            \"label\": \"Live\",\r\n            \"template\": '<i style=\"color:{{ docInfo.published(\"live\") and docInfo.aligned(\"live\") ? \"green\" : \"red\" }};\" class=\"{{ docInfo.published(\"live\") and docInfo.aligned(\"live\") ? \"fa fa-check\" : \"fa fa-eye-slash\" }}\"></i>',\r\n        },\r\n        {\r\n            \"label\": \"Action\",\r\n            \"template\": '\r\n                <div class=\"btn-group btn-group-sm\" style=\"width: 130px;\">\r\n                  <a href=\"{{ docInfo.draft ? path(\"ems_revision_edit\", {revisionId: revisionId}) : docInfo.aligned(\"live\") ? path(\"revision.new-draft\", {type: data.contentType, ouuid: data.id }) : path(\"revision.publish_to\", {revisionId: revisionId, envId: liveId, redirectToUrl: path(\"data.customindexview\", {viewId: '~view.id~'})}) }}\" class=\"btn btn-default\" style=\"width: 100px;\">\r\n                    {{ docInfo.draft ? \"Edit draft\" : docInfo.aligned(\"live\") ? \"Edit\" : \"Publish in live\" }}\r\n                  </a>\r\n                  <button type=\"button\" class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\">\r\n                    <span class=\"caret\">\r\n                    </span>\r\n                    <span class=\"sr-only\">Toggle Dropdown\r\n                    </span>\r\n                  </button>\r\n                  <ul class=\"dropdown-menu\" role=\"menu\">\r\n                    <li>\r\n                      <a href=\"{{ path(\"data.revisions\", {ouuid: data.id, type: data.contentType} ) }}\">Revision</a>\r\n                    </li>\r\n                    {% if docInfo.draft %}\r\n                        <li><a href=\"{{ path(\"revision.publish_to\", {revisionId: revisionId, envId: previewId}) }}\">Publish in preview</a></li>\r\n                    {% elseif not docInfo.aligned(\\'live\\') %}\r\n                        <li><a href=\"{{ path(\"revision.new-draft\", {type: data.contentType, ouuid: data.id }) }}\">Edit</a></li>\r\n                    {% endif %}\r\n                  </ul>\r\n                </div>\r\n            '\r\n        }\r\n    ]\r\n}) }}",
+                        "template": "{% set must = {} %}\r\n\r\n{% set filterQuery = [ {\r\n  \"multi_match\": {\r\n    \"fields\": [\r\n      \"live_search\",\r\n      \"live_search._2gram\",\r\n      \"live_search._3gram\"\r\n    ],\r\n    \"query\": \"%query%\",\r\n    \"operator\": \"and\", \r\n    \"type\": \"bool_prefix\"\r\n  \r\n  } } ] %}\r\n  \r\n{% set columnLastUpdate %}{% verbatim %}{{ data.source._finalization_datetime|default('now')|date(\"d/m/Y (H:i)\") }}{% endverbatim %}{% endset %}\r\n{% set columnCreation %}{% verbatim %}{{ data.source.creation_date is defined ? data.source.creation_date|date(\"d/m/Y (H:i)\") : \"\" }}{% endverbatim %}{% endset %}\r\n\r\n{{ emsco_datatable(['preview'],[contentType.name], {\r\n    \"frontendOptions\": {\r\n        \"pageLength\": 100,\r\n        \"order\": [[0, 'asc']]\r\n    },\r\n    \"query\": {\r\n        \"bool\": {\r\n          \"must\": must|merge(filterQuery)\r\n        }\r\n      },\r\n    \"row_context\": \"{% set docInfo = [line.data.contentType, line.data.id]|join(':')|emsco_document_info %}{% set revisionId = line.data.id|get_revision_id(line.data.contentType) %}{% set liveId = 2 %}{% set previewId = 1 %}\",\r\n    \"columns\": [\r\n        {\r\n            \"label\": \"Label\",\r\n            \"template\": '<a href=\"' ~ \"{{path('data.revisions', {ouuid: data.id, type: data.contentType} ) }}\"~'\">' ~\"{{ data.source.label }}</a>\",\r\n            \"orderField\": \"label.alpha_order\"\r\n        },\r\n        {\r\n            \"label\": \"Title EN\",\r\n            \"template\": '{{ data.source.en.title|default() }}'\r\n        },\r\n        {\r\n            \"label\": \"Title FR\",\r\n            \"template\": '{{ data.source.fr.title|default() }}'\r\n        },\r\n        {\r\n            \"label\": \"Title NL\",\r\n            \"template\": '{{ data.source.nl.title|default() }}'\r\n        },\r\n        { \r\n            \"label\": \"Last Update\", \r\n            \"template\": columnLastUpdate|format, \r\n            \"orderField\": \"_finalization_datetime\" \r\n        },\r\n        { \r\n            \"label\": \"Creation\", \r\n            \"template\": columnCreation|format, \r\n            \"orderField\": \"creation_date\" \r\n        },\r\n        {\r\n            \"label\": \"Live\",\r\n            \"template\": '<i style=\"color:{{ docInfo.published(\"live\") and docInfo.aligned(\"live\") ? \"green\" : \"red\" }};\" class=\"{{ docInfo.published(\"live\") and docInfo.aligned(\"live\") ? \"fa fa-check\" : \"fa fa-eye-slash\" }}\"></i>',\r\n        },\r\n        {\r\n            \"label\": \"Action\",\r\n            \"template\": '\r\n                <div class=\"btn-group btn-group-sm\" style=\"width: 130px;\">\r\n                  <a href=\"{{ docInfo.draft ? path(\"ems_revision_edit\", {revisionId: revisionId}) : docInfo.aligned(\"live\") ? path(\"revision.new-draft\", {type: data.contentType, ouuid: data.id }) : path(\"revision.publish_to\", {revisionId: revisionId, envId: liveId, redirectToUrl: path(\"data.customindexview\", {viewId: '~view.id~'})}) }}\" class=\"btn btn-default\" style=\"width: 100px;\">\r\n                    {{ docInfo.draft ? \"Edit draft\" : docInfo.aligned(\"live\") ? \"Edit\" : \"Publish in live\" }}\r\n                  </a>\r\n                  <button type=\"button\" class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\">\r\n                    <span class=\"caret\">\r\n                    </span>\r\n                    <span class=\"sr-only\">Toggle Dropdown\r\n                    </span>\r\n                  </button>\r\n                  <ul class=\"dropdown-menu\" role=\"menu\">\r\n                    <li>\r\n                      <a href=\"{{ path(\"data.revisions\", {ouuid: data.id, type: data.contentType} ) }}\">Revision</a>\r\n                    </li>\r\n                    {% if docInfo.draft %}\r\n                        <li><a href=\"{{ path(\"revision.publish_to\", {revisionId: revisionId, envId: previewId}) }}\">Publish in preview</a></li>\r\n                    {% elseif not docInfo.aligned(\\'live\\') %}\r\n                        <li><a href=\"{{ path(\"revision.new-draft\", {type: data.contentType, ouuid: data.id }) }}\">Edit</a></li>\r\n                    {% endif %}\r\n                  </ul>\r\n                </div>\r\n            '\r\n        }\r\n    ]\r\n}) }}",
                         "header": null,
                         "javascript": null
                     },
@@ -972,7 +1347,7 @@
                 "replaced": []
             }
         ],
-        "defaultValue": "{\r\n    \"locale\": \"en\"\r\n}",
+        "defaultValue": "{\r\n  \"en\": {\r\n    \"show\": true\r\n  }\r\n}",
         "translationField": "",
         "localeField": null,
         "searchLinkDisplayRole": "ROLE_USER",

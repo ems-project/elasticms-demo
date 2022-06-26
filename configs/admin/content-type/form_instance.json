@@ -2463,6 +2463,7 @@
         "viewRole": "ROLE_WEBMASTER",
         "publishRole": "ROLE_WEBMASTER",
         "deleteRole": "ROLE_WEBMASTER",
+        "archiveRole": null,
         "trashRole": "ROLE_WEBMASTER",
         "ownerRole": "ROLE_WEBMASTER",
         "orderKey": 5,

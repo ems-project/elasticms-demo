@@ -1,4 +1,5 @@
 {
+    "creation_date": "2022-06-26T10:46:38+02:00",
     "en": {
         "blocks": "[]",
         "show": true,
@@ -10,5 +11,11 @@
         "show": false
     },
     "label": "Documentations",
+    "live_search": [
+        "Documentations"
+    ],
+    "title_en": [
+        "Documentations"
+    ],
     "type": "page"
 }

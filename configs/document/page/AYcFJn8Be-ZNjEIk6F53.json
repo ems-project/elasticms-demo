@@ -1,4 +1,8 @@
 {
+    "all_en": [
+        "Here is an advance form (with show and hide rules)."
+    ],
+    "creation_date": "2022-06-26T10:46:35+02:00",
     "en": {
         "metatitle": "Form with visibility fields",
         "show": true,
@@ -11,5 +15,13 @@
         "structure": "[]"
     },
     "label": "Advance form",
+    "live_search": [
+        "Advance form",
+        "Here is an advance form (with show and hide rules).",
+        "Advance form"
+    ],
+    "title_en": [
+        "Advance form"
+    ],
     "type": "page"
 }

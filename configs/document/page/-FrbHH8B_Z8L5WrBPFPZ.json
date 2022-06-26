@@ -1,4 +1,5 @@
 {
+    "creation_date": "2022-06-26T10:46:32+02:00",
     "en": {
         "blocks": "[]",
         "show": true,
@@ -12,5 +13,15 @@
         "title": "Politique d\u2019utilisation des cookies"
     },
     "label": "Cookie policy",
+    "live_search": [
+        "Cookie policy",
+        "Politique d\u2019utilisation des cookies"
+    ],
+    "title_en": [
+        "Cookie policy"
+    ],
+    "title_fr": [
+        "Politique d\u2019utilisation des cookies"
+    ],
     "type": "page"
 }

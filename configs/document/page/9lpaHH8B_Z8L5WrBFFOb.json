@@ -1,4 +1,17 @@
 {
+    "all_de": [
+        "Willkommen auf unserer Seite."
+    ],
+    "all_en": [
+        "Welcome on our site."
+    ],
+    "all_fr": [
+        "Welcome on our site."
+    ],
+    "all_nl": [
+        "Welkom op onze site."
+    ],
+    "creation_date": "2022-06-26T10:46:34+02:00",
     "de": {
         "metatitle": "elasticms-demo: Willkommen",
         "show": true,
@@ -21,6 +34,16 @@
         "title": "Bienvenue sur elasticms-demo"
     },
     "label": "Homepage",
+    "live_search": [
+        "Welcome on elasticms-demo",
+        "Welcome on our site.",
+        "Bienvenue sur elasticms-demo",
+        "Welcome on our site.",
+        "Welkom op elasticms-demo",
+        "Welkom op onze site.",
+        "Willkommen auf elasticms-demo",
+        "Willkommen auf unserer Seite."
+    ],
     "nl": {
         "metatitle": "elasticms-demo: Welkom",
         "show": true,
@@ -29,5 +52,17 @@
         "title": "Welkom op elasticms-demo"
     },
     "published_date": "2022-02-21T13:54:26+01:00",
+    "title_de": [
+        "Willkommen auf elasticms-demo"
+    ],
+    "title_en": [
+        "Welcome on elasticms-demo"
+    ],
+    "title_fr": [
+        "Bienvenue sur elasticms-demo"
+    ],
+    "title_nl": [
+        "Welkom op elasticms-demo"
+    ],
     "type": "homepage"
 }

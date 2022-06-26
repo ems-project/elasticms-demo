@@ -1,4 +1,5 @@
 {
+    "creation_date": "2022-06-26T10:46:42+02:00",
     "en": {
         "show": true,
         "slug": "seo-pages",
@@ -12,5 +13,15 @@
         "title": "Vues SEO"
     },
     "label": "SEO pages",
+    "live_search": [
+        "SEO pages",
+        "Vues SEO"
+    ],
+    "title_en": [
+        "SEO pages"
+    ],
+    "title_fr": [
+        "Vues SEO"
+    ],
     "type": "page"
 }

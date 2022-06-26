@@ -392,6 +392,7 @@
         "viewRole": "ROLE_ADMIN",
         "publishRole": "ROLE_ADMIN",
         "deleteRole": "not-defined",
+        "archiveRole": null,
         "trashRole": "ROLE_ADMIN",
         "ownerRole": "not-defined",
         "orderKey": 8,

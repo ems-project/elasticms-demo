@@ -1,4 +1,5 @@
 {
+    "creation_date": "2022-06-26T10:46:33+02:00",
     "en": {
         "blocks": "[]",
         "show": true,
@@ -12,5 +13,15 @@
         "title": "D\u00e9claration de protection des donn\u00e9es"
     },
     "label": "Privacy policy",
+    "live_search": [
+        "Privacy policy",
+        "D\u00e9claration de protection des donn\u00e9es"
+    ],
+    "title_en": [
+        "Privacy policy"
+    ],
+    "title_fr": [
+        "D\u00e9claration de protection des donn\u00e9es"
+    ],
     "type": "page"
 }
