@@ -156,7 +156,7 @@ services:
       - "traefik.http.services.mailhog.loadbalancer.server.port=8025"
 
   elasticms:
-    image: elasticms/admin:1.19.1
+    image: elasticms/admin:1.19
     networks:
       default:
         aliases:
@@ -202,7 +202,7 @@ services:
       - "traefik.http.services.ems_pgsql.loadbalancer.server.port=9000"
 
   skeleton:
-    image: elasticms/website-skeleton:3.9.2
+    image: elasticms/website-skeleton:3.8.13
     environment:
       - PUID=1000
       - PGID=1000
