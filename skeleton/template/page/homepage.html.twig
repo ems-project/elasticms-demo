@@ -4,3 +4,10 @@
 {% block breadcrumb -%}{%- endblock breadcrumb %}
 
 {% block headtitle %}{{ block('metatitle') }}{% endblock %}
+
+{% block request -%}
+    {% set body_attr = body_attr|merge({
+        class: 'homepage'
+    }) %}
+    {{ parent() }}
+{% endblock request -%}

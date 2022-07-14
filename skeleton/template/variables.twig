@@ -12,6 +12,8 @@
         {% set baseUrl = "/channel/#{trans_default_domain}" %}
     {% endif %}
 
+    {% set body_attr = {} %}
+
     {%- block request %}{% endblock request -%}
 
 {% endspaceless %}

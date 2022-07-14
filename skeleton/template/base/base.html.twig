@@ -32,7 +32,7 @@
             form_processed: 'js.form_processed'|trans,
             form_error_try_later: 'js.form_error_try_later'|trans,
             back_to_ems: 'ems.back_to_ems'|trans,
-        }|json_encode }}">
+        }|json_encode }}" {% for attr, value in body_attr %} {{ attr }}="{{ value }}"{% endfor %}>
             {% block body %}{% endblock %}
             {% block javascript %}{% endblock %}
         </body>
