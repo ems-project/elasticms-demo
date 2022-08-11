@@ -35,7 +35,7 @@
                 {%- if currentPage > 0 -%}
                     <li class="page-item"><a class="page-link" href="{{ path(searchRoute, currentFilters|merge({(pageParameter): currentPage-1})) }}#{{ anchor }}">«  <span class="sr-only">({{'search.pagination.previous'|trans}})</span></a></li>
 
-                    {%- for i in range(0, extremePagesLimit) if ( i < currentPage - nearbyPagesLimit ) -%}
+                    {%- for i in range(0, extremePagesLimit)|filter(i => ( i < currentPage - nearbyPagesLimit )) -%}
                         <li class="page-item"><a class="page-link" href="{{ path(searchRoute, currentFilters|merge({(pageParameter): i})) }}#{{ anchor }}">{{ i+1 }}</a></li>
                     {%- endfor -%}
 
@@ -43,14 +43,14 @@
                         <li class="page-item"><span class="sep-dots">...</span></li>
                     {%- endif -%}
 
-                    {%- for i in range(currentPage-nearbyPagesLimit, currentPage-1) if ( i >= 0 ) -%}
+                    {%- for i in range(currentPage-nearbyPagesLimit, currentPage-1)|filter(i => ( i >= 0 )) -%}
                         <li class="page-item"><a class="page-link" href="{{ path(searchRoute, currentFilters|merge({(pageParameter): i})) }}#{{ anchor }}">{{ i+1 }}</a></li>
                     {%- endfor -%}
                 {%- endif -%}
                 <li class="page-item active">
                     <a class="page-link" href="{{ path(searchRoute, currentFilters|merge({ (pageParameter): currentPage })) }}#{{ anchor }}">{{ currentPage+1 }} <span class="sr-only">({{'search.pagination.current'|trans}})</span></a>
                 </li>
-                {%- for i in range(currentPage+1, currentPage + nearbyPagesLimit) if ( i <= lastPage ) %}
+                {%- for i in range(currentPage+1, currentPage + nearbyPagesLimit)|filter(i => (i <= lastPage) ) %}
                     <li class="page-item"><a class="page-link" href="{{ path(searchRoute, currentFilters|merge({(pageParameter): i})) }}#{{ anchor }}">{{ i+1 }}</a></li>
                 {%- endfor -%}
                 {% if currentPage < lastPage -%}
