@@ -338,6 +338,7 @@
         "viewRole": "ROLE_REVIEWER",
         "publishRole": "ROLE_PUBLISHER",
         "deleteRole": "not-defined",
+        "archiveRole": null,
         "trashRole": "ROLE_ADMIN",
         "ownerRole": "not-defined",
         "orderKey": 6,
@@ -351,8 +352,9 @@
                 "class": "EMS\\CoreBundle\\Entity\\View",
                 "arguments": [],
                 "properties": {
-                    "name": "Overview",
+                    "name": "overview",
                     "type": "ems.view.report",
+                    "label": "Overview",
                     "icon": "fa fa-list-ul",
                     "options": {
                         "body": "{% spaceless %}\r\n    {% set must = [] %}\r\n    {% set body = {\r\n        \"sort\": [\r\n            {\r\n              \"_finalization_datetime\": {\r\n                \"order\": \"desc\"\r\n              }\r\n            }\r\n        ] \r\n    } %}\r\n    \r\n    {% if app.request.query.get('q', false) %}\r\n        {% set must = must|merge({ \r\n            \"query_string\": {\r\n                \"query\": app.request.query.get('q')|default('*'),\r\n                \"default_field\": app.request.query.get('fields')|default('_all')\r\n            } \r\n        }) %}\r\n    {% endif %}\r\n    \r\n    {% if must %}{% set body = body|merge({'query': { \"bool\": { \"must\": must } } } ) %}{% endif %}\r\n{% endspaceless %}\r\n{{- body|json_encode|raw -}}",
@@ -371,8 +373,9 @@
                 "class": "EMS\\CoreBundle\\Entity\\View",
                 "arguments": [],
                 "properties": {
-                    "name": "Overview v2",
+                    "name": "overview-v",
                     "type": "ems.view.report",
+                    "label": "Overview v2",
                     "icon": "fa fa-list",
                     "options": {
                         "body": "{}",

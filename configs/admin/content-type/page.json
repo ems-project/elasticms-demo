@@ -221,7 +221,8 @@
                                                 "helptext": null,
                                                 "values": "en\r\nfr\r\nnl\r\nde",
                                                 "labels": "English\r\nFrench\r\nDutch\r\nGerman",
-                                                "icon": "fa fa-language"
+                                                "icon": "fa fa-language",
+                                                "localePreferredFirst": false
                                             },
                                             "mappingOptions": [],
                                             "restrictionOptions": [],
@@ -838,6 +839,31 @@
                                                     "children": []
                                                 },
                                                 "replaced": []
+                                            },
+                                            {
+                                                "class": "EMS\\CoreBundle\\Entity\\FieldType",
+                                                "arguments": [],
+                                                "properties": {
+                                                    "type": "EMS\\CoreBundle\\Form\\DataField\\ComputedFieldType",
+                                                    "name": "search_fr",
+                                                    "contentType": null,
+                                                    "deleted": false,
+                                                    "description": null,
+                                                    "options": {
+                                                        "displayOptions": {
+                                                            "label": "Search Fr",
+                                                            "class": "col-md-12"
+                                                        },
+                                                        "mappingOptions": [],
+                                                        "restrictionOptions": [],
+                                                        "extraOptions": [],
+                                                        "raw_data": []
+                                                    },
+                                                    "orderKey": 2,
+                                                    "parent": null,
+                                                    "children": []
+                                                },
+                                                "replaced": []
                                             }
                                         ]
                                     },
@@ -910,6 +936,7 @@
         "viewRole": "ROLE_AUTHOR",
         "publishRole": "ROLE_PUBLISHER",
         "deleteRole": "ROLE_PUBLISHER",
+        "archiveRole": "not-defined",
         "trashRole": "ROLE_ADMIN",
         "ownerRole": "not-defined",
         "orderKey": 1,
@@ -923,6 +950,7 @@
                 "arguments": [],
                 "properties": {
                     "name": "Show",
+                    "label": "",
                     "icon": "fa fa-eye",
                     "body": "{% apply spaceless %}\r\n    {% set slugs = {} %}\r\n    {% set slugs = slugs|merge([app.request.baseUrl]) %}\r\n    {% set slugs = slugs|merge(['channel', environment.name, '_emsch', 'go-to', 'en', contentType, object._id]) %}\r\n\r\n    {{ slugs|join('/') }}\r\n{% endapply %}",
                     "header": null,
@@ -955,8 +983,9 @@
                 "class": "EMS\\CoreBundle\\Entity\\View",
                 "arguments": [],
                 "properties": {
-                    "name": "Overview",
+                    "name": "overview",
                     "type": "ems.view.report",
+                    "label": "Overview",
                     "icon": "fa fa-list",
                     "options": {
                         "body": "{}",

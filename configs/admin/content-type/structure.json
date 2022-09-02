@@ -763,6 +763,7 @@
         "viewRole": "ROLE_AUTHOR",
         "publishRole": "ROLE_PUBLISHER",
         "deleteRole": "ROLE_PUBLISHER",
+        "archiveRole": null,
         "trashRole": "ROLE_WEBMASTER",
         "ownerRole": "not-defined",
         "orderKey": 4,
@@ -776,8 +777,9 @@
                 "class": "EMS\\CoreBundle\\Entity\\View",
                 "arguments": [],
                 "properties": {
-                    "name": "Overview (Structure)",
+                    "name": "overview-structure",
                     "type": "ems.view.report",
+                    "label": "Overview",
                     "icon": "fa fa-sitemap",
                     "options": {
                         "body": "{}",

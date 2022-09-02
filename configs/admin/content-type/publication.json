@@ -57,6 +57,7 @@
         "viewRole": "ROLE_AUTHOR",
         "publishRole": "ROLE_PUBLISHER",
         "deleteRole": "ROLE_WEBMASTER",
+        "archiveRole": null,
         "trashRole": "ROLE_WEBMASTER",
         "ownerRole": "not-defined",
         "orderKey": 2,
@@ -70,8 +71,9 @@
                 "class": "EMS\\CoreBundle\\Entity\\View",
                 "arguments": [],
                 "properties": {
-                    "name": "Overview",
+                    "name": "overview",
                     "type": "ems.view.report",
+                    "label": "Overview",
                     "icon": "fa fa-list",
                     "options": {
                         "body": "{}",
