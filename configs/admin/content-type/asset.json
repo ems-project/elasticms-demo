@@ -379,7 +379,7 @@
                 "arguments": [],
                 "properties": {
                     "name": "Download link",
-                    "label": "",
+                    "label": "Download",
                     "icon": "fa fa-download",
                     "body": "{{ \"/channel/#{environment.name}/_emsch/go-to/nl/#{contentType.name}/#{object._id}\" }}",
                     "header": null,

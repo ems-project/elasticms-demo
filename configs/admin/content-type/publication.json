@@ -57,7 +57,7 @@
         "viewRole": "ROLE_AUTHOR",
         "publishRole": "ROLE_PUBLISHER",
         "deleteRole": "ROLE_WEBMASTER",
-        "archiveRole": null,
+        "archiveRole": "not-defined",
         "trashRole": "ROLE_WEBMASTER",
         "ownerRole": "not-defined",
         "orderKey": 2,

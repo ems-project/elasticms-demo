@@ -854,7 +854,7 @@
                                                             "label": "Search Fr",
                                                             "class": "hidden",
                                                             "lastOfRow": false,
-                                                            "helptext": "Used in the admin overview search",
+                                                            "helptext": null,
                                                             "valueTemplate": "{% set data = {} %}\r\n{% set source = _source.fr|default({}) %}\r\n{% if source.title|default(false) %}\r\n    {% set data = data|merge([source.title]) %}\r\n{% endif %}\r\n{% for item in source.structure|default('{}')|ems_json_menu_nested_decode %}\r\n    {% for field in ['label'] %}\r\n        {% if attribute(item.object, field)|default(false) %}\r\n            {% set data = data|merge([attribute(item.object, field)]) %}\r\n        {% endif %}\r\n    {% endfor %}\r\n    {% for field in ['body'] %}\r\n        {% if attribute(item.object, field)|default(false) %}\r\n            {% set data = data|merge([attribute(item.object, field)|striptags|ems_html_decode]) %}\r\n        {% endif %}\r\n    {% endfor %}\r\n{% endfor %}\r\n{{ data|json_encode|raw }}",
                                                             "json": true,
                                                             "displayTemplate": "<ul>\r\n{% for item in data|default([]) %}\r\n    <li>{{ item }}</li>\r\n{% endfor %}\r\n</il>"
@@ -889,9 +889,9 @@
                                                     "options": {
                                                         "displayOptions": {
                                                             "label": "Search En",
-                                                            "class": "col-md-12",
+                                                            "class": "hidden",
                                                             "lastOfRow": false,
-                                                            "helptext": "Used in the admin overview search",
+                                                            "helptext": null,
                                                             "valueTemplate": "{% set data = {} %}\r\n{% set source = _source.en|default({}) %}\r\n{% if source.title|default(false) %}\r\n    {% set data = data|merge([source.title]) %}\r\n{% endif %}\r\n{% for item in source.structure|default('{}')|ems_json_menu_nested_decode %}\r\n    {% for field in ['label'] %}\r\n        {% if attribute(item.object, field)|default(false) %}\r\n            {% set data = data|merge([attribute(item.object, field)]) %}\r\n        {% endif %}\r\n    {% endfor %}\r\n    {% for field in ['body'] %}\r\n        {% if attribute(item.object, field)|default(false) %}\r\n            {% set data = data|merge([attribute(item.object, field)|striptags|ems_html_decode]) %}\r\n        {% endif %}\r\n    {% endfor %}\r\n{% endfor %}\r\n{{ data|json_encode|raw }}",
                                                             "json": true,
                                                             "displayTemplate": "<ul>\r\n{% for item in data|default([]) %}\r\n    <li>{{ item }}</li>\r\n{% endfor %}\r\n</il>"
@@ -926,9 +926,9 @@
                                                     "options": {
                                                         "displayOptions": {
                                                             "label": "Search Nl",
-                                                            "class": "col-md-12",
+                                                            "class": "hidden",
                                                             "lastOfRow": false,
-                                                            "helptext": "Used in the admin overview search",
+                                                            "helptext": null,
                                                             "valueTemplate": "{% set data = {} %}\r\n{% set source = _source.nl|default({}) %}\r\n{% if source.title|default(false) %}\r\n    {% set data = data|merge([source.title]) %}\r\n{% endif %}\r\n{% for item in source.structure|default('{}')|ems_json_menu_nested_decode %}\r\n    {% for field in ['label'] %}\r\n        {% if attribute(item.object, field)|default(false) %}\r\n            {% set data = data|merge([attribute(item.object, field)]) %}\r\n        {% endif %}\r\n    {% endfor %}\r\n    {% for field in ['body'] %}\r\n        {% if attribute(item.object, field)|default(false) %}\r\n            {% set data = data|merge([attribute(item.object, field)|striptags|ems_html_decode]) %}\r\n        {% endif %}\r\n    {% endfor %}\r\n{% endfor %}\r\n{{ data|json_encode|raw }}",
                                                             "json": true,
                                                             "displayTemplate": "<ul>\r\n{% for item in data|default([]) %}\r\n    <li>{{ item }}</li>\r\n{% endfor %}\r\n</il>"
@@ -963,9 +963,9 @@
                                                     "options": {
                                                         "displayOptions": {
                                                             "label": "Search De",
-                                                            "class": "col-md-12",
+                                                            "class": "hidden",
                                                             "lastOfRow": false,
-                                                            "helptext": "Used in the admin overview search",
+                                                            "helptext": null,
                                                             "valueTemplate": "{% set data = {} %}\r\n{% set source = _source.de|default({}) %}\r\n{% if source.title|default(false) %}\r\n    {% set data = data|merge([source.title]) %}\r\n{% endif %}\r\n{% for item in source.structure|default('{}')|ems_json_menu_nested_decode %}\r\n    {% for field in ['label'] %}\r\n        {% if attribute(item.object, field)|default(false) %}\r\n            {% set data = data|merge([attribute(item.object, field)]) %}\r\n        {% endif %}\r\n    {% endfor %}\r\n    {% for field in ['body'] %}\r\n        {% if attribute(item.object, field)|default(false) %}\r\n            {% set data = data|merge([attribute(item.object, field)|striptags|ems_html_decode]) %}\r\n        {% endif %}\r\n    {% endfor %}\r\n{% endfor %}\r\n{{ data|json_encode|raw }}",
                                                             "json": true,
                                                             "displayTemplate": "<ul>\r\n{% for item in data|default([]) %}\r\n    <li>{{ item }}</li>\r\n{% endfor %}\r\n</il>"
@@ -1073,7 +1073,7 @@
                 "arguments": [],
                 "properties": {
                     "name": "Show",
-                    "label": "",
+                    "label": "Show",
                     "icon": "fa fa-eye",
                     "body": "{% apply spaceless %}\r\n    {% set slugs = {} %}\r\n    {% set slugs = slugs|merge([app.request.baseUrl]) %}\r\n    {% set slugs = slugs|merge(['channel', environment.name, '_emsch', 'go-to', 'en', contentType, object._id]) %}\r\n\r\n    {{ slugs|join('/') }}\r\n{% endapply %}",
                     "header": null,
