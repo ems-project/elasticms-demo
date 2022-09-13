@@ -1,5 +1,5 @@
 {% block render %}
-    {% spaceless %}
+    {% apply spaceless %}
         {% set childrenHaveBeenGenerated = false %}
         {% set currentBlockLevel = 1 %}
         {% set headerBlockLevel = 2 %}
@@ -14,11 +14,11 @@
                 {{ block("row", "@EMSCH/template/slideshow/blocks/"~item.type~".html.twig") }}
             {% endwith %}
         {%  endfor %}
-    {% endspaceless %}
+    {% endapply %}
 {% endblock render %}
 
 {% block row %}
-    {% spaceless %}
+    {% apply spaceless %}
             {%  if item.children|default([])|length > 0 %}
                 <section id="section-group-{{ item.id }}">
                     {{ block('widget', "@EMSCH/template/slideshow/blocks/"~item.type~".html.twig") }}
@@ -27,7 +27,7 @@
             {% else %}
                 {{ block('widget', "@EMSCH/template/slideshow/blocks/"~item.type~".html.twig") }}
             {% endif %}
-    {% endspaceless %}
+    {% endapply %}
 {% endblock row %}
 
 {% block widget %}
@@ -37,7 +37,7 @@
 {% endblock widget %}
 
 {% block children %}
-    {% spaceless %}
+    {% apply spaceless %}
         {% if not childrenHaveBeenGenerated %}
             {% set currentBlockLevel = currentBlockLevel + 1 %}
             {% set headerBlockLevel = headerBlockLevel + (item.object.label is defined ? 1 : 0) %}
@@ -46,5 +46,5 @@
             {% endfor %}
             {% set childrenHaveBeenGenerated = true %}
         {% endif %}
-    {% endspaceless %}
+    {% endapply %}
 {% endblock %}

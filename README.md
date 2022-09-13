@@ -3,8 +3,10 @@ A default elasticms local setup using docker-compose
 
 ## Prerequisites
 
-You need [Docker Desktop](https://www.docker.com/get-started) or docker-compose (or an alternative as Podman)
- 
+You need [Docker Desktop](https://www.docker.com/get-started) or docker-compose (or an alternative as Podman).
+
+It's recommended to [allow at least 6GB](https://stackoverflow.com/questions/43460770/docker-windows-container-memory-limit) of memory to Docker
+
 The following ports must be available:
  - 8888: Traefik UI
  - 80: Web HTTP
@@ -13,6 +15,8 @@ The following ports must be available:
 ## Install steps
 
 Create a `dist` folder.
+
+Depending your OS you might need to give the execute rights to the project's scripts: `chmod u+x *.sh`
 
 Open a terminal and run the following commands:
 - `npm install`: install NPM dependencies
@@ -32,9 +36,10 @@ Go back to your console:
 - `./create-users.sh` (or `create-users.cmd` under Windows)
   - A `demo` admin user is created with the email and the password that you provide
   - You have now access to an empty [elasticms](http://demo-admin.localhost/dashboard) 
-- `./bootstrap.sh` (or `bootstrap.cmd` under Windows)
+- `./bootstrap.sh` (or `bootstrap.cmd` under Windows) will setup elasticms's configuration, content types, documents & so forth.
+  - The script will ask for the `demo` admin user you just defined
 
-[elasticms](http://demo-admin.localhost/dashboard)
+It's all set: [elasticms](http://demo-admin.localhost/dashboard)
 
 Check the [preview](http://demo-preview.localhost) and the [live](http://demo-live.localhost)
 

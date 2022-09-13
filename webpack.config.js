@@ -39,7 +39,7 @@ let config = {
     entry: {
         'index': './index.js',
         'admin': './admin.js',
-        'reveal': './reveal.js',
+        'reveal': './slideshow.js',
     },
     output: {
         path: path.resolve(__dirname, "./dist"),
