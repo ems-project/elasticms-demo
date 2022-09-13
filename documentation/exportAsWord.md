@@ -66,3 +66,14 @@ The body consists of a link that will target the html created above. <br>
 Save and close.
 
 ## Use the export in the frontend
+To use the export in the frontend, you'll just have to create an <a> tag pointing to the route you've created in step 1.<br>
+
+Here is an example:
+````twig
+  {% if 'localhost' in app.request.host %}
+      <a href="{{ "ms-word:ofe|u|http://demo-preview.#{target}.localhost/_export_word/#{source._contenttype}/#{object._id}.docx" }}"><i class="fa fa-file-word-o"></i> Export Document </a>
+  {% else %}
+      {% set wordBaseUrl = (environment.name == 'live' ? 'https' : app.request.scheme) ~ "://#{app.request.host}"  %}
+      <a href="{{ "ms-word:ofe|u|#{wordBaseUrl}/channel/#{environment.name}/_export_word/#{source._contenttype}/#{object._id}.docx" }}"><i class="fa fa-file-word-o"></i> Export Document </a>
+  {% endif %}
+````
