@@ -101,3 +101,8 @@ Every script bellow exist as `.cmd` and as `.sh` file.
    - [preview debug nocache](http://demo-preview-nocache-dev.localhost/) : skeleton with preview's contents in symfony debug mode without cache (varnish is by passed)
    - [live nocache](http://demo-live-nocache.localhost/) : skeleton with preview's contents without cache (varnish is by passed)
    - [live debug nocache](http://demo-live-nocache-dev.localhost/) : skeleton with preview's contents in symfony debug mode without cache (varnish is by passed) 
+
+
+### Infrastructure model
+
+![Infrastructure model](.infragenie/infrastructure_model.png)
