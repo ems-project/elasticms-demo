@@ -653,6 +653,7 @@
         "viewRole": "ROLE_AUTHOR",
         "publishRole": "ROLE_PUBLISHER",
         "deleteRole": "ROLE_WEBMASTER",
+        "archiveRole": null,
         "trashRole": "ROLE_ADMIN",
         "ownerRole": "not-defined",
         "orderKey": 3,
