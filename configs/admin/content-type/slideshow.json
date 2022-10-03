@@ -666,8 +666,9 @@
                 "class": "EMS\\CoreBundle\\Entity\\View",
                 "arguments": [],
                 "properties": {
-                    "name": "Overview",
+                    "name": "overview",
                     "type": "ems.view.report",
+                    "label": "Overview",
                     "icon": "fa fa-list",
                     "options": {
                         "body": "{}",
