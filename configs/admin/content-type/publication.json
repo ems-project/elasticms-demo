@@ -57,6 +57,7 @@
         "viewRole": "ROLE_AUTHOR",
         "publishRole": "ROLE_PUBLISHER",
         "deleteRole": "ROLE_WEBMASTER",
+        "archiveRole": "not-defined",
         "trashRole": "ROLE_WEBMASTER",
         "ownerRole": "not-defined",
         "orderKey": 2,
@@ -74,7 +75,6 @@
                     "type": "ems.view.report",
                     "label": "Overview",
                     "icon": "fa fa-list-ul",
-                    "options": {
                         "body": "{}",
                         "size": 0,
                         "template": "{% do emsch_add_environment('preview'|get_environment.alias) %}\r\n{{ block(\"template\", \"@EMSCH/template/admin/view/overview.twig\") }}",

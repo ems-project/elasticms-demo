@@ -2,9 +2,8 @@
 
 - feat: computed field with indexed content for search engine
 - feat: search
-- feat: admin's overviews (colibri or instructions)
 - feat: search with load more in mobile
-- feat: test slugs (publication, page, slideshows) are unique on finalize
+- feat: test slugs (publication, page, slideshows) are unique on finalize -- DONE for page and slideshow
 - feat: photos carousel (block)
 - feat: remove hardcoded key from submission in forms
 - feat: rights by roles

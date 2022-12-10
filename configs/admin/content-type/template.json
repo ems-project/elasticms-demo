@@ -163,6 +163,7 @@
         "viewRole": "ROLE_ADMIN",
         "publishRole": "ROLE_ADMIN",
         "deleteRole": null,
+        "archiveRole": null,
         "trashRole": "ROLE_ADMIN",
         "ownerRole": null,
         "orderKey": 7,
@@ -187,9 +188,9 @@
                         "header": "{% do emsch_add_environment('preview'|get_environment.alias) %}\r\n{{ block(\"css\", \"@EMSCH/template/admin/view/overview.twig\") }}",
                         "javascript": "{% do emsch_add_environment('preview'|get_environment.alias) %}\r\n{{ block(\"javascript\", \"@EMSCH/template/admin/view/overview.twig\") }}"
                     },
-                    "orderKey": 2,
+                    "orderKey": 3,
                     "public": false,
-                    "role": "ROLE_USER"
+                    "role": "not-defined"
                 },
                 "replaced": []
             }
