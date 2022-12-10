@@ -2463,6 +2463,7 @@
         "viewRole": "ROLE_WEBMASTER",
         "publishRole": "ROLE_WEBMASTER",
         "deleteRole": "ROLE_WEBMASTER",
+        "archiveRole": null,
         "trashRole": "ROLE_WEBMASTER",
         "ownerRole": "ROLE_WEBMASTER",
         "orderKey": 5,
@@ -2476,8 +2477,9 @@
                 "class": "EMS\\CoreBundle\\Entity\\View",
                 "arguments": [],
                 "properties": {
-                    "name": "Overview",
+                    "name": "overview",
                     "type": "ems.view.report",
+                    "label": "Overview",
                     "icon": "fa fa-list-ul",
                     "options": {
                         "body": "{}",

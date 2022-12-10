@@ -365,6 +365,7 @@
         "viewRole": "ROLE_ADMIN",
         "publishRole": "ROLE_ADMIN",
         "deleteRole": "ROLE_ADMIN",
+        "archiveRole": null,
         "trashRole": "ROLE_ADMIN",
         "ownerRole": "not-defined",
         "orderKey": 9,
@@ -378,6 +379,7 @@
                 "arguments": [],
                 "properties": {
                     "name": "Download link",
+                    "label": "Download",
                     "icon": "fa fa-download",
                     "body": "{{ \"/channel/#{environment.name}/_emsch/go-to/nl/#{contentType.name}/#{object._id}\" }}",
                     "header": null,
