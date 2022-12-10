@@ -1,0 +1,30 @@
+services:
+  skeleton:
+    image: elasticms/website-skeleton:${SKELETON_VERSION}
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Brussels
+      - PHP_FPM_MAX_CHILDREN=8
+      - PHP_FPM_REQUEST_MAX_MEMORY_IN_MEGABYTES=64
+      - CONTAINER_HEAP_PERCENT=0.8
+      - MAILER_URL=smtp://mailhog:1025
+      - BACKEND_URL=${EMS_BACKEND_URL}
+      - "EMS_ELASTICSEARCH_HOSTS=[\"http://es01:9200\",\"http://es02:9200\",\"http://es03:9200\"]"
+      - S3_ACCESS_KEY_ID=accesskey
+      - S3_SECRET_ACCESS_KEY=secretkey
+      - S3_DEFAULT_REGION=us-east-1
+      - S3_ENDPOINT_URL=http://minio:9000
+      - S3_BUCKET_NAME=${S3_BUCKET_NAME}
+      - TRUSTED_PROXIES=127.0.0.1,REMOTE_ADDR
+      - TRUSTED_HOSTS=localhost,*.localhost
+      - ENVIRONMENT_ALIAS_BASE_PATH=../
+      - EMSCH_ASSET_LOCAL_FOLDER=skeleton
+      - VARNISH_ENABLED=true
+    volumes:
+      - ./configs/skeleton:/opt/configs
+      - ./dist:/opt/src/public/skeleton:ro
+      - ./configs/admin:/opt/src/admin
+      - ./configs/document:/opt/src/document
+      - ./skeleton:/opt/src/local/${INSTANCE}preview
+      - ./skeleton:/opt/src/local/${INSTANCE}live
