@@ -38,7 +38,10 @@ export default defineConfig({
         })
     ],
     resolve: {
-        extensions: ['.js']
+        extensions: ['.js'],
+        alias: {
+            '@public': ''
+        },
     },
     css: {
         preprocessorOptions: {
@@ -48,8 +51,13 @@ export default defineConfig({
         }
     },
     server: {
+        host: '0.0.0.0',
+        origin: 'http://localhost:5174',
+        port: 5174,
+        strictPort: true,
+        hmr: true,
         watch: {
-            usePolling: true
+            usePolling: true,
         }
     }
 });
